@@ -1,0 +1,64 @@
+/* Fichier: /tn/esprit/css/modern-alert.css */
+
+.modern-alert {
+    -fx-background-color: white;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.modern-alert > *.button-bar > *.container {
+    -fx-background-color: white;
+}
+
+.modern-alert > *.label.content {
+    -fx-font-size: 14px;
+    -fx-padding: 20px;
+}
+
+.modern-alert .header-panel {
+    -fx-background-color: white;
+}
+
+.modern-alert .header-panel .label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.modern-alert > *.button-bar *.button {
+    -fx-background-color: #0099FF;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-padding: 8px 20px;
+    -fx-cursor: hand;
+}
+
+.modern-alert > *.button-bar *.button:hover {
+    -fx-background-color: #007acc;
+}
+
+.modern-alert > *.button-bar *.button:pressed {
+    -fx-background-color: #005c99;
+}
+
+/* Style pour les alertes de succès */
+.success-alert {
+    -fx-background-insets: 0, 1, 2;
+    -fx-border-color: #28a745;
+    -fx-border-width: 1px;
+}
+
+.success-alert .graphic-container {
+    -fx-background-color: #28a745;
+}
+
+/* Style pour les alertes d'erreur */
+.error-alert {
+    -fx-background-insets: 0, 1, 2;
+    -fx-border-color: #dc3545;
+    -fx-border-width: 1px;
+}
+
+.error-alert .graphic-container {
+    -fx-background-color: #dc3545;
+}
