@@ -58,7 +58,7 @@ public class AfficherUsers {
     @FXML
     private Pagination pagination;
     private ObservableList<User> usersList;
-    private final int rowsPerPage = 5;
+    private final int rowsPerPage = 10;
     private UserService userService;
 
     @FXML
