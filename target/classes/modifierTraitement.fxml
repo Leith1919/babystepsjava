@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="350.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllors.ModifierTraitementControllors">
+    <children>
+        <Label layoutX="50.0" layoutY="30.0" text="ID:" />
+        <TextField fx:id="idTF" layoutX="150.0" layoutY="25.0" />
+
+        <Label layoutX="50.0" layoutY="80.0" text="Nouvelle Date:" />
+        <TextField fx:id="dateTF" layoutX="150.0" layoutY="75.0" />
+
+        <Label layoutX="50.0" layoutY="130.0" text="Historique:" />
+        <TextField fx:id="historiqueTF" layoutX="150.0" layoutY="125.0" />
+
+        <Label layoutX="50.0" layoutY="180.0" text="Ordonnance ID:" />
+        <TextField fx:id="ordonnanceTF" layoutX="150.0" layoutY="175.0" />
+
+        <Button layoutX="150.0" layoutY="240.0" mnemonicParsing="false" text="Modifier" onAction="#modifier"/>
+    </children>
+</AnchorPane>
