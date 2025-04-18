@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="591.0" prefWidth="909.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.AjouterRendezVous">
+    <children>
+        <AnchorPane prefHeight="591.0" prefWidth="179.0" style="-fx-background-color: #0099FF;">
+            <children>
+                <ImageView fitHeight="92.0" fitWidth="98.0" layoutX="45.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/logo-modified.png" />
+                    </image>
+                </ImageView>
+                <Button layoutX="1.0" layoutY="154.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="179.0" text="Login">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Button>
+                <Button layoutY="217.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="181.0" text="Rendez-vous" textFill="#330202">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Button>
+                <Button layoutY="283.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="179.0" text="Logout">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Button>
+                <ImageView fitHeight="26.0" fitWidth="23.0" layoutX="23.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/icons8-login-100.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="27.0" fitWidth="23.0" layoutX="23.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/icons8-logout-30.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="front" layoutX="1.0" layoutY="336.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="179.0" text="Front">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Button>
+            </children>
+        </AnchorPane>
+
+        <Label layoutX="396.0" layoutY="14.0" text="Ajouter un rendez-vous" textFill="#4a90e2">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+
+        <AnchorPane layoutX="206.0" layoutY="113.0" prefHeight="450.0" prefWidth="670.0" style="-fx-border-color: #66CCFF; -fx-background-color: #FFFFFF;">
+            <children>
+                <Label layoutX="59.0" layoutY="59.0" prefHeight="35.0" prefWidth="110.0" text="Motif" textFill="#4a90e2">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="59.0" layoutY="106.0" text="Symptômes" textFill="#4a90e2">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="59.0" layoutY="154.0" text="Traitement" textFill="#4a90e2">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="59.0" layoutY="202.0" text="Notes" textFill="#4a90e2">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="59.0" layoutY="262.0" text="Date RDV" textFill="#4a90e2">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="59.0" layoutY="310.0" text="Heure" textFill="#4a90e2">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="59.0" layoutY="358.0" text="Médecin" textFill="#4a90e2">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+
+                <TextField fx:id="motifField" layoutX="244.0" layoutY="60.0" prefWidth="300.0" />
+                <Label fx:id="motifErrorLabel" layoutX="244.0" layoutY="88.0" textFill="RED" />
+
+                <TextField fx:id="symptomesField" layoutX="244.0" layoutY="107.0" prefWidth="300.0" />
+                <Label fx:id="symptomesErrorLabel" layoutX="244.0" layoutY="135.0" textFill="RED" />
+
+                <TextField fx:id="traitementField" layoutX="244.0" layoutY="155.0" prefWidth="300.0" />
+                <Label fx:id="traitementErrorLabel" layoutX="244.0" layoutY="183.0" textFill="RED" />
+
+                <TextArea fx:id="notesArea" layoutX="244.0" layoutY="202.0" prefHeight="60.0" prefWidth="300.0" />
+
+                <DatePicker fx:id="jourPicker" layoutX="244.0" layoutY="263.0" prefWidth="200.0" />
+                <Label fx:id="jourErrorLabel" layoutX="244.0" layoutY="291.0" textFill="RED" />
+
+                <ComboBox fx:id="heureComboBox" layoutX="244.0" layoutY="311.0" prefWidth="150.0" />
+                <Label fx:id="heureErrorLabel" layoutX="244.0" layoutY="339.0" textFill="RED" />
+
+                <ComboBox fx:id="medecinComboBox" layoutX="244.0" layoutY="359.0" prefWidth="200.0" />
+                <Label fx:id="medecinErrorLabel" layoutX="244.0" layoutY="387.0" textFill="RED" />
+
+                <Button onAction="#ajouterRendezVous" layoutX="244.0" layoutY="410.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="150.0" style="-fx-background-color: #0099FF;" text="Ajouter Rendez-vous" textFill="WHITE">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Button>
+
+                <Button onAction="#annuler" layoutX="404.0" layoutY="410.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" style="-fx-background-color: #888888;" text="Annuler" textFill="WHITE">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Button>
+            </children>
+        </AnchorPane>
+
+        <ImageView fitHeight="35.0" fitWidth="34.0" layoutX="344.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@assets/icons8-add-16.png" />
+            </image>
+        </ImageView>
+    </children>
+</AnchorPane>

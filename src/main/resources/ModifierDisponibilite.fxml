@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.ModifierDisponibilite">
+    <children>
+        <VBox alignment="CENTER" prefHeight="500.0" prefWidth="600.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label text="Modifier une disponibilité" textFill="#4a90e2">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+
+                <Label text="Date" textFill="#4a90e2">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets top="20.0" />
+                    </VBox.margin>
+                </Label>
+                <DatePicker fx:id="datePicker" prefWidth="250.0" />
+                <Label fx:id="dateErrorLabel" text="La date doit être dans le futur" textFill="RED" visible="false" />
+
+                <Label text="Statut" textFill="#4a90e2">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Label>
+                <ComboBox fx:id="statutComboBox" prefWidth="250.0" promptText="Choisir un statut" />
+                <Label fx:id="statutErrorLabel" text="Le statut est obligatoire" textFill="RED" visible="false" />
+
+                <Label text="Créneaux horaires disponibles" textFill="#4a90e2">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Label>
+                <HBox alignment="CENTER" spacing="20.0">
+                    <children>
+                        <CheckBox fx:id="check9_11" text="9-11" />
+                        <CheckBox fx:id="check11_13" text="11-13" />
+                        <CheckBox fx:id="check14_16" text="14-16" />
+                        <CheckBox fx:id="check16_18" text="16-18" />
+                    </children>
+                </HBox>
+                <Label fx:id="creneauErrorLabel" text="Sélectionnez au moins un créneau horaire" textFill="RED" visible="false" />
+
+                <HBox alignment="CENTER" spacing="20.0">
+                    <children>
+                        <Button fx:id="saveButton" onAction="#enregistrerModification" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #0099FF;" text="Enregistrer les modifications" textFill="WHITE">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Button>
+                        <Button onAction="#annuler" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #999999;" text="Annuler" textFill="WHITE">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Button>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="20.0" />
+                    </VBox.margin>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>
