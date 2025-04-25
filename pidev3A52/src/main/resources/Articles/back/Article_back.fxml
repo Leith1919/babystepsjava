@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0"
+            styleClass="main-content"
+            stylesheets="@../../style.css"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.Controllers.Article.ArticleBackController">
+
+    <children>
+        <VBox spacing="20" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+
+            <!-- Header -->
+            <HBox spacing="20">
+                <Label styleClass="title-text-primary" text="Gestion des Articles"/>
+                <Button fx:id="addButton" styleClass="add-button" text="Ajouter Article"/>
+            </HBox>
+
+            <!-- Zone des Cards -->
+            <ScrollPane fitToWidth="true" prefHeight="450">
+                <content>
+                    <FlowPane fx:id="cardsContainer" hgap="15" vgap="15" prefWidth="840"/>
+                </content>
+            </ScrollPane>
+        </VBox>
+
+        <!-- 📄 Formulaire Ajout/Modification -->
+        <VBox fx:id="formContainer"
+              spacing="10"
+              visible="false"
+              style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);"
+              AnchorPane.topAnchor="100" AnchorPane.leftAnchor="150" AnchorPane.rightAnchor="150">
+
+            <Label styleClass="title-text-secondary" text="Ajouter / Modifier un Article"/>
+
+            <TextField fx:id="titreField" promptText="Titre de l'article"/>
+            <TextArea fx:id="contenuField" prefRowCount="4" promptText="Contenu de l'article"/>
+            <Button fx:id="uploadImageButton" text="Choisir Image" styleClass="action-button"/>
+
+            <HBox spacing="10">
+                <Button fx:id="saveButton" styleClass="add-button" text="Enregistrer"/>
+                <Button fx:id="cancelButton" styleClass="cancel-button" text="Annuler"/>
+            </HBox>
+        </VBox>
+
+    </children>
+</AnchorPane>

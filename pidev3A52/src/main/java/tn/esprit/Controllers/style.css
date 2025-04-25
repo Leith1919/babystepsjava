@@ -1,0 +1,11 @@
+.button {
+    -fx-background-color: linear-gradient(to right, #9C27B0, #7B1FA2);
+    -fx-text-fill: white;
+    -fx-background-radius: 15;
+}
+
+.text-field, .date-picker, .combo-box {
+    -fx-background-radius: 10;
+    -fx-padding: 6;
+    -fx-border-color: #E0E0E0;
+}

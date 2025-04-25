@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+
+<AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="600.0" prefWidth="800.0" styleClass="main-content" stylesheets="@../../style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.Article.ArticleFrontCrontroller">
+
+    <children>
+        <Label layoutX="20" layoutY="20" styleClass="title-text-primary" text="Liste des Articles" />
+
+        <ScrollPane fitToWidth="true" layoutX="45.0" layoutY="171.0" prefHeight="448.0" prefWidth="750.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="70.0">
+            <content>
+                <FlowPane fx:id="articlesContainer" hgap="15" prefWidth="740" vgap="15" />
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>
