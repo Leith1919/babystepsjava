@@ -3,6 +3,7 @@ package tn.esprit.Controllers;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +13,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tn.esprit.entites.Disponibilite;
 import tn.esprit.entites.RendezVous;
@@ -49,6 +51,15 @@ public class AfficherRendezVous {
 
     @FXML
     private TableColumn<RendezVous, String> colActions;
+    @FXML
+    private VBox rdvSubmenu;
+    @FXML
+    private Button rdvButton;
+    @FXML
+    private VBox dispSubmenu;
+
+    @FXML
+    private Button dispButton;
 
     private RendezVousService rendezVousService;
 
@@ -136,6 +147,95 @@ public class AfficherRendezVous {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    private void toggleRdvSubmenu() {
+        rdvSubmenu.setVisible(!rdvSubmenu.isVisible());
+        rdvSubmenu.setManaged(!rdvSubmenu.isManaged());
+
+        // Changer le style du bouton en fonction de l'état du sous-menu
+        if (rdvSubmenu.isVisible()) {
+            rdvButton.setStyle("-fx-background-color: rgba(255, 255, 255, 0.4); -fx-background-radius: 8 8 0 0;");
+        } else {
+            rdvButton.setStyle("-fx-background-color: rgba(255, 255, 255, 0.3); -fx-background-radius: 8;");
+        }
+    }
+
+    // Méthode pour naviguer vers l'interface d'ajout de rendez-vous
+    @FXML
+    private void navigateToAjouterRDV() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterRendezVous.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) rdvButton.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Méthode pour naviguer vers l'interface de consultation des rendez-vous
+    @FXML
+    private void navigateToConsulterRDV() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherRendezVous.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) rdvButton.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void toggleDispSubmenu(ActionEvent actionEvent) {
+        dispSubmenu.setVisible(!dispSubmenu.isVisible());
+        dispSubmenu.setManaged(!dispSubmenu.isManaged());
+
+        // Changer le style du bouton en fonction de l'état du sous-menu
+        if (dispSubmenu.isVisible()) {
+            dispButton.setStyle("-fx-background-color: rgba(255, 255, 255, 0.4); -fx-background-radius: 8 8 0 0;");
+        } else {
+            dispButton.setStyle("-fx-background-color: rgba(255, 255, 255, 0.3); -fx-background-radius: 8;");
+        }
+    }
+
+    public void navigateToAjouterDISP(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterDisponibilite.fxml"));
+            Parent root = loader.load();
+
+            // Obtenir la scène actuelle
+            Scene scene = rdvButton.getScene();
+
+            // Remplacer le contenu de la scène par le formulaire de rendez-vous
+            Stage stage = (Stage) scene.getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Erreur lors du chargement de l'interface Disponibilite: " + e.getMessage());
+        }
+    }
+
+    public void navigateToConsulterDISP(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherDisponibilite.fxml"));
+            Parent root = loader.load();
+
+            Scene scene = rdvButton.getScene();
+            Stage stage = (Stage) scene.getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Erreur lors du chargement de l'interface ConsulterDispo: " + e.getMessage());
+        }
+    }
+
+
 
 
 }

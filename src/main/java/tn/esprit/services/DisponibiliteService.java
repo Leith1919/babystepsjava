@@ -10,6 +10,7 @@ import java.lang.reflect.Type;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DisponibiliteService implements IServices<Disponibilite>{
@@ -116,5 +117,111 @@ public class DisponibiliteService implements IServices<Disponibilite>{
             ps.executeUpdate();
             System.out.println("Disponibilité modifiée avec succès !");
 
+    }
+    public List<Disponibilite> rechercherDisponibiliteParJourEtMedecin(LocalDate jour, int idMedecin) throws SQLException {
+        List<Disponibilite> resultat = new ArrayList<>();
+        String requete = "SELECT * FROM disponibilite WHERE jour = ? AND id_medecin_id = ?";
+
+        try (PreparedStatement pst = cnx.prepareStatement(requete)) {
+            pst.setDate(1, java.sql.Date.valueOf(jour));
+            pst.setInt(2, idMedecin);
+
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    Disponibilite d = new Disponibilite();
+                    d.setId(rs.getInt("id"));
+                    d.setJour(rs.getDate("jour").toLocalDate());
+
+                    // Conversion de la chaîne d'heures en liste
+                    String heuresStr = rs.getString("heures_disp");
+                    List<String> heures = Arrays.asList(heuresStr.split(","));
+                    d.setHeuresDisp(heures);
+
+                    d.setStatutDisp(rs.getString("statut_disp"));
+                    d.setIdMedecin(rs.getInt("id_medecin_id"));
+
+                    resultat.add(d);
+                }
+            }
+        }
+
+        return resultat;
+    }
+    // Recherche par jour uniquement
+    public List<Disponibilite> rechercherDisponibiliteParJour(LocalDate jour) throws SQLException {
+        List<Disponibilite> resultat = new ArrayList<>();
+        String requete = "SELECT * FROM disponibilite WHERE jour = ?";
+
+        try (PreparedStatement pst = cnx.prepareStatement(requete)) {
+            pst.setDate(1, java.sql.Date.valueOf(jour));
+
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    Disponibilite d = new Disponibilite();
+                    d.setId(rs.getInt("id"));
+                    d.setJour(rs.getDate("jour").toLocalDate());
+
+                    // Conversion de la chaîne d'heures en liste
+                    String heuresStr = rs.getString("heures_disp");
+                    List<String> heures = Arrays.asList(heuresStr.split(","));
+                    d.setHeuresDisp(heures);
+
+                    d.setStatutDisp(rs.getString("statut_disp"));
+                    d.setIdMedecin(rs.getInt("id_medecin_id"));
+
+                    resultat.add(d);
+                }
+            }
+        }
+
+        return resultat;
+    }
+
+    // Recherche par médecin uniquement
+    public List<Disponibilite> rechercherDisponibiliteParMedecin(int idMedecin) throws SQLException {
+        List<Disponibilite> resultat = new ArrayList<>();
+        String requete = "SELECT * FROM disponibilite WHERE id_medecin_id = ?";
+
+        try (PreparedStatement pst = cnx.prepareStatement(requete)) {
+            pst.setInt(1, idMedecin);
+
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    Disponibilite d = new Disponibilite();
+                    d.setId(rs.getInt("id"));
+                    d.setJour(rs.getDate("jour").toLocalDate());
+
+                    // Conversion de la chaîne d'heures en liste
+                    String heuresStr = rs.getString("heures_disp");
+                    List<String> heures = Arrays.asList(heuresStr.split(","));
+                    d.setHeuresDisp(heures);
+
+                    d.setStatutDisp(rs.getString("statut_disp"));
+                    d.setIdMedecin(rs.getInt("id_medecin_id"));
+
+                    resultat.add(d);
+                }
+            }
+        }
+
+        return resultat;
+    }
+    public Disponibilite getDisponibiliteById(int id) throws SQLException {
+        String sql = "SELECT * FROM disponibilite WHERE id = ?";
+
+        try (PreparedStatement ps = cnx.prepareStatement(sql)) {
+            ps.setInt(1, id);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Disponibilite disponibilite = new Disponibilite();
+                    disponibilite.setId(rs.getInt("id"));
+                    // Complétez avec les autres attributs de votre classe Disponibilite
+
+                    return disponibilite;
+                }
+                throw new SQLException("Aucune disponibilité trouvée avec l'ID: " + id);
+            }
+        }
     }
 }

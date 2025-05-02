@@ -1,139 +1,339 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
-<?import java.lang.String?>
-<?import javafx.collections.FXCollections?>
 
-<AnchorPane prefHeight="591.0" prefWidth="909.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.AjouterDisponibilite">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="/style/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.AjouterDisponibilite">
     <children>
-        <AnchorPane prefHeight="591.0" prefWidth="179.0" style="-fx-background-color: #0099FF;">
-            <children>
-                <ImageView fitHeight="92.0" fitWidth="98.0" layoutX="45.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/logo-modified.png" />
-                    </image>
-                </ImageView>
-                <Button layoutX="1.0" layoutY="154.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="179.0" text="Login">
-                    <font>
-                        <Font name="System Bold" size="14.0" />
-                    </font>
-                </Button>
-                <Button layoutY="217.0" mnemonicParsing="false" onAction="#afficherListeDisponibilites" prefHeight="35.0" prefWidth="181.0" text="Disponibilités" textFill="#330202">
-                    <font>
-                        <Font name="System Bold" size="14.0" />
-                    </font>
-                </Button>
-                <Button layoutY="283.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="179.0" text="Logout">
-                    <font>
-                        <Font name="System Bold" size="14.0" />
-                    </font>
-                </Button>
-                <ImageView fitHeight="26.0" fitWidth="23.0" layoutX="23.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/icons8-login-100.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="27.0" fitWidth="23.0" layoutX="23.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/icons8-logout-30.png" />
-                    </image>
-                </ImageView>
-                <Button fx:id="front" layoutX="1.0" layoutY="336.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="179.0" text="Front">
-                    <font>
-                        <Font name="System Bold" size="14.0" />
-                    </font>
-                </Button>
-            </children>
-        </AnchorPane>
-
-        <Label layoutX="396.0" layoutY="14.0" text="Ajouter une disponibilité" textFill="#4a90e2">
-            <font>
-                <Font name="System Bold" size="24.0" />
-            </font>
-        </Label>
-
-        <AnchorPane layoutX="206.0" layoutY="113.0" prefHeight="402.0" prefWidth="670.0" style="-fx-border-color: #66CCFF; -fx-background-color: #FFFFFF;">
-            <children>
-                <Label layoutX="59.0" layoutY="59.0" prefHeight="35.0" prefWidth="110.0" text="Date" textFill="#4a90e2">
-                    <font>
-                        <Font name="System Bold" size="18.0" />
-                    </font>
-                </Label>
-                <Label layoutX="59.0" layoutY="116.0" text="Heures disponibles" textFill="#4a90e2">
-                    <font>
-                        <Font name="System Bold" size="18.0" />
-                    </font>
-                </Label>
-                <Label layoutX="59.0" layoutY="199.0" text="Statut" textFill="#4a90e2">
-                    <font>
-                        <Font name="System Bold" size="18.0" />
-                    </font>
-                </Label>
-                <Label layoutX="59.0" layoutY="261.0" text="ID Médecin" textFill="#4a90e2">
-                    <font>
-                        <Font name="System Bold" size="18.0" />
-                    </font>
-                </Label>
-
-                <!-- DatePicker qui affiche un calendrier -->
-                <DatePicker fx:id="datePicker" layoutX="244.0" layoutY="60.0" promptText="Choisir un jour" />
-                <Label fx:id="dateErrorLabel" layoutX="244.0" layoutY="92.0" text="La date doit être dans le futur" textFill="RED" visible="false" />
-
-                <!-- Checkboxes pour les heures -->
-                <HBox layoutX="244.0" layoutY="117.0" spacing="15">
+        <BorderPane layoutX="0.0" layoutY="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <left>
+                <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="250.0" spacing="15" styleClass="sidebar">
                     <children>
-                        <CheckBox fx:id="check9_11" text="9-11" />
-                        <CheckBox fx:id="check11_13" text="11-13" />
-                        <CheckBox fx:id="check14_16" text="14-16" />
-                        <CheckBox fx:id="check16_18" text="16-18" />
+                        <!-- Logo et Titre -->
+                        <VBox alignment="CENTER" spacing="10" styleClass="sidebar-header">
+                            <children>
+                                <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@assets/logo-modified.png" />
+                                    </image>
+                                </ImageView>
+                                <Label text="BabySteps" styleClass="sidebar-title">
+                                    <font>
+                                        <Font name="System Bold" size="24.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                            <padding>
+                                <Insets bottom="20.0" top="20.0" />
+                            </padding>
+                        </VBox>
+
+                        <!-- Menu Principal -->
+                        <VBox spacing="5" styleClass="menu-container">
+                            <children>
+                                <Button alignment="BASELINE_LEFT" styleClass="menu-button" text="Tableau de bord">
+                                    <graphic>
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@assets/icons/dashboard.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+
+                                <Button fx:id="PdfButton" alignment="BASELINE_LEFT" styleClass="menu-button" onAction="#pdfstati" text="PDF Statistiques">
+                                    <graphic>
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@assets/icons/stats.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+
+                                <!-- Menu Rendez-vous -->
+                                <VBox spacing="0" styleClass="submenu-container">
+                                    <Button fx:id="rdvButton" alignment="BASELINE_LEFT" styleClass="menu-button" onAction="#toggleRdvSubmenu" text="Rendez-vous">
+                                        <graphic>
+                                            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@assets/icons/calendar.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <VBox fx:id="rdvSubmenu" managed="false" spacing="0" styleClass="submenu" visible="false">
+                                        <Button alignment="BASELINE_LEFT" styleClass="submenu-button" onAction="#navigateToAjouterRDV" text="Ajouter RDV" />
+                                        <Button alignment="BASELINE_LEFT" styleClass="submenu-button" onAction="#navigateToConsulterRDV" text="Consulter RDV" />
+                                    </VBox>
+                                </VBox>
+
+                                <!-- Menu Disponibilité -->
+                                <VBox spacing="0" styleClass="submenu-container">
+                                    <Button fx:id="dispButton" alignment="BASELINE_LEFT" styleClass="menu-button" onAction="#toggleDispSubmenu" text="Disponibilité">
+                                        <graphic>
+                                            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@assets/icons/clock.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <VBox fx:id="dispSubmenu" managed="false" spacing="0" styleClass="submenu" visible="false">
+                                        <Button alignment="BASELINE_LEFT" styleClass="submenu-button" onAction="#navigateToAjouterDISP" text="Ajouter DISP" />
+                                        <Button alignment="BASELINE_LEFT" styleClass="submenu-button" onAction="#navigateToConsulterDISP" text="Consulter DISP" />
+                                    </VBox>
+                                </VBox>
+
+                                <Button alignment="BASELINE_LEFT" styleClass="menu-button" text="Suivi-Bébé">
+                                    <graphic>
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@assets/icons/baby.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+
+                                <Button alignment="BASELINE_LEFT" styleClass="menu-button" text="Chambres">
+                                    <graphic>
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@assets/icons/bed.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+
+                                <Button alignment="BASELINE_LEFT" styleClass="menu-button" text="Blog">
+                                    <graphic>
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@assets/icons/blog.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+
+                                <Button alignment="BASELINE_LEFT" styleClass="menu-button" text="Ordonnance">
+                                    <graphic>
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@assets/icons/prescription.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                            </children>
+                        </VBox>
+
+                        <!-- Menu Footer -->
+                        <VBox spacing="10" styleClass="menu-footer" VBox.vgrow="ALWAYS">
+                            <children>
+                                <Separator styleClass="menu-separator" />
+                                <Button fx:id="front" alignment="BASELINE_LEFT" styleClass="menu-footer-button" text="Page d'accueil">
+                                    <graphic>
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@assets/icons8-home-30.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button alignment="BASELINE_LEFT" styleClass="menu-footer-button" text="Déconnexion">
+                                    <graphic>
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@assets/icons8-logout-30.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                            </children>
+                        </VBox>
                     </children>
-                </HBox>
-                <Label fx:id="creneauErrorLabel" layoutX="244.0" layoutY="145.0" text="Sélectionnez au moins un créneau horaire" textFill="RED" visible="false" />
+                </VBox>
+            </left>
 
-                <!-- ComboBox pour le statut -->
-                <ComboBox fx:id="statutComboBox" layoutX="244.0" layoutY="200.0" prefWidth="150.0" promptText="Sélectionnez un statut">
-                    <items>
-                        <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="disponible" />
-                            <String fx:value="indisponible" />
-                        </FXCollections>
-                    </items>
-                </ComboBox>
-                <Label fx:id="statutErrorLabel" layoutX="244.0" layoutY="230.0" text="Le statut est obligatoire" textFill="RED" visible="false" />
+            <center>
+                <AnchorPane styleClass="content-area">
+                    <children>
+                        <!-- Header -->
+                        <HBox alignment="CENTER_LEFT" layoutX="30.0" layoutY="20.0" prefHeight="60.0" prefWidth="670.0" styleClass="content-header">
+                            <children>
+                                <Label text="Ajouter une disponibilité" styleClass="content-title">
+                                    <font>
+                                        <Font name="System Bold" size="28.0" />
+                                    </font>
+                                </Label>
+                                <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@assets/icons8-add-16.png" />
+                                    </image>
+                                    <HBox.margin>
+                                        <Insets left="15.0" />
+                                    </HBox.margin>
+                                </ImageView>
+                            </children>
+                        </HBox>
 
-                <!-- TextField pour l'ID médecin -->
-                <TextField fx:id="medecinIdField" layoutX="244.0" layoutY="262.0" promptText="Entrez l'ID du médecin" />
-                <Label fx:id="medecinErrorLabel" layoutX="244.0" layoutY="290.0" text="L'ID du médecin est obligatoire" textFill="RED" visible="false" />
+                        <!-- Information text -->
+                        <Label layoutX="30.0" layoutY="80.0" text="Veuillez compléter les informations ci-dessous pour ajouter une nouvelle disponibilité." styleClass="content-subtitle">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
 
-                <!-- Boutons d'action -->
-                <Button layoutX="237.0" layoutY="347.0" mnemonicParsing="false" onAction="#ajouterDisponibilite" prefHeight="27.0" prefWidth="150.0" style="-fx-background-color: #0099FF;" text="Ajouter" textFill="WHITE">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Button>
+                        <!-- Form Container -->
+                        <AnchorPane layoutX="30.0" layoutY="120.0" prefHeight="450.0" prefWidth="670.0" styleClass="form-container">
+                            <children>
+                                <!-- Form Fields -->
+                                <VBox layoutX="40.0" layoutY="30.0" prefHeight="380.0" prefWidth="590.0" spacing="25">
+                                    <children>
+                                        <!-- Date Field -->
+                                        <VBox spacing="8">
+                                            <children>
+                                                <Label text="Date de disponibilité" styleClass="form-label">
+                                                    <font>
+                                                        <Font name="System Bold" size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <DatePicker fx:id="datePicker" prefHeight="40.0" prefWidth="300.0" promptText="Sélectionnez une date" styleClass="form-datepicker" />
+                                                <Label fx:id="dateErrorLabel" text="La date doit être dans le futur" styleClass="error-label" visible="false">
+                                                    <font>
+                                                        <Font size="12.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
 
-                <Button layoutX="430.0" layoutY="347.0" mnemonicParsing="false" onAction="#annuler" prefHeight="27.0" prefWidth="150.0" style="-fx-background-color: #999999;" text="Annuler" textFill="WHITE">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Button>
-            </children>
-        </AnchorPane>
+                                        <!-- Créneaux horaires -->
+                                        <VBox spacing="8">
+                                            <children>
+                                                <Label text="Créneaux horaires disponibles" styleClass="form-label">
+                                                    <font>
+                                                        <Font name="System Bold" size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <HBox spacing="25">
+                                                    <children>
+                                                        <CheckBox fx:id="check9_11" mnemonicParsing="false" styleClass="form-checkbox" text="09:00 - 11:00">
+                                                            <padding>
+                                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                            </padding>
+                                                        </CheckBox>
+                                                        <CheckBox fx:id="check11_13" mnemonicParsing="false" styleClass="form-checkbox" text="11:00 - 13:00">
+                                                            <padding>
+                                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                            </padding>
+                                                        </CheckBox>
+                                                        <CheckBox fx:id="check14_16" mnemonicParsing="false" styleClass="form-checkbox" text="14:00 - 16:00">
+                                                            <padding>
+                                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                            </padding>
+                                                        </CheckBox>
+                                                        <CheckBox fx:id="check16_18" mnemonicParsing="false" styleClass="form-checkbox" text="16:00 - 18:00">
+                                                            <padding>
+                                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                            </padding>
+                                                        </CheckBox>
+                                                    </children>
+                                                </HBox>
+                                                <Label fx:id="creneauErrorLabel" text="Veuillez sélectionner au moins un créneau horaire" styleClass="error-label" visible="false">
+                                                    <font>
+                                                        <Font size="12.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
 
-        <ImageView fitHeight="35.0" fitWidth="34.0" layoutX="344.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@assets/icons8-add-16.png" />
-            </image>
-        </ImageView>
+                                        <!-- Statut -->
+                                        <VBox spacing="8">
+                                            <children>
+                                                <Label text="Statut de disponibilité" styleClass="form-label">
+                                                    <font>
+                                                        <Font name="System Bold" size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <ComboBox fx:id="statutComboBox" prefHeight="40.0" prefWidth="300.0" promptText="Sélectionnez un statut" styleClass="form-combobox">
+                                                    <items>
+                                                        <FXCollections fx:factory="observableArrayList">
+                                                            <String fx:value="Disponible" />
+                                                            <String fx:value="Indisponible" />
+                                                        </FXCollections>
+                                                    </items>
+                                                </ComboBox>
+                                                <Label fx:id="statutErrorLabel" text="Le statut est obligatoire" styleClass="error-label" visible="false">
+                                                    <font>
+                                                        <Font size="12.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+
+                                        <!-- ID Médecin -->
+                                        <VBox spacing="8">
+                                            <children>
+                                                <Label text="Médecin" styleClass="form-label">
+                                                    <font>
+                                                        <Font name="System Bold" size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <ComboBox fx:id="medecinComboBox" prefHeight="40.0" prefWidth="300.0" promptText="Sélectionnez un médecin" styleClass="form-combobox" />
+                                                <Label fx:id="medecinErrorLabel" text="Veuillez sélectionner un médecin" styleClass="error-label" visible="false">
+                                                    <font>
+                                                        <Font size="12.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+
+                                        <!-- Buttons -->
+                                        <HBox alignment="CENTER_RIGHT" spacing="15">
+                                            <children>
+                                                <Button mnemonicParsing="false" onAction="#annuler" prefHeight="45.0" prefWidth="150.0" styleClass="cancel-button" text="Annuler">
+                                                    <font>
+                                                        <Font name="System Bold" size="14.0" />
+                                                    </font>
+                                                </Button>
+                                                <Button mnemonicParsing="false" onAction="#ajouterDisponibilite" prefHeight="45.0" prefWidth="150.0" styleClass="submit-button" text="Ajouter">
+                                                    <font>
+                                                        <Font name="System Bold" size="14.0" />
+                                                    </font>
+                                                    <graphic>
+                                                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@assets/icons8-add-16.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </AnchorPane>
+            </center>
+        </BorderPane>
     </children>
 </AnchorPane>

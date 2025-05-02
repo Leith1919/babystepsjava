@@ -1,5 +1,8 @@
 package tn.esprit.Controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -7,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
@@ -18,6 +22,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
@@ -25,7 +30,8 @@ import java.util.regex.Pattern;
 public class AjouterRendezVous implements Initializable {
 
     @FXML private TextField motifField;
-    @FXML private TextField symptomesField;
+    @FXML private ListView<String> symptomesListView;
+
     @FXML private TextField traitementField;
     @FXML private TextArea notesArea;
     @FXML private ComboBox<String> heureComboBox;
@@ -39,6 +45,16 @@ public class AjouterRendezVous implements Initializable {
     @FXML private Label heureErrorLabel;
     @FXML private Label jourErrorLabel;
     @FXML private Label medecinErrorLabel;
+    @FXML private Label symptomesInfoLabel;
+    @FXML
+    private VBox rdvSubmenu;
+    @FXML
+    private Button rdvButton;
+    @FXML
+    private VBox dispSubmenu;
+
+    @FXML
+    private Button dispButton;
 
     private final UserService userService = new UserService();
     private final DisponibiliteService disponibiliteService = new DisponibiliteService();
@@ -46,21 +62,16 @@ public class AjouterRendezVous implements Initializable {
 
     private final int idPatient = 67; // ID patient fictif
 
-    // Expression régulière pour valider que le texte ne contient pas uniquement des chiffres
     private final Pattern numbersOnlyPattern = Pattern.compile("^\\d+$");
-    // Expression régulière pour valider le format texte (lettres, espaces, quelques caractères spéciaux)
     private final Pattern textPattern = Pattern.compile("^[\\p{L}\\s.,;:!?'\"()-]+$");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            // Initialiser les labels d'erreur
             initializeErrorLabels();
-
-            // Configurer les écouteurs de validation
             setupValidationListeners();
 
-            // Charger les médecins
+            // Configuration des médecins
             List<User> medecins = userService.getAllMedecins();
             if (medecins != null && !medecins.isEmpty()) {
                 medecinComboBox.getItems().addAll(medecins);
@@ -68,11 +79,36 @@ public class AjouterRendezVous implements Initializable {
                 showAlert(Alert.AlertType.WARNING, "Avertissement", "Aucun médecin disponible dans le système");
             }
 
-            // Remplir les heures possibles
+            // Configuration des heures
             List<String> heures = Arrays.asList("9-11", "11-13", "14-16", "16-18");
             heureComboBox.getItems().addAll(heures);
 
-            // Désactiver les dates passées dans le DatePicker
+            // Configuration avancée de la liste des symptômes
+            symptomesListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+            ObservableList<String> symptomes = FXCollections.observableArrayList(
+                    "Fièvre", "Toux", "Fatigue", "Douleurs musculaires", "Maux de tête",
+                    "Nausées", "Vertiges", "Essoufflement", "Perte d'appétit", "Insomnie",
+                    "Douleur thoracique", "Diarrhée", "Vomissements", "Éruption cutanée",
+                    "Difficultés respiratoires"
+            );
+            symptomesListView.setItems(symptomes);
+
+            // Message informatif sur la sélection multiple
+            if (symptomesInfoLabel != null) {
+                symptomesInfoLabel.setText("Maintenez Ctrl pour sélectionner plusieurs symptômes");
+                symptomesInfoLabel.setTextFill(Color.GRAY);
+            }
+
+            // Ajout d'un listener plus robuste pour la sélection multiple
+            symptomesListView.getSelectionModel().getSelectedItems().addListener(
+                    (ListChangeListener<String>) change -> {
+                        while (change.next()) {
+                            validateSymptomes(symptomesListView.getSelectionModel().getSelectedItems());
+                        }
+                    }
+            );
+
+            // Configuration du calendrier
             jourPicker.setDayCellFactory(picker -> new DateCell() {
                 @Override
                 public void updateItem(LocalDate date, boolean empty) {
@@ -93,7 +129,6 @@ public class AjouterRendezVous implements Initializable {
     }
 
     private void initializeErrorLabels() {
-        // Configuration des labels d'erreur
         motifErrorLabel.setTextFill(Color.RED);
         motifErrorLabel.setVisible(false);
 
@@ -114,30 +149,24 @@ public class AjouterRendezVous implements Initializable {
     }
 
     private void setupValidationListeners() {
-        // Validation des champs textuels
         motifField.textProperty().addListener((observable, oldValue, newValue) -> {
             validateMotif(newValue);
         });
 
-        symptomesField.textProperty().addListener((observable, oldValue, newValue) -> {
-            validateSymptomes(newValue);
-        });
+        // Le listener pour les symptômes est ajouté dans initialize() avec le ListChangeListener
 
         traitementField.textProperty().addListener((observable, oldValue, newValue) -> {
             validateTraitement(newValue);
         });
 
-        // Validation de la date (doit être future)
         jourPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             validateDate(newValue);
         });
 
-        // Validation de l'heure
         heureComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             validateHeure(newValue);
         });
 
-        // Validation du médecin
         medecinComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             validateMedecin(newValue);
         });
@@ -166,27 +195,14 @@ public class AjouterRendezVous implements Initializable {
         }
     }
 
-    private boolean validateSymptomes(String text) {
-        if (text == null || text.trim().isEmpty()) {
-            symptomesErrorLabel.setText("Les symptômes sont obligatoires");
+    private boolean validateSymptomes(List<String> symptomes) {
+        if (symptomes == null || symptomes.isEmpty()) {
+            symptomesErrorLabel.setText("Veuillez sélectionner au moins un symptôme");
             symptomesErrorLabel.setVisible(true);
             return false;
-        } else if (text.length() < 3) {
-            symptomesErrorLabel.setText("Les symptômes doivent contenir au moins 3 caractères");
-            symptomesErrorLabel.setVisible(true);
-            return false;
-        } else if (numbersOnlyPattern.matcher(text).matches()) {
-            symptomesErrorLabel.setText("Les symptômes ne peuvent pas être uniquement numériques");
-            symptomesErrorLabel.setVisible(true);
-            return false;
-        } else if (!textPattern.matcher(text).matches()) {
-            symptomesErrorLabel.setText("Les symptômes contiennent des caractères non autorisés");
-            symptomesErrorLabel.setVisible(true);
-            return false;
-        } else {
-            symptomesErrorLabel.setVisible(false);
-            return true;
         }
+        symptomesErrorLabel.setVisible(false);
+        return true;
     }
 
     private boolean validateTraitement(String text) {
@@ -251,7 +267,7 @@ public class AjouterRendezVous implements Initializable {
 
     private boolean validateAllFields() {
         boolean motifValid = validateMotif(motifField.getText());
-        boolean symptomesValid = validateSymptomes(symptomesField.getText());
+        boolean symptomesValid = validateSymptomes(symptomesListView.getSelectionModel().getSelectedItems());
         boolean traitementValid = validateTraitement(traitementField.getText());
         boolean dateValid = validateDate(jourPicker.getValue());
         boolean heureValid = validateHeure(heureComboBox.getValue());
@@ -272,7 +288,11 @@ public class AjouterRendezVous implements Initializable {
             }
 
             String motif = motifField.getText();
-            String symptomes = symptomesField.getText();
+
+            // Récupération des symptômes sélectionnés
+            ObservableList<String> symptomesSelectionnes = symptomesListView.getSelectionModel().getSelectedItems();
+            String symptomes = String.join(", ", symptomesSelectionnes);
+
             String traitement = traitementField.getText();
             String notes = notesArea.getText();
             String heureString = heureComboBox.getValue();
@@ -331,14 +351,13 @@ public class AjouterRendezVous implements Initializable {
 
     private void clearForm() {
         motifField.clear();
-        symptomesField.clear();
+        symptomesListView.getSelectionModel().clearSelection();
         traitementField.clear();
         notesArea.clear();
         heureComboBox.getSelectionModel().clearSelection();
         jourPicker.setValue(null);
         medecinComboBox.getSelectionModel().clearSelection();
 
-        // Réinitialiser les messages d'erreur
         motifErrorLabel.setVisible(false);
         symptomesErrorLabel.setVisible(false);
         traitementErrorLabel.setVisible(false);
@@ -373,4 +392,123 @@ public class AjouterRendezVous implements Initializable {
                     "Une erreur inattendue s'est produite: " + e.getMessage());
         }
     }
+    @FXML
+    private void toggleRdvSubmenu() {
+        rdvSubmenu.setVisible(!rdvSubmenu.isVisible());
+        rdvSubmenu.setManaged(!rdvSubmenu.isManaged());
+
+        // Changer le style du bouton en fonction de l'état du sous-menu
+        if (rdvSubmenu.isVisible()) {
+            rdvButton.setStyle("-fx-background-color: rgba(255, 255, 255, 0.4); -fx-background-radius: 8 8 0 0;");
+        } else {
+            rdvButton.setStyle("-fx-background-color: rgba(255, 255, 255, 0.3); -fx-background-radius: 8;");
+        }
+    }
+
+    // Méthode pour naviguer vers l'interface d'ajout de rendez-vous
+    @FXML
+    private void navigateToAjouterRDV() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterRendezVous.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) rdvButton.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Méthode pour naviguer vers l'interface de consultation des rendez-vous
+    @FXML
+    private void navigateToConsulterRDV() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherRendezVous.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) rdvButton.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void toggleDispSubmenu(ActionEvent actionEvent) {
+        dispSubmenu.setVisible(!dispSubmenu.isVisible());
+        dispSubmenu.setManaged(!dispSubmenu.isManaged());
+
+        // Changer le style du bouton en fonction de l'état du sous-menu
+        if (dispSubmenu.isVisible()) {
+            dispButton.setStyle("-fx-background-color: rgba(255, 255, 255, 0.4); -fx-background-radius: 8 8 0 0;");
+        } else {
+            dispButton.setStyle("-fx-background-color: rgba(255, 255, 255, 0.3); -fx-background-radius: 8;");
+        }
+    }
+
+    public void navigateToAjouterDISP(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterDisponibilite.fxml"));
+            Parent root = loader.load();
+
+            // Obtenir la scène actuelle
+            Scene scene = rdvButton.getScene();
+
+            // Remplacer le contenu de la scène par le formulaire de rendez-vous
+            Stage stage = (Stage) scene.getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Erreur lors du chargement de l'interface Disponibilite: " + e.getMessage());
+        }
+    }
+
+    public void navigateToConsulterDISP(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherDisponibilite.fxml"));
+            Parent root = loader.load();
+
+            Scene scene = rdvButton.getScene();
+            Stage stage = (Stage) scene.getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Erreur lors du chargement de l'interface ConsulterDispo: " + e.getMessage());
+        }
+    }
+    public void preRemplirFormulaire(Disponibilite dispo) {
+        // Pré-remplir la date avec la date de disponibilité
+        jourPicker.setValue(dispo.getJour());
+
+        // Si la disponibilité n'a qu'une heure disponible, la sélectionner
+        // Sinon, laisser l'utilisateur choisir parmi les heures disponibles
+        List<String> heuresDisp = dispo.getHeuresDisp();
+        if (heuresDisp != null && heuresDisp.size() == 1) {
+            heureComboBox.setValue(heuresDisp.get(0));
+        } else if (heuresDisp != null && !heuresDisp.isEmpty()) {
+            // Mettre à jour le ComboBox pour ne montrer que les heures disponibles
+            heureComboBox.getItems().clear();
+            heureComboBox.getItems().addAll(heuresDisp);
+        }
+
+        // Pré-remplir le médecin
+        try {
+            User medecin = userService.getOneById(dispo.getIdMedecin());
+            medecinComboBox.setValue(medecin);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer l'erreur si nécessaire
+        }
+
+        // Valider les champs pré-remplis
+        validateDate(jourPicker.getValue());
+        validateMedecin(medecinComboBox.getValue());
+        if (heureComboBox.getValue() != null) {
+            validateHeure(heureComboBox.getValue());
+        }
+    }
+
 }

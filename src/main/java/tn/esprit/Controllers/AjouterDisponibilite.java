@@ -8,13 +8,17 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import tn.esprit.entites.Disponibilite;
+import tn.esprit.entites.User;
 import tn.esprit.services.DisponibiliteService;
+import tn.esprit.services.UserService;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +42,7 @@ public class AjouterDisponibilite implements Initializable {
         private DatePicker datePicker;
 
         @FXML
-        private TextField medecinIdField;
+        private ComboBox<User> medecinComboBox; // Changé de TextField à ComboBox<User>
 
         @FXML
         private ComboBox<String> statutComboBox;
@@ -55,22 +59,44 @@ public class AjouterDisponibilite implements Initializable {
         @FXML
         private Label medecinErrorLabel;
 
+        @FXML
+        private VBox rdvSubmenu;
+
+        @FXML
+        private Button rdvButton;
+
+        @FXML
+        private VBox dispSubmenu;
+
+        @FXML
+        private Button dispButton;
+
         private final DisponibiliteService service = new DisponibiliteService();
+        private final UserService userService = new UserService(); // Ajout du service des utilisateurs
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
-                // Initialiser le ComboBox avec les statuts possibles
+                // Initialisation des ComboBox
                 statutComboBox.getItems().addAll("Disponible", "Indisponible");
 
-                // Initialiser les labels d'erreur (invisibles au départ)
-                initializeErrorLabels();
+                // Chargement de la liste des médecins
+                try {
+                        List<User> medecins = userService.getAllMedecins();
+                        if (medecins != null && !medecins.isEmpty()) {
+                                medecinComboBox.getItems().addAll(medecins);
+                        } else {
+                                showAlert("Avertissement", "Aucun médecin disponible dans le système");
+                        }
+                } catch (SQLException e) {
+                        e.printStackTrace();
+                        showAlert("Erreur", "Impossible de charger la liste des médecins: " + e.getMessage());
+                }
 
-                // Ajouter des écouteurs pour validation en temps réel
+                initializeErrorLabels();
                 setupValidationListeners();
         }
 
         private void initializeErrorLabels() {
-                // Configuration des labels d'erreur
                 dateErrorLabel.setTextFill(Color.RED);
                 dateErrorLabel.setVisible(false);
 
@@ -85,22 +111,18 @@ public class AjouterDisponibilite implements Initializable {
         }
 
         private void setupValidationListeners() {
-                // Validation de la date (doit être future)
                 datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
                         validateDate(newValue);
                 });
 
-                // Validation de l'ID du médecin (doit être un nombre entier positif)
-                medecinIdField.textProperty().addListener((observable, oldValue, newValue) -> {
-                        validateMedecinId(newValue);
+                medecinComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+                        validateMedecin(newValue);
                 });
 
-                // Validation du statut
                 statutComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
                         validateStatut(newValue);
                 });
 
-                // Validation des créneaux horaires
                 CheckBox[] checkBoxes = {check9_11, check11_13, check14_16, check16_18};
                 for (CheckBox checkBox : checkBoxes) {
                         checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -147,27 +169,15 @@ public class AjouterDisponibilite implements Initializable {
                 }
         }
 
-        private boolean validateMedecinId(String idStr) {
-                if (idStr == null || idStr.trim().isEmpty()) {
-                        medecinErrorLabel.setText("L'ID du médecin est obligatoire");
+        // Nouvelle méthode de validation pour ComboBox<User>
+        private boolean validateMedecin(User medecin) {
+                if (medecin == null) {
+                        medecinErrorLabel.setText("Veuillez sélectionner un médecin");
                         medecinErrorLabel.setVisible(true);
                         return false;
-                }
-
-                try {
-                        int id = Integer.parseInt(idStr);
-                        if (id <= 0) {
-                                medecinErrorLabel.setText("L'ID doit être un nombre positif");
-                                medecinErrorLabel.setVisible(true);
-                                return false;
-                        } else {
-                                medecinErrorLabel.setVisible(false);
-                                return true;
-                        }
-                } catch (NumberFormatException e) {
-                        medecinErrorLabel.setText("L'ID doit être un nombre entier");
-                        medecinErrorLabel.setVisible(true);
-                        return false;
+                } else {
+                        medecinErrorLabel.setVisible(false);
+                        return true;
                 }
         }
 
@@ -175,7 +185,7 @@ public class AjouterDisponibilite implements Initializable {
                 boolean dateValid = validateDate(datePicker.getValue());
                 boolean creneauxValid = validateCreneaux();
                 boolean statutValid = validateStatut(statutComboBox.getValue());
-                boolean medecinValid = validateMedecinId(medecinIdField.getText());
+                boolean medecinValid = validateMedecin(medecinComboBox.getValue());
 
                 return dateValid && creneauxValid && statutValid && medecinValid;
         }
@@ -183,14 +193,14 @@ public class AjouterDisponibilite implements Initializable {
         @FXML
         void ajouterDisponibilite(ActionEvent event) {
                 try {
-                        // Valider tous les champs avant de procéder
                         if (!validateAllFields()) {
                                 return;
                         }
 
                         LocalDate selectedDate = datePicker.getValue();
                         String statut = statutComboBox.getValue();
-                        int idMedecin = Integer.parseInt(medecinIdField.getText());
+                        User medecin = medecinComboBox.getValue();
+                        int idMedecin = medecin.getId(); // Récupérer l'ID du médecin sélectionné
 
                         List<String> heures = new ArrayList<>();
                         if (check9_11.isSelected()) heures.add("9-11");
@@ -244,9 +254,8 @@ public class AjouterDisponibilite implements Initializable {
                 check14_16.setSelected(false);
                 check16_18.setSelected(false);
                 statutComboBox.setValue(null);
-                medecinIdField.clear();
+                medecinComboBox.setValue(null); // Modifié pour le ComboBox
 
-                // Réinitialiser les messages d'erreur
                 dateErrorLabel.setVisible(false);
                 creneauErrorLabel.setVisible(false);
                 statutErrorLabel.setVisible(false);
@@ -267,6 +276,8 @@ public class AjouterDisponibilite implements Initializable {
                 }
         }
 
+        // Les méthodes restantes restent identiques
+
         @FXML
         private void afficherListeDisponibilites(ActionEvent event) {
                 try {
@@ -284,5 +295,92 @@ public class AjouterDisponibilite implements Initializable {
                         alert.showAndWait();
                 }
         }
-}
 
+        @FXML
+        private void toggleRdvSubmenu() {
+                rdvSubmenu.setVisible(!rdvSubmenu.isVisible());
+                rdvSubmenu.setManaged(!rdvSubmenu.isManaged());
+
+                // Changer le style du bouton en fonction de l'état du sous-menu
+                if (rdvSubmenu.isVisible()) {
+                        rdvButton.setStyle("-fx-background-color: rgba(255, 255, 255, 0.4); -fx-background-radius: 8 8 0 0;");
+                } else {
+                        rdvButton.setStyle("-fx-background-color: rgba(255, 255, 255, 0.3); -fx-background-radius: 8;");
+                }
+        }
+
+        // Méthode pour naviguer vers l'interface d'ajout de rendez-vous
+        @FXML
+        private void navigateToAjouterRDV() {
+                try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterRendezVous.fxml"));
+                        Parent root = loader.load();
+                        Scene scene = new Scene(root);
+                        Stage stage = (Stage) rdvButton.getScene().getWindow();
+                        stage.setScene(scene);
+                        stage.show();
+                } catch (IOException e) {
+                        e.printStackTrace();
+                }
+        }
+
+        // Méthode pour naviguer vers l'interface de consultation des rendez-vous
+        @FXML
+        private void navigateToConsulterRDV() {
+                try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherRendezVous.fxml"));
+                        Parent root = loader.load();
+                        Scene scene = new Scene(root);
+                        Stage stage = (Stage) rdvButton.getScene().getWindow();
+                        stage.setScene(scene);
+                        stage.show();
+                } catch (IOException e) {
+                        e.printStackTrace();
+                }
+        }
+
+        public void toggleDispSubmenu(ActionEvent actionEvent) {
+                dispSubmenu.setVisible(!dispSubmenu.isVisible());
+                dispSubmenu.setManaged(!dispSubmenu.isManaged());
+
+                // Changer le style du bouton en fonction de l'état du sous-menu
+                if (dispSubmenu.isVisible()) {
+                        dispButton.setStyle("-fx-background-color: rgba(255, 255, 255, 0.4); -fx-background-radius: 8 8 0 0;");
+                } else {
+                        dispButton.setStyle("-fx-background-color: rgba(255, 255, 255, 0.3); -fx-background-radius: 8;");
+                }
+        }
+
+        public void navigateToAjouterDISP(ActionEvent actionEvent) {
+                try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterDisponibilite.fxml"));
+                        Parent root = loader.load();
+
+                        // Obtenir la scène actuelle
+                        Scene scene = rdvButton.getScene();
+
+                        // Remplacer le contenu de la scène par le formulaire de rendez-vous
+                        Stage stage = (Stage) scene.getWindow();
+                        stage.setScene(new Scene(root));
+                        stage.show();
+                } catch (IOException e) {
+                        e.printStackTrace();
+                        System.out.println("Erreur lors du chargement de l'interface Disponibilite: " + e.getMessage());
+                }
+        }
+
+        public void navigateToConsulterDISP(ActionEvent actionEvent) {
+                try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherDisponibilite.fxml"));
+                        Parent root = loader.load();
+
+                        Scene scene = rdvButton.getScene();
+                        Stage stage = (Stage) scene.getWindow();
+                        stage.setScene(new Scene(root));
+                        stage.show();
+                } catch (IOException e) {
+                        e.printStackTrace();
+                        System.out.println("Erreur lors du chargement de l'interface ConsulterDispo: " + e.getMessage());
+                }
+        }
+}

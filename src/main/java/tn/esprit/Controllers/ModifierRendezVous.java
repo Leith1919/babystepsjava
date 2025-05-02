@@ -9,6 +9,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import tn.esprit.entites.RendezVous;
 import tn.esprit.services.RendezVousService;
+import tn.esprit.services.UserService;
+import tn.esprit.services.SMSService;
+import tn.esprit.entites.User;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -36,6 +39,8 @@ public class ModifierRendezVous implements Initializable {
 
     private RendezVous rendezVous;
     private final RendezVousService rendezVousService = new RendezVousService();
+    private final UserService userService = new UserService();
+    private final SMSService smsService = new SMSService();
 
     // Expression régulière pour valider que le texte ne contient pas uniquement des chiffres
     private final Pattern numbersOnlyPattern = Pattern.compile("^\\d+$");

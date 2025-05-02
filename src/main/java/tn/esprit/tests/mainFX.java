@@ -5,21 +5,34 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import tn.esprit.services.RappelAutomatiqueService;
 
 public class mainFX extends Application {
-    public static void main(String[] args) {
-        launch(args);
-    }
-
+    private RappelAutomatiqueService rappelService;
 
     @Override
-    public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AjouterDisponibilite.fxml"));
-        Parent root = fxmlLoader.load();
+    public void start(Stage primaryStage) throws Exception {
+        // Initialiser et démarrer le service de rappels automatiques
+        rappelService = new RappelAutomatiqueService();
+        rappelService.demarrerServiceRappels();
 
-        Scene scene = new Scene(root);
-        stage.setTitle("Ajouter Disponibilité");
-        stage.setScene(scene);
-        stage.show();
+        // Charger la vue principale
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Base2.fxml"));
+        Parent root = loader.load();
+        primaryStage.setTitle("Gestion des rendez-vous");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
+
+    @Override
+    public void stop() {
+        // Arrêter proprement le service lors de la fermeture de l'application
+        if (rappelService != null) {
+            rappelService.arreterService();
+        }
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
