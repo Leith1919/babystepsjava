@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.animation.FadeTransition?>
+<BorderPane prefHeight="700.0" prefWidth="1048.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.AfficherSuiviGrossesseFront">
+
+    <stylesheets>
+        <URL value="@style.css" />
+    </stylesheets>
+
+    <!-- Left Sidebar -->
+    <left>
+        <VBox fx:id="sidebar" styleClass="sidebar">
+            <HBox styleClass="logo-container">
+            <ImageView fitHeight="61.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/logo-modified.png" />
+               </image>
+            </ImageView>
+                <Label styleClass="logo-text" />
+                <Label styleClass="logo-text-accent" />
+            </HBox>
+
+            <VBox spacing="5" styleClass="menu-container">
+
+                <Button fx:id="btnComptes" styleClass="menu-button, active-menu-button" text="COMPTES">
+                    <graphic>
+                        <ImageView fitHeight="20" fitWidth="20">
+                            <Image url="@../images/comptes.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnReclamation" styleClass="menu-button" text="Réclamation">
+                    <graphic>
+                        <ImageView fitHeight="20" fitWidth="20">
+                            <Image url="@../images/reclamation.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnGestionArticle" styleClass="menu-button" text="Gestion Article">
+                    <graphic>
+                        <ImageView fitHeight="20" fitWidth="20">
+                            <Image url="@../images/reclamation.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnSignOut" styleClass="menu-button" text="SIGN OUT">
+                    <graphic>
+                        <ImageView fitHeight="20" fitWidth="20">
+                            <Image url="@../images/signout.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- Top Header -->
+    <top>
+        <HBox fx:id="topBar" prefHeight="32.0" prefWidth="1048.0" styleClass="top-bar">
+            <Label styleClass="user-info" text="Agent : ADMIN SECOUR | Matricule : Maha |" />
+        </HBox>
+    </top>
+
+    <!-- Main Content -->
+    <center>
+        <AnchorPane fx:id="contentArea" styleClass="main-content">
+            <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <BorderPane styleClass="content-card">
+                    <top>
+                        <HBox styleClass="tab-bar">
+                            <Button styleClass="tab-button" text="Aperçu" />
+                            <Button styleClass="tab-button, active-tab" text="Consulter" />
+                        </HBox>
+                    </top>
+                    <center>
+                        <VBox spacing="20">
+                            <HBox styleClass="title-container">
+                                <Label styleClass="title-text-primary" text="Gestion des " />
+                                <Label styleClass="title-text-secondary" text="Suivi Grossesse" />
+                            </HBox>
+
+                            <HBox spacing="20">
+
+                                <!-- Right section - GridPane for accounts list -->
+                                <GridPane fx:id="accountsGridPane" hgap="10" prefHeight="498.0" prefWidth="637.0" styleClass="accounts-grid" vgap="5">
+                                    <columnConstraints>
+                                        <ColumnConstraints percentWidth="20.0" />
+                                        <ColumnConstraints percentWidth="13.0" />
+                                        <ColumnConstraints percentWidth="12.0" />
+                                        <ColumnConstraints percentWidth="21.0" />
+                                        <ColumnConstraints percentWidth="25.0" />
+                                        <ColumnConstraints percentWidth="24.0" />
+                                    </columnConstraints>
+
+                                    <!-- List of accounts (GridPane rows will be added dynamically) -->
+                                    <VBox spacing="5" GridPane.columnSpan="5">
+                                        <!-- Row 1 -->
+                                        <HBox styleClass="account-row">
+
+                                        </HBox>
+
+                                        <!-- Row 2 -->
+                                        <HBox styleClass="account-row, account-row-alt">
+
+                                        </HBox>
+
+                                        <!-- Row 3 -->
+                                        <HBox styleClass="account-row">
+
+                                        </HBox>
+
+                                        <!-- Add more rows as needed -->
+                                        <HBox styleClass="account-row, account-row-alt">
+
+                                        </HBox>
+
+                                        <HBox styleClass="account-row">
+
+                                        </HBox>
+
+                                        <HBox styleClass="account-row, account-row-alt">
+
+                                        </HBox>
+                                    </VBox>
+                           <rowConstraints>
+                              <RowConstraints />
+                           </rowConstraints>
+                                </GridPane>
+                            </HBox>
+                        </VBox>
+                    </center>
+                </BorderPane>
+
+
+            </StackPane>
+        </AnchorPane>
+    </center>
+</BorderPane>
