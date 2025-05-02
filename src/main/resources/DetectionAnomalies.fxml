@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+
+<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="tn.esprit.Controllers.DetectionAnomaliesController" styleClass="main-scroll-pane">
+    <VBox spacing="15" styleClass="main-container">
+        <padding>
+            <Insets top="15" right="15" bottom="15" left="15"/>
+        </padding>
+
+        <!-- En-tête -->
+        <HBox alignment="CENTER" spacing="15" styleClass="header-box">
+            <VBox alignment="CENTER" styleClass="header-content">
+                <Label fx:id="patientInfoLabel" styleClass="header-title"/>
+                <Label fx:id="lastUpdateLabel" styleClass="header-subtitle"/>
+            </VBox>
+        </HBox>
+
+        <!-- État actuel et informations principales -->
+        <HBox spacing="15" styleClass="info-container">
+            <VBox styleClass="info-box" HBox.hgrow="ALWAYS">
+                <Label text="État Actuel" styleClass="info-label"/>
+                <Label fx:id="etatActuelLabel" styleClass="info-value"/>
+                <Label fx:id="confidenceLabel" styleClass="confidence-label"/>
+                <ProgressBar fx:id="riskProgressBar" styleClass="risk-progress"/>
+            </VBox>
+
+            <VBox styleClass="info-box" HBox.hgrow="ALWAYS">
+                <Label text="Niveau de Risque" styleClass="info-label"/>
+                <Label fx:id="riskLevelLabel" styleClass="info-value"/>
+            </VBox>
+
+            <VBox styleClass="info-box" HBox.hgrow="ALWAYS">
+                <Label text="Semaine" styleClass="info-label"/>
+                <Label fx:id="semaineLabel" styleClass="info-value"/>
+            </VBox>
+
+            <VBox styleClass="info-box" HBox.hgrow="ALWAYS">
+                <Label text="Prochain RDV" styleClass="info-label"/>
+                <Label fx:id="prochainRdvLabel" styleClass="info-value"/>
+            </VBox>
+        </HBox>
+
+        <!-- Graphiques et Statistiques -->
+        <HBox spacing="15" styleClass="charts-container">
+            <!-- Graphiques à gauche -->
+            <VBox spacing="15" HBox.hgrow="ALWAYS" styleClass="charts-box">
+                <TitledPane text="Évolution du Poids" expanded="true" styleClass="chart-pane">
+                    <LineChart fx:id="poidsChart" prefHeight="200" createSymbols="true" 
+                              animated="false" styleClass="custom-chart">
+                        <xAxis>
+                            <CategoryAxis label="Date" tickLabelRotation="45"/>
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis label="Poids (kg)" tickUnit="5" autoRanging="true"/>
+                        </yAxis>
+                    </LineChart>
+                </TitledPane>
+
+                <TitledPane text="Évolution de la Tension" expanded="true" styleClass="chart-pane">
+                    <LineChart fx:id="tensionChart" prefHeight="200" createSymbols="true" 
+                              animated="false" styleClass="custom-chart">
+                        <xAxis>
+                            <CategoryAxis label="Date" tickLabelRotation="45"/>
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis label="Tension (mmHg)" tickUnit="2" autoRanging="true"/>
+                        </yAxis>
+                    </LineChart>
+                </TitledPane>
+            </VBox>
+
+            <!-- Camemberts à droite -->
+            <VBox spacing="15" styleClass="pie-charts-box" minWidth="300">
+                <TitledPane text="Répartition des États" expanded="true" styleClass="chart-pane">
+                    <PieChart fx:id="statusPieChart" prefHeight="200" 
+                             animated="false" legendVisible="true" legendSide="RIGHT"/>
+                </TitledPane>
+
+                <VBox spacing="10" styleClass="stats-box">
+                    <Label text="Statistiques" styleClass="section-title"/>
+                    <GridPane hgap="10" vgap="5">
+                        <Label text="Normal:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                        <Label fx:id="normalCountLabel" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                        
+                        <Label text="À surveiller:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                        <Label fx:id="warningCountLabel" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        
+                        <Label text="Risque:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                        <Label fx:id="riskCountLabel" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                        
+                        <Label text="Anomalies:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                        <Label fx:id="anomalyCountLabel" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                    </GridPane>
+                </VBox>
+            </VBox>
+        </HBox>
+
+        <!-- Détails et Recommandations -->
+        <TitledPane text="Détails des Anomalies" expanded="false" styleClass="details-pane">
+            <VBox spacing="10">
+                <GridPane fx:id="anomalyDetailsGrid" hgap="10" vgap="10"/>
+            </VBox>
+        </TitledPane>
+
+        <TitledPane text="Recommandations" expanded="false" styleClass="details-pane">
+            <VBox fx:id="recommendationsBox" spacing="10"/>
+        </TitledPane>
+
+        <!-- Historique des analyses -->
+        <TitledPane text="Historique des Analyses" expanded="false" styleClass="details-pane">
+            <VBox fx:id="analysisHistoryContainer" spacing="10"/>
+        </TitledPane>
+
+        <!-- Boutons d'action -->
+        <HBox spacing="10" alignment="CENTER" styleClass="button-container">
+            <Button fx:id="refreshPredictionsButton" text="Actualiser" styleClass="button-primary"/>
+            <Button fx:id="exportButton" text="Exporter" styleClass="button-secondary"/>
+            <Button fx:id="backButton" text="Retour" styleClass="button-default"/>
+        </HBox>
+    </VBox>
+
+    <stylesheets>
+        <URL value="@/styles.css"/>
+    </stylesheets>
+</ScrollPane>

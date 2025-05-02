@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import tn.esprit.entities.suiviBebe;
 import tn.esprit.entities.suiviGrossesse;
 import tn.esprit.services.SuiviBebeService;
@@ -50,6 +51,9 @@ public class AjoutSuiviBebeController {
     private AfficherSuiviBebeController parentController;
     private suiviBebe suiviBebeAModifier;
     private boolean modeModification = false;
+
+    // Référence à la fenêtre actuelle
+    private Stage currentStage;
 
     private final SuiviBebeService suiviBebeService = new SuiviBebeService();
 
@@ -250,6 +254,14 @@ public class AjoutSuiviBebeController {
         System.out.println("ParentController défini dans AjoutSuiviBebeController");
     }
 
+    /**
+     * Définit la fenêtre courante pour pouvoir la fermer plus tard
+     * @param stage La fenêtre à associer à ce contrôleur
+     */
+    public void setCurrentStage(Stage stage) {
+        this.currentStage = stage;
+    }
+
     public void chargerDonneesPourModification(suiviBebe suivi) {
         if (suivi == null) {
             System.err.println("ERREUR: suiviBebe null passé à chargerDonneesPourModification");
@@ -330,7 +342,6 @@ public class AjoutSuiviBebeController {
         }
     }
 
-
     @FXML
     public void enregistrerSuiviBebe(ActionEvent actionEvent) {
         try {
@@ -382,24 +393,21 @@ public class AjoutSuiviBebeController {
                 System.out.println("Suivi Bébé ajouté avec succès !");
             }
 
-            // Fermer le formulaire et rafraîchir le tableau
-            if (parentController != null) {
-                // Afficher message de succès
-                Platform.runLater(() -> {
-                    showAlert(Alert.AlertType.INFORMATION, "Succès",
-                            modeModification ? "Suivi Bébé mis à jour avec succès !" : "Suivi Bébé ajouté avec succès !");
+            // Afficher message de succès
+            Platform.runLater(() -> {
+                showAlert(Alert.AlertType.INFORMATION, "Succès",
+                        modeModification ? "Suivi Bébé mis à jour avec succès !" : "Suivi Bébé ajouté avec succès !");
 
-                    // Fermer le formulaire immédiatement après la fermeture de l'alerte
-                    parentController.fermerFormulaire();
+                // Fermer la fenêtre courante
+                fermerFenetre();
 
-                    // Rafraîchir le tableau après un court délai
+                // Rafraîchir le tableau parent après un court délai
+                if (parentController != null) {
                     Platform.runLater(() -> {
                         parentController.rafraichirTableau();
                     });
-                });
-            } else {
-                System.err.println("ERREUR: parentController est null lors de la tentative de fermeture");
-            }
+                }
+            });
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -418,17 +426,37 @@ public class AjoutSuiviBebeController {
         alert.showAndWait();
     }
 
+    /**
+     * Ferme la fenêtre actuelle
+     */
+    private void fermerFenetre() {
+        if (currentStage != null) {
+            currentStage.close();
+            System.out.println("Fenêtre fermée");
+        } else {
+            // Tentative alternative de fermeture si Stage n'est pas défini
+            try {
+                // Essayer d'obtenir la fenêtre à partir de n'importe quel contrôle
+                Stage stage = (Stage) enregistrerButton.getScene().getWindow();
+                if (stage != null) {
+                    stage.close();
+                    System.out.println("Fenêtre fermée via référence de bouton");
+                } else {
+                    System.err.println("ERREUR: Impossible de trouver la fenêtre à fermer");
+                }
+            } catch (Exception e) {
+                System.err.println("ERREUR lors de la fermeture de la fenêtre: " + e.getMessage());
+            }
+        }
+    }
+
     @FXML
     public void annuler(ActionEvent event) {
-        // Fermer le formulaire immédiatement
-        if (parentController != null) {
-            Platform.runLater(() -> {
-                System.out.println("Annulation et fermeture du formulaire");
-                parentController.fermerFormulaire();
-            });
-        } else {
-            System.err.println("ERREUR: parentController est null lors de la tentative d'annulation");
-        }
+        // Fermer la fenêtre immédiatement
+        Platform.runLater(() -> {
+            System.out.println("Annulation et fermeture du formulaire");
+            fermerFenetre();
+        });
     }
 
     public void verifierReferences() {
@@ -442,6 +470,12 @@ public class AjoutSuiviBebeController {
             System.err.println("ERREUR: parentController n'est pas défini!");
         } else {
             System.out.println("OK: parentController est défini");
+        }
+
+        if (currentStage == null) {
+            System.err.println("ATTENTION: currentStage n'est pas défini, la fermeture de fenêtre utilisera une méthode alternative");
+        } else {
+            System.out.println("OK: currentStage est défini");
         }
     }
 }

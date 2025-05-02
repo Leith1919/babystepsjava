@@ -1,52 +1,104 @@
-/* Tableau (couleur de fond douce, bordure discrète) */
-.table-view {
-    -fx-background-color: #f4f6f9; /* Gris clair pour le fond du tableau */
-    -fx-border-color: #007acc; /* Bleu subtil pour la bordure */
-    -fx-border-radius: 12; /* Coins arrondis plus élégants */
-    -fx-padding: 10;
-    -fx-effect: dropshadow(gaussian, rgba(0,122,204,0.2), 10, 0.5, 0, 2); /* Ombre légère et moderne */
-    -fx-table-cell-border-color: #e1e5f2; /* Couleur de bordure de cellules discrète */
-    -fx-selection-bar: #007acc;
-    -fx-selection-bar-non-focused: #6baaff;
+/* Styles existants */
+
+/* Styles pour la sidebar */
+.sidebar {
+    -fx-background-color: #4a6572;
 }
 
-/* 🟦 En-tête des colonnes (grande lisibilité, texte subtil) */
-.table-view .column-header-background {
-    -fx-background-color: #ffffff; /* Fond blanc pour l'en-tête */
-    -fx-border-color: #007acc; /* Bordure subtile bleu clair */
-    -fx-border-width: 0 0 2 0;
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-alignment: center-left;
+    -fx-padding: 8 15;
+    -fx-background-radius: 5;
+}
+
+.nav-button:hover {
+    -fx-background-color: rgba(255,255,255,0.1);
+}
+
+/* Styles pour les tableaux */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 0;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: white;
+    -fx-size: 35;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #f0f0f0;
 }
 
 .table-view .column-header .label {
-    -fx-text-fill: #007acc; /* Texte en bleu moderne */
+    -fx-alignment: center-left;
+    -fx-font-size: 14px;
+    -fx-text-fill: #4a6572;
     -fx-font-weight: bold;
-    -fx-font-size: 16px; /* Taille de police plus grande pour une meilleure lisibilité */
-    -fx-alignment: center;
-    -fx-font-family: 'Segoe UI', sans-serif; /* Police moderne et élégante */
 }
 
-/* 🟦 Cellules du tableau (colonne bleue, texte blanc, design épuré) */
-.table-cell {
-    -fx-background-color: #e1f0ff; /* Bleu clair avec une touche de douceur */
-    -fx-text-fill: #333333; /* Texte en gris sombre pour un meilleur contraste */
-    -fx-font-size: 14px; /* Taille plus grande pour le confort de lecture */
-    -fx-alignment: center;
-    -fx-border-color: #c5d4e3; /* Bordure discrète autour des cellules */
-    -fx-padding: 10;
-    -fx-font-family: 'Segoe UI', sans-serif; /* Police élégante et moderne */
+.table-view .table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #f2f2f2 transparent;
 }
 
-/* 🖱️ Effet au survol d'une ligne (animation douce) */
-.table-row-cell:hover {
-    -fx-background-color: #a3cfff; /* Bleu légèrement plus foncé au survol */
-    -fx-cursor: hand;
-    -fx-scale-x: 1.02;
-    -fx-scale-y: 1.02;
-    -fx-effect: dropshadow(gaussian, #66aaff, 6, 0.3, 0, 0); /* Ombre au survol pour effet de profondeur */
+.table-view .table-row-cell:odd {
+    -fx-background-color: #fafafa;
 }
 
-/* ✅ Ligne sélectionnée (se démarquer avec une couleur profonde et élégante) */
-.table-row-cell:selected {
-    -fx-background-color: #006bb3; /* Bleu plus profond pour la sélection */
-    -fx-text-fill: white; /* Texte en blanc pour contraster avec le bleu foncé */
+.table-view .table-row-cell:hover {
+    -fx-background-color: #f5f5f5;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: rgba(93, 156, 236, 0.15);
+    -fx-text-background-color: #4a6572;
+}
+
+/* Styles pour les boutons */
+.add-button {
+    -fx-background-color: #5d9cec;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+}
+
+.add-button:hover {
+    -fx-background-color: #4a89dc;
+}
+
+.header-title {
+    -fx-text-fill: #4a6572;
+}
+
+/* Styles pour la barre de recherche */
+.search-field {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: #dcdcdc;
+    -fx-background-color: white;
+    -fx-padding: 0 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 3, 0.0, 0, 2);
+}
+
+.search-field:focused {
+    -fx-border-color: #5d9cec;
+    -fx-effect: dropshadow(three-pass-box, rgba(93,156,236,0.3), 5, 0.0, 0, 3);
+}
+
+.search-combo {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: #dcdcdc;
+    -fx-background-color: white;
+    -fx-padding: 0 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 3, 0.0, 0, 2);
+}
+
+.search-combo:focused {
+    -fx-border-color: #5d9cec;
 }

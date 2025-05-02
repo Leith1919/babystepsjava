@@ -1,128 +1,383 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import java.net.URL?>
+<?import javafx.scene.paint.*?>
 
-<AnchorPane prefHeight="591.0" prefWidth="909.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.AjoutSuiviGrossesse">
-   <children>
-      <AnchorPane prefHeight="591.0" prefWidth="179.0" style="-fx-background-color: #0099FF;">
+<BorderPane prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/21.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.AjoutSuiviGrossesse">
+   <center>
+      <StackPane>
          <children>
-            <ImageView fitHeight="92.0" fitWidth="98.0" layoutX="45.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@assets/logo-modified.png" />
-               </image>
-            </ImageView>
-            <Button layoutX="1.0" layoutY="154.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="179.0" text="Login">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-            <Button layoutY="217.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="181.0" text="SuiviGrossesse" textFill="#330202">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-            <Button layoutY="283.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="179.0" text="Logout">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-            <ImageView fitHeight="26.0" fitWidth="23.0" layoutX="23.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@assets/icons8-login-100.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="23.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@assets/icons8-pregnant-woman-48.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="27.0" fitWidth="23.0" layoutX="23.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@assets/icons8-logout-30.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="front" layoutX="1.0" layoutY="336.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="179.0" text="Front">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
+            <!-- Fond avec dégradé -->
+            <AnchorPane prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: linear-gradient(to bottom right, #f0f9ff, #e8f5fe);">
+               <effect>
+                  <DropShadow color="#0000001a" height="20.0" radius="9.5" width="20.0" />
+               </effect>
+            </AnchorPane>
+
+            <!-- Contenu principal -->
+            <HBox alignment="CENTER" spacing="0">
+               <!-- Sidebar avec effet de profondeur -->
+               <VBox prefHeight="700.0" prefWidth="250.0" style="-fx-background-color: linear-gradient(to bottom, #2b87da, #41a7f5); -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
+                  <padding>
+                     <Insets top="20" right="15" bottom="20" left="15" />
+                  </padding>
+                  <children>
+                     <StackPane alignment="CENTER" prefHeight="120.0">
+                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/logo-modified.png" />
+                           </image>
+                           <effect>
+                              <DropShadow color="#00000040" height="15.0" radius="7.0" width="15.0" />
+                           </effect>
+                        </ImageView>
+                     </StackPane>
+
+                     <Label text="MamanSanté" textFill="WHITE" alignment="CENTER" prefWidth="220.0">
+                        <font>
+                           <Font name="Arial Bold" size="22.0" />
+                        </font>
+                        <effect>
+                           <DropShadow height="3.0" radius="1.0" width="3.0" color="#00000066" />
+                        </effect>
+                     </Label>
+
+                     <Separator prefWidth="200.0" opacity="0.3">
+                        <VBox.margin>
+                           <Insets top="20" bottom="30" />
+                        </VBox.margin>
+                     </Separator>
+
+                     <!-- Menu items avec transition hover et indicateur de sélection -->
+                     <VBox spacing="15">
+                        <Button styleClass="menu-button" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: rgba(255,255,255,0.15); -fx-background-radius: 10; -fx-text-fill: white;">
+                           <graphic>
+                              <HBox alignment="CENTER_LEFT" spacing="15">
+                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                       <Image url="@assets/icons8-login-100.png" />
+                                    </image>
+                                 </ImageView>
+                                 <Label text="Tableau de bord" textFill="WHITE">
+                                    <font>
+                                       <Font name="Arial" size="16.0" />
+                                    </font>
+                                 </Label>
+                              </HBox>
+                           </graphic>
+                        </Button>
+
+                        <Button styleClass="menu-button" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: rgba(255,255,255,0.3); -fx-background-radius: 10; -fx-text-fill: white;">
+                           <graphic>
+                              <HBox alignment="CENTER_LEFT" spacing="15">
+                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                       <Image url="@assets/icons8-pregnant-woman-48.png" />
+                                    </image>
+                                 </ImageView>
+                                 <Label text="Suivi Grossesse" textFill="WHITE">
+                                    <font>
+                                       <Font name="Arial Bold" size="16.0" />
+                                    </font>
+                                 </Label>
+                                 <!-- Indicateur de page active -->
+                                 <Region prefWidth="5" prefHeight="25" style="-fx-background-color: white; -fx-background-radius: 5;">
+                                    <HBox.margin>
+                                       <Insets left="10" />
+                                    </HBox.margin>
+                                 </Region>
+                              </HBox>
+                           </graphic>
+                        </Button>
+
+                        <!-- Nouveau bouton Liste Suivi Grossesse -->
+                        <Button fx:id="listeSuiviGrossesse" onAction="#navigateToListeSuiviGrossesse" styleClass="menu-button" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: rgba(255,255,255,0.15); -fx-background-radius: 10; -fx-text-fill: white;">
+                           <graphic>
+                              <HBox alignment="CENTER_LEFT" spacing="15">
+                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                       <Image url="@assets/icons8-list-48.png" />
+                                    </image>
+                                 </ImageView>
+                                 <Label text="Liste Suivi Grossesse" textFill="WHITE">
+                                    <font>
+                                       <Font name="Arial" size="16.0" />
+                                    </font>
+                                 </Label>
+                              </HBox>
+                           </graphic>
+                        </Button>
+
+                        <Button styleClass="menu-button" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: rgba(255,255,255,0.15); -fx-background-radius: 10; -fx-text-fill: white;">
+                           <graphic>
+                              <HBox alignment="CENTER_LEFT" spacing="15">
+                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                       <Image url="@assets/icons8-calendar-48.png" />
+                                    </image>
+                                 </ImageView>
+                                 <Label text="Rendez-vous" textFill="WHITE">
+                                    <font>
+                                       <Font name="Arial" size="16.0" />
+                                    </font>
+                                 </Label>
+                              </HBox>
+                           </graphic>
+                        </Button>
+
+                        <Button fx:id="front" styleClass="menu-button" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: rgba(255,255,255,0.15); -fx-background-radius: 10; -fx-text-fill: white;">
+                           <graphic>
+                              <HBox alignment="CENTER_LEFT" spacing="15">
+                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                       <Image url="@assets/icons8-home-48.png" />
+                                    </image>
+                                 </ImageView>
+                                 <Label text="Main front" textFill="WHITE">
+                                    <font>
+                                       <Font name="Arial" size="16.0" />
+                                    </font>
+                                 </Label>
+                              </HBox>
+                           </graphic>
+                        </Button>
+
+                        <VBox.margin>
+                           <Insets bottom="30" />
+                        </VBox.margin>
+                     </VBox>
+
+                     <Region VBox.vgrow="ALWAYS" />
+
+                     <Button styleClass="menu-button" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: rgba(255,255,255,0.15); -fx-background-radius: 10; -fx-text-fill: white;">
+                        <graphic>
+                           <HBox alignment="CENTER_LEFT" spacing="15">
+                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/icons8-logout-30.png" />
+                                 </image>
+                              </ImageView>
+                              <Label text="Déconnexion" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial" size="16.0" />
+                                 </font>
+                              </Label>
+                           </HBox>
+                        </graphic>
+                     </Button>
+                  </children>
+               </VBox>
+
+               <!-- Zone de contenu principale -->
+               <VBox alignment="TOP_CENTER" spacing="20" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                  <padding>
+                     <Insets top="40" right="40" bottom="40" left="40" />
+                  </padding>
+
+                  <!-- En-tête avec titre et illustration -->
+                  <HBox alignment="CENTER" spacing="15">
+                     <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@assets/pregnancy-icon.png" />
+                        </image>
+                     </ImageView>
+                     <Label text="Création d'un Suivi de Grossesse" textFill="#2b87da">
+                        <font>
+                           <Font name="Arial Bold" size="28.0" />
+                        </font>
+                        <effect>
+                           <DropShadow color="#00000015" height="3.0" radius="1.0" width="3.0" />
+                        </effect>
+                     </Label>
+                  </HBox>
+
+                  <!-- Sous-titre -->
+                  <Label text="Enregistrez les informations pour suivre l'évolution de la grossesse" textFill="#71a7d3">
+                     <font>
+                        <Font name="Arial" size="16.0" />
+                     </font>
+                  </Label>
+
+                  <!-- Formulaire avec effet de carte -->
+                  <StackPane>
+                     <VBox spacing="25" style="-fx-background-color: white; -fx-background-radius: 20;" maxWidth="800">
+                        <padding>
+                           <Insets top="40" right="50" bottom="40" left="50" />
+                        </padding>
+
+                        <effect>
+                           <DropShadow color="#0000001a" height="30.0" radius="14.5" width="30.0" />
+                        </effect>
+
+                        <!-- Groupe date -->
+                        <VBox spacing="8">
+                           <Label text="Date du suivi" styleClass="form-label">
+                              <font>
+                                 <Font name="Arial Bold" size="16.0" />
+                              </font>
+                           </Label>
+                           <DatePicker fx:id="Date_SuiviGrossesse" styleClass="form-field" prefHeight="40.0" prefWidth="400.0" promptText="Sélectionnez une date" style="-fx-background-radius: 8;" />
+                           <Label fx:id="dateError" styleClass="error-label" text="" textFill="#e04f5f">
+                              <font>
+                                 <Font name="Arial" size="12.0" />
+                              </font>
+                           </Label>
+                        </VBox>
+
+                        <!-- Ligne avec deux champs -->
+                        <HBox spacing="30">
+                           <!-- Groupe poids -->
+                           <VBox spacing="8" HBox.hgrow="ALWAYS">
+                              <Label text="Poids (kg)" styleClass="form-label">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="Poids_SuiviGrossesse" styleClass="form-field" prefHeight="40.0" promptText="Ex: 65.5" style="-fx-background-radius: 8;">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                              <Label fx:id="poidsError" styleClass="error-label" text="" textFill="#e04f5f">
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </Label>
+                           </VBox>
+
+                           <!-- Groupe tension -->
+                           <VBox spacing="8" HBox.hgrow="ALWAYS">
+                              <Label text="Tension artérielle" styleClass="form-label">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="Tension_SuiviGrossesse" styleClass="form-field" prefHeight="40.0" promptText="Ex: 120/80" style="-fx-background-radius: 8;">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                              <Label fx:id="tensionError" styleClass="error-label" text="" textFill="#e04f5f">
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </Label>
+                           </VBox>
+                        </HBox>
+
+                        <!-- Ligne avec deux champs -->
+                        <HBox spacing="30">
+                           <!-- Groupe symptômes -->
+                           <VBox spacing="8" HBox.hgrow="ALWAYS">
+                              <Label text="Symptômes" styleClass="form-label">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="Symptomes_SuiviGrossesse" styleClass="form-field" prefHeight="40.0" promptText="Sélectionner les symptômes" style="-fx-background-radius: 8;" />
+                              <Label fx:id="symptomesError" styleClass="error-label" text="" textFill="#e04f5f">
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </Label>
+                           </VBox>
+
+                           <!-- Groupe état -->
+                           <VBox spacing="8" HBox.hgrow="ALWAYS">
+                              <Label text="État de la grossesse" styleClass="form-label">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="Etat_SuiviGrossesse" styleClass="form-field" prefHeight="40.0" promptText="Sélectionner l'état" style="-fx-background-radius: 8;" />
+                              <Label fx:id="etatError" styleClass="error-label" text="" textFill="#e04f5f">
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </Label>
+                           </VBox>
+                        </HBox>
+                        <!-- Groupe patient -->
+                        <VBox spacing="8">
+                           <Label text="Patient" styleClass="form-label">
+                              <font>
+                                 <Font name="Arial Bold" size="16.0" />
+                              </font>
+                           </Label>
+                           <ComboBox fx:id="Patient_id" styleClass="form-field" prefHeight="40.0" prefWidth="400.0" promptText="Sélectionnez un patient" style="-fx-background-radius: 8;" />
+                           <Label fx:id="patientError" styleClass="error-label" text="" textFill="#e04f5f">
+                              <font>
+                                 <Font name="Arial" size="12.0" />
+                              </font>
+                           </Label>
+                        </VBox>
+
+                        <!-- Notes supplémentaires -->
+                        <VBox spacing="8">
+                           <Label text="Notes supplémentaires" styleClass="form-label">
+                              <font>
+                                 <Font name="Arial Bold" size="16.0" />
+                              </font>
+                           </Label>
+                           <TextArea fx:id="Notes_SuiviGrossesse" styleClass="form-field" prefHeight="100.0" promptText="Ajoutez des notes ou observations supplémentaires..." style="-fx-background-radius: 8;">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </TextArea>
+                        </VBox>
+
+                        <!-- Boutons d'action -->
+                        <HBox alignment="CENTER" spacing="20">
+                           <Button fx:id="Annuler_SuiviGrossesse" mnemonicParsing="false" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #f0f0f0; -fx-background-radius: 8;" text="Annuler" textFill="#5a5a5a">
+                              <font>
+                                 <Font name="Arial Bold" size="16.0" />
+                              </font>
+                              <effect>
+                                 <DropShadow color="#00000026" height="5.0" radius="2.0" width="5.0" />
+                              </effect>
+                           </Button>
+                           <Button fx:id="Ajout_SuiviGrossesse" mnemonicParsing="false" onAction="#Ajout_SuiviGrossesse" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: linear-gradient(to right, #2b87da, #41a7f5); -fx-background-radius: 8;" text="Enregistrer" textFill="WHITE">
+                              <font>
+                                 <Font name="Arial Bold" size="16.0" />
+                              </font>
+                              <graphic>
+                                 <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                       <Image url="@assets/icons8-save-50.png" />
+                                    </image>
+                                 </ImageView>
+                              </graphic>
+                              <effect>
+                                 <DropShadow color="#00000040" height="8.0" radius="3.5" width="8.0" />
+                              </effect>
+                           </Button>
+                        </HBox>
+                     </VBox>
+                  </StackPane>
+
+                  <!-- Footer avec informations de copyright -->
+                  <Label text="© 2025 MamanSanté - Tous droits réservés" textFill="#71a7d3" opacity="0.7">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="20" />
+                     </VBox.margin>
+                  </Label>
+               </VBox>
+            </HBox>
          </children>
-      </AnchorPane>
+      </StackPane>
+   </center>
 
-      <Label layoutX="396.0" layoutY="14.0" text="Création Suivi Grossesse" textFill="#4a90e2">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Label>
-
-      <AnchorPane layoutX="206.0" layoutY="113.0" prefHeight="402.0" prefWidth="670.0" style="-fx-border-color: #66CCFF; -fx-background-color: #FFFFFF;">
-         <children>
-            <Label layoutX="59.0" layoutY="59.0" prefHeight="35.0" prefWidth="110.0" text="Date_Suivi" textFill="#4a90e2">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="78.0" layoutY="116.0" text="Poids" textFill="#4a90e2">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="69.0" layoutY="164.0" text="Tension" textFill="#4a90e2">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="65.0" layoutY="211.0" text="Symptomes" textFill="#4a90e2">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="53.0" layoutY="261.0" text="Etat_Grossesse" textFill="#4a90e2">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-
-            <!-- DatePicker qui affiche un calendrier -->
-            <DatePicker fx:id="Date_SuiviGrossesse" layoutX="244.0" layoutY="60.0" />
-            <!-- Messages d'erreur en rouge -->
-            <Label fx:id="dateError" layoutX="244.0" layoutY="92.0" textFill="RED" />
-
-            <TextField fx:id="Poids_SuiviGrossesse" layoutX="244.0" layoutY="117.0" />
-            <Label fx:id="poidsError" layoutX="244.0" layoutY="145.0" textFill="RED" />
-
-            <TextField fx:id="Tension_SuiviGrossesse" layoutX="244.0" layoutY="165.0" />
-            <Label fx:id="tensionError" layoutX="244.0" layoutY="193.0" textFill="RED" />
-
-            <!-- ComboBox pour les symptômes -->
-            <ComboBox fx:id="Symptomes_SuiviGrossesse" layoutX="244.0" layoutY="212.0" prefWidth="150.0" />
-            <Label fx:id="symptomesError" layoutX="244.0" layoutY="240.0" textFill="RED" />
-
-            <!-- ComboBox pour l'état de grossesse -->
-            <ComboBox fx:id="Etat_SuiviGrossesse" layoutX="244.0" layoutY="262.0" prefWidth="150.0" />
-            <Label fx:id="etatError" layoutX="244.0" layoutY="290.0" textFill="RED" />
-
-            <Button fx:id="Ajout_SuiviGrossesse" layoutX="237.0" layoutY="347.0" mnemonicParsing="false" onAction="#Ajout_SuiviGrossesse" prefHeight="27.0" prefWidth="150.0" style="-fx-background-color: #0099FF;" text="Ajouter" textFill="WHITE">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-
-         </children>
-      </AnchorPane>
-
-      <ImageView fitHeight="35.0" fitWidth="34.0" layoutX="344.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@assets/icons8-add-16.png" />
-         </image>
-      </ImageView>
-   </children>
-</AnchorPane>
+   <!-- Style global -->
+   <stylesheets>
+      <URL value="@assets/application.css" />
+   </stylesheets>
+</BorderPane>

@@ -3,36 +3,43 @@ package tn.esprit.entities;
 import java.util.Date;
 
 public class suiviGrossesse {
+
     private int id;
     private Date dateSuivi;
     private double poids;
     private double tension;
     private String symptomes;
     private String etatGrossesse;
+    private Integer patientId; // Nouvel attribut
 
-    // Constructeur vide (obligatoire pour certains frameworks ou outils)
+    // --- Constructeurs ---
+
+    // Constructeur vide
     public suiviGrossesse() {}
 
-    // Constructeur pour l'insertion (sans id, car il est auto-incrémenté)
-    public suiviGrossesse(Date dateSuivi, double poids, double tension, String symptomes, String etatGrossesse) {
+    // Constructeur pour l'insertion (sans id car auto-incrémenté)
+    public suiviGrossesse(Date dateSuivi, double poids, double tension, String symptomes, String etatGrossesse, Integer patientId) {
         this.dateSuivi = dateSuivi;
         this.poids = poids;
         this.tension = tension;
         this.symptomes = symptomes;
         this.etatGrossesse = etatGrossesse;
+        this.patientId = patientId;
     }
 
-    // Constructeur complet (utile lors de la récupération depuis la BD)
-    public suiviGrossesse(int id, Date dateSuivi, double poids, double tension, String symptomes, String etatGrossesse) {
+    // Constructeur complet (avec id, utile pour la récupération depuis la base)
+    public suiviGrossesse(int id, Date dateSuivi, double poids, double tension, String symptomes, String etatGrossesse, Integer patientId) {
         this.id = id;
         this.dateSuivi = dateSuivi;
         this.poids = poids;
         this.tension = tension;
         this.symptomes = symptomes;
         this.etatGrossesse = etatGrossesse;
+        this.patientId = patientId;
     }
 
-    // Getters et Setters
+    // --- Getters et Setters ---
+
     public int getId() {
         return id;
     }
@@ -81,7 +88,15 @@ public class suiviGrossesse {
         this.etatGrossesse = etatGrossesse;
     }
 
-    // toString()
+    public Integer getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Integer patientId) {
+        this.patientId = patientId;
+    }
+
+    // --- toString() ---
     @Override
     public String toString() {
         return "SuiviGrossesse{" +
@@ -91,6 +106,7 @@ public class suiviGrossesse {
                 ", tension=" + tension +
                 ", symptomes='" + symptomes + '\'' +
                 ", etatGrossesse='" + etatGrossesse + '\'' +
+                ", patientId=" + patientId +
                 '}';
     }
 }

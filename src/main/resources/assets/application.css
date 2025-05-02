@@ -1,0 +1,70 @@
+/* application.css */
+
+.root {
+    -fx-font-family: 'Arial';
+}
+
+/* Style des boutons du menu */
+.menu-button {
+    -fx-cursor: hand;
+}
+
+.menu-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.25) !important;
+    -fx-translate-x: 5;
+}
+
+/* Style des champs de formulaire */
+.form-field {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-padding: 8px 12px;
+}
+
+.form-field:focused {
+    -fx-background-color: white;
+    -fx-border-color: #2b87da;
+    -fx-border-width: 2px;
+}
+
+/* Style des étiquettes de formulaire */
+.form-label {
+    -fx-text-fill: #4a5568;
+}
+
+/* Style des messages d'erreur */
+.error-label {
+    -fx-padding: 0 0 0 5px;
+    -fx-font-style: italic;
+}
+
+/* Style des boutons d'action */
+Button {
+    -fx-cursor: hand;
+}
+
+Button:hover {
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+
+/* Style du DatePicker */
+.date-picker .arrow-button {
+    -fx-background-color: #2b87da;
+    -fx-background-radius: 0 8 8 0;
+}
+
+.date-picker .arrow-button .arrow {
+    -fx-background-color: white;
+}
+
+/* Style des ComboBox */
+.combo-box .arrow-button {
+    -fx-background-color: #2b87da;
+}
+
+.combo-box .arrow {
+    -fx-background-color: white;
+}

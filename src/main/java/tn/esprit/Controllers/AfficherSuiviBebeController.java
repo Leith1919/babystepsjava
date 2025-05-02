@@ -3,14 +3,21 @@ package tn.esprit.Controllers;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import tn.esprit.entities.suiviBebe;
 import tn.esprit.entities.suiviGrossesse;
 import tn.esprit.services.SuiviBebeService;
@@ -18,23 +25,32 @@ import tn.esprit.services.SuiviBebeService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 public class AfficherSuiviBebeController implements Initializable {
 
     @FXML
-    private Button ajoutBebeButton;
+    private Button btnRetour;
 
     @FXML
     private AnchorPane formContainer;
 
     @FXML
+    private Button ajoutBebeButton;
+
+    @FXML
+    private TextField rechercheField;
+
+    @FXML
     private TableView<suiviBebe> tableView_SuiviGrossesse;
 
     @FXML
-    private TableColumn<suiviBebe, String> colDatebebe;
+    private TableColumn<suiviBebe, Date> colDatebebe;
 
     @FXML
     private TableColumn<suiviBebe, Double> colPoidsbebe;
@@ -56,34 +72,92 @@ public class AfficherSuiviBebeController implements Initializable {
 
     @FXML
     private TableColumn<suiviBebe, Void> colSupprimerbebe;
+    @FXML
+    private Button exportPdfButton;
 
-    private SuiviBebeService bebeService = new SuiviBebeService();
+    private final SuiviBebeService bebeService = new SuiviBebeService();
     private ObservableList<suiviBebe> data;
-
+    private FilteredList<suiviBebe> filteredData;
     private suiviGrossesse suiviGrossesse;
-
-    public void setSuiviGrossesse(suiviGrossesse sg) {
-        this.suiviGrossesse = sg;
-        System.out.println("ID Suivi Grossesse reçu : " + sg.getId());
-
-        // Activer le bouton une fois que le suiviGrossesse est défini
-        if (ajoutBebeButton != null) {
-            ajoutBebeButton.setDisable(false);
-        }
-
-        // Charger les données liées à ce suivi grossesse
-        rafraichirTableau();
-    }
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Initialiser l'ObservableList
+        System.out.println("Initialisation du contrôleur AfficherSuiviBebeController");
+
+        // Initialisation des données
         data = FXCollections.observableArrayList();
 
-        // Désactiver le bouton jusqu'à ce qu'un suiviGrossesse soit défini
-        ajoutBebeButton.setDisable(true);
+        // Créer la liste filtrée
+        filteredData = new FilteredList<>(data, p -> true);
 
-        // Initialiser les colonnes de données
+        // Configuration de la table
+        setupTableColumns();
+
+        // Configuration de la recherche si le champ existe
+        if (rechercheField != null) {
+            configureRecherche();
+        }
+
+        // Configuration du bouton retour
+        if (btnRetour != null) {
+            btnRetour.setOnAction(event -> handleRetour());
+        }
+
+        // Désactiver le bouton initialement
+        if (ajoutBebeButton != null) {
+            ajoutBebeButton.setDisable(true);
+        }
+
+        // Configurer le bouton d'exportation PDF
+        if (exportPdfButton != null) {
+            PDFExportUtil.setupExportButton(exportPdfButton, this);
+        }
+
+        // Lier les données filtrées à la table via une SortedList
+        SortedList<suiviBebe> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tableView_SuiviGrossesse.comparatorProperty());
+        tableView_SuiviGrossesse.setItems(sortedData);
+    }
+
+    private void configureRecherche() {
+        if (rechercheField != null) {
+            rechercheField.textProperty().addListener((observable, oldValue, newValue) -> {
+                filteredData.setPredicate(createPredicate(newValue));
+            });
+        }
+    }
+
+    private Predicate<suiviBebe> createPredicate(String searchText) {
+        return suivi -> {
+            if (searchText == null || searchText.isEmpty()) {
+                return true;
+            }
+
+            String lowerCaseFilter = searchText.toLowerCase();
+
+            // Vérifier si le texte de recherche correspond à un attribut
+            if (suivi.getEtatSante().toLowerCase().contains(lowerCaseFilter)) {
+                return true;
+            }
+            if (suivi.getAppetitBebe().toLowerCase().contains(lowerCaseFilter)) {
+                return true;
+            }
+            if (dateFormat.format(suivi.getDateSuivi()).contains(lowerCaseFilter)) {
+                return true;
+            }
+            if (String.valueOf(suivi.getPoidsBebe()).contains(lowerCaseFilter)) {
+                return true;
+            }
+            if (String.valueOf(suivi.getTailleBebe()).contains(lowerCaseFilter)) {
+                return true;
+            }
+            return String.valueOf(suivi.getBattementCoeur()).contains(lowerCaseFilter);
+        };
+    }
+
+    private void setupTableColumns() {
+        // Configuration des colonnes de données
         colDatebebe.setCellValueFactory(new PropertyValueFactory<>("dateSuivi"));
         colPoidsbebe.setCellValueFactory(new PropertyValueFactory<>("poidsBebe"));
         colTaillebebe.setCellValueFactory(new PropertyValueFactory<>("tailleBebe"));
@@ -91,25 +165,32 @@ public class AfficherSuiviBebeController implements Initializable {
         colbattementbebe.setCellValueFactory(new PropertyValueFactory<>("battementCoeur"));
         colappetit.setCellValueFactory(new PropertyValueFactory<>("appetitBebe"));
 
-        // Configuration des colonnes d'action
-        configureButtonColumns();
+        // Configuration des colonnes d'actions
+        colModifierbebe.setCellFactory(this::createModifierButtonCell);
+        colSupprimerbebe.setCellFactory(this::createSupprimerButtonCell);
 
-        // Lier les données à la table
-        tableView_SuiviGrossesse.setItems(data);
+        // Formatage de la date - CORRECTION IMPORTANTE ICI
+        colDatebebe.setCellFactory(column -> new TableCell<suiviBebe, Date>() {
+            @Override
+            protected void updateItem(Date date, boolean empty) {
+                super.updateItem(date, empty);
+                if (empty || date == null) {
+                    setText(null);
+                } else {
+                    setText(dateFormat.format(date));
+                }
+            }
+        });
     }
 
-    private void configureButtonColumns() {
-        // Colonne Modifier
-        colModifierbebe.setCellFactory(param -> new TableCell<suiviBebe, Void>() {
+    private TableCell<suiviBebe, Void> createModifierButtonCell(TableColumn<suiviBebe, Void> param) {
+        return new TableCell<>() {
             private final Button modifierBtn = new Button("Modifier");
 
             {
-                // Style du bouton
                 modifierBtn.setStyle("-fx-background-color: #4a90e2; -fx-text-fill: white;");
-
-                // Action du bouton
                 modifierBtn.setOnAction(event -> {
-                    suiviBebe suivi = getTableRow().getItem();
+                    suiviBebe suivi = getTableView().getItems().get(getIndex());
                     if (suivi != null) {
                         ouvrirFormulaireModificationBebe(suivi);
                     }
@@ -119,25 +200,19 @@ public class AfficherSuiviBebeController implements Initializable {
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(modifierBtn);
-                }
+                setGraphic(empty ? null : modifierBtn);
             }
-        });
+        };
+    }
 
-        // Colonne Supprimer
-        colSupprimerbebe.setCellFactory(param -> new TableCell<suiviBebe, Void>() {
+    private TableCell<suiviBebe, Void> createSupprimerButtonCell(TableColumn<suiviBebe, Void> param) {
+        return new TableCell<>() {
             private final Button supprimerBtn = new Button("Supprimer");
 
             {
-                // Style du bouton
                 supprimerBtn.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white;");
-
-                // Action du bouton
                 supprimerBtn.setOnAction(event -> {
-                    suiviBebe suivi = getTableRow().getItem();
+                    suiviBebe suivi = getTableView().getItems().get(getIndex());
                     if (suivi != null) {
                         confirmerSuppression(suivi);
                     }
@@ -147,22 +222,91 @@ public class AfficherSuiviBebeController implements Initializable {
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(supprimerBtn);
-                }
+                setGraphic(empty ? null : supprimerBtn);
             }
-        });
+        };
     }
 
-    private void confirmerSuppression(suiviBebe suivi) {
-        if (suivi == null) {
-            afficherErreur("Erreur", "Aucun suivi sélectionné");
+    public void setSuiviGrossesse(suiviGrossesse sg) {
+        this.suiviGrossesse = sg;
+        if (sg == null) {
+            System.err.println("Attention: tentative de définir un suiviGrossesse null");
+            ajoutBebeButton.setDisable(true);
             return;
         }
 
-        System.out.println("Tentative de suppression du suivi ID: " + suivi.getId());
+        System.out.println("ID Suivi Grossesse défini : " + sg.getId());
+
+        // Activer le bouton
+        if (ajoutBebeButton != null) {
+            ajoutBebeButton.setDisable(false);
+        }
+
+        // Rafraîchir les données immédiatement
+        rafraichirTableau();
+    }
+
+    @FXML
+    private void ouvrirFormulaireAjoutBebe(ActionEvent event) {
+        if (suiviGrossesse == null) {
+            showAlert("Erreur", "Aucun suivi de grossesse sélectionné.");
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutSuiviBebe.fxml"));
+            Pane form = loader.load();
+
+            AjoutSuiviBebeController controller = loader.getController();
+            controller.setSuiviGrossesse(this.suiviGrossesse);
+            controller.setParentController(this);
+
+            Stage stage = new Stage();
+            stage.setTitle("Ajout d'un suivi bébé");
+            stage.setScene(new Scene(form));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setOnHidden(e -> {
+                // Rafraîchir la table après la fermeture de la fenêtre
+                Platform.runLater(this::rafraichirTableau);
+            });
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Erreur de chargement: " + e.getMessage());
+        }
+    }
+
+    private void ouvrirFormulaireModificationBebe(suiviBebe suivi) {
+        if (suivi == null) return;
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutSuiviBebe.fxml"));
+            Pane form = loader.load();
+
+            AjoutSuiviBebeController controller = loader.getController();
+            controller.setSuiviGrossesse(this.suiviGrossesse);
+            controller.setParentController(this);
+            controller.chargerDonneesPourModification(suivi);
+
+            Stage stage = new Stage();
+            stage.setTitle("Modification d'un suivi bébé");
+            stage.setScene(new Scene(form));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setOnHidden(e -> {
+                // Rafraîchir la table après la fermeture de la fenêtre
+                Platform.runLater(this::rafraichirTableau);
+            });
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Erreur lors du chargement du formulaire: " + e.getMessage());
+        }
+    }
+
+    private void confirmerSuppression(suiviBebe suivi) {
+        if (suivi == null) return;
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation de suppression");
@@ -172,228 +316,106 @@ public class AfficherSuiviBebeController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
-                System.out.println("Suppression confirmée, exécution...");
                 bebeService.supprimer(suivi);
-                System.out.println("Suppression réussie!");
-                rafraichirTableau();
+                // Rafraîchir immédiatement la table
+                Platform.runLater(this::rafraichirTableau);
             } catch (SQLException e) {
-                System.err.println("Erreur SQL lors de la suppression: " + e.getMessage());
                 e.printStackTrace();
-                afficherErreur("Erreur lors de la suppression", e.getMessage());
-            } catch (Exception e) {
-                System.err.println("Erreur générale lors de la suppression: " + e.getMessage());
-                e.printStackTrace();
-                afficherErreur("Erreur inattendue", "Une erreur s'est produite: " + e.getMessage());
+                showAlert("Erreur SQL", e.getMessage());
             }
-        } else {
-            System.out.println("Suppression annulée par l'utilisateur");
         }
     }
 
-    private void ouvrirFormulaireModificationBebe(suiviBebe suivi) {
-        if (suivi == null) {
-            afficherErreur("Erreur", "Aucun suivi sélectionné");
-            return;
-        }
-
-        try {
-            // Vider complètement le conteneur
-            formContainer.getChildren().clear();
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutSuiviBebe.fxml"));
-            Pane form = loader.load();
-
-            // Définir des dimensions explicites
-            form.setPrefWidth(600);  // Ajustez selon vos besoins
-            form.setPrefHeight(400); // Ajustez selon vos besoins
-            form.setVisible(true);
-            form.setManaged(true);
-
-            // Configurer le contrôleur
-            AjoutSuiviBebeController controller = loader.getController();
-            controller.setSuiviGrossesse(this.suiviGrossesse);
-            controller.setParentController(this);
-            controller.chargerDonneesPourModification(suivi);
-
-            // IMPORTANT: Vérifier que le contrôleur est bien initialisé
-            controller.verifierReferences();
-
-            // Créer un overlay avec des dimensions précises
-            AnchorPane overlay = new AnchorPane();
-            overlay.setPrefSize(formContainer.getWidth(), formContainer.getHeight());
-            overlay.setMinSize(formContainer.getWidth(), formContainer.getHeight());
-            overlay.setMaxSize(formContainer.getWidth(), formContainer.getHeight());
-            overlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7);");
-
-            // Positionner le formulaire au centre exact
-            AnchorPane.setTopAnchor(form, (formContainer.getHeight() - form.getPrefHeight()) / 2);
-            AnchorPane.setLeftAnchor(form, (formContainer.getWidth() - form.getPrefWidth()) / 2);
-
-            // Ajouter le formulaire à l'overlay
-            overlay.getChildren().add(form);
-
-            // Ajouter l'overlay au conteneur
-            formContainer.getChildren().add(overlay);
-
-            // Forcer un rafraîchissement de l'affichage
-            formContainer.requestLayout();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            afficherErreur("Erreur de chargement", "Erreur lors du chargement du formulaire: " + e.getMessage());
-        }
-    }
-    @FXML
-    private void ouvrirFormulaireAjoutBebe(ActionEvent event) {
-        try {
-            if (suiviGrossesse == null) {
-                afficherErreur("Erreur", "Aucun suivi grossesse défini");
-                return;
-            }
-
-            // Vider complètement le conteneur
-            formContainer.getChildren().clear();
-
-            // Charger le formulaire avec toutes les dimensions explicites
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutSuiviBebe.fxml"));
-            Pane form = loader.load();
-
-            // Définir des dimensions explicites au formulaire
-            form.setPrefWidth(600);  // Ajustez selon vos besoins
-            form.setPrefHeight(400); // Ajustez selon vos besoins
-
-            // S'assurer que le formulaire est visible
-            form.setVisible(true);
-            form.setManaged(true);
-
-            // Configurer le contrôleur
-            AjoutSuiviBebeController controller = loader.getController();
-            controller.setSuiviGrossesse(this.suiviGrossesse);
-            controller.setParentController(this);
-
-            // IMPORTANT: Vérifier que le contrôleur est bien initialisé
-            controller.verifierReferences();  // Assurez-vous que cette méthode existe et est publique
-
-            // Créer un overlay dimensionné à la taille exacte du conteneur
-            AnchorPane overlay = new AnchorPane();
-            overlay.setPrefSize(formContainer.getWidth(), formContainer.getHeight());
-            overlay.setMinSize(formContainer.getWidth(), formContainer.getHeight());
-            overlay.setMaxSize(formContainer.getWidth(), formContainer.getHeight());
-            overlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7);");
-
-            // Centre exactement le formulaire
-            AnchorPane.setTopAnchor(form, (formContainer.getHeight() - form.getPrefHeight()) / 2);
-            AnchorPane.setLeftAnchor(form, (formContainer.getWidth() - form.getPrefWidth()) / 2);
-
-            // Ajouter le formulaire à l'overlay
-            overlay.getChildren().add(form);
-
-            // Ajouter l'overlay au conteneur
-            formContainer.getChildren().add(overlay);
-
-            // Forcer un rafraîchissement de l'affichage
-            formContainer.requestLayout();
-
-            System.out.println("Formulaire d'ajout ouvert avec succès");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            afficherErreur("Erreur de chargement", "Erreur lors du chargement du formulaire: " + e.getMessage());
-        }
-    }
     public void rafraichirTableau() {
+        System.out.println("Début rafraichirTableau");
         if (suiviGrossesse == null) {
-            System.out.println("Impossible de rafraîchir : suiviGrossesse est null");
+            System.err.println("Impossible de rafraîchir: suiviGrossesse est null");
             return;
         }
 
         try {
-            System.out.println("Rafraîchissement du tableau pour suiviGrossesse ID : " + suiviGrossesse.getId());
+            System.out.println("Tentative de récupération des données pour suiviGrossesse #" + suiviGrossesse.getId());
+            List<suiviBebe> liste = bebeService.recupererParSuiviGrossesse(suiviGrossesse);
+            System.out.println("Données récupérées : " + (liste == null ? "null" : liste.size() + " éléments"));
 
-            // Exécuter dans le thread d'interface utilisateur
-            Platform.runLater(() -> {
-                try {
-                    // Créer une nouvelle liste pour éviter les problèmes de concurrence
-                    List<suiviBebe> liste = bebeService.recupererParSuiviGrossesse(suiviGrossesse);
-
-                    // Mettre à jour les données de façon sûre
+            if (liste != null) {
+                System.out.println("Premier élément : " + (liste.isEmpty() ? "aucun" : liste.get(0).getDateSuivi()));
+                Platform.runLater(() -> {
                     data.clear();
-                    if (liste != null && !liste.isEmpty()) {
-                        data.addAll(liste);
-                        System.out.println("Tableau mis à jour avec " + liste.size() + " enregistrements");
-                    } else {
-                        System.out.println("Aucun enregistrement trouvé pour ce suivi de grossesse");
-                    }
-
-                    // Forcer le rafraîchissement visuel de la table
+                    System.out.println("Data cleared, adding new items: " + liste.size());
+                    data.addAll(liste);
+                    System.out.println("Data size after adding: " + data.size());
+                    filteredData.setPredicate(p -> true);
                     tableView_SuiviGrossesse.refresh();
+                    System.out.println("Table refreshed");
+                });
+            }
+        } catch (Exception e) {
+            System.err.println("Erreur lors du rafraîchissement : " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
-                    // Animation visuelle pour indiquer le rafraîchissement
-                    tableView_SuiviGrossesse.setStyle("-fx-border-color: #4CAF50; -fx-border-width: 2px;");
-                    new java.util.Timer().schedule(
-                            new java.util.TimerTask() {
-                                @Override
-                                public void run() {
-                                    Platform.runLater(() -> tableView_SuiviGrossesse.setStyle(""));
-                                }
-                            },
-                            800
-                    );
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    System.err.println("Erreur lors du rafraîchissement du tableau: " + e.getMessage());
-                    afficherErreur("Erreur de rafraîchissement",
-                            "Erreur lors du rafraîchissement du tableau : " + e.getMessage());
+    private void handleRetour() {
+        try {
+            // Au lieu de manipuler le BorderPane existant, nous allons charger
+            // complètement la nouvelle vue et la définir comme racine de la scène
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherSuiviGrossesseFront.fxml"));
+            Parent root = loader.load();
+
+            // Récupérer le contrôleur
+            AfficherSuiviGrossesseFront controller = loader.getController();
+
+            // Obtenir la scène actuelle
+            Scene currentScene = btnRetour.getScene();
+
+            // Remplacer COMPLÈTEMENT le root de la scène
+            Platform.runLater(() -> {
+                // Définir la nouvelle racine pour la scène
+                currentScene.setRoot(root);
+
+                // Initialiser les données après avoir remplacé la vue
+                if (suiviGrossesse != null) {
+                    controller.afficherSuiviGrossesseById(suiviGrossesse.getId());
                 }
             });
-        } catch (Exception e) {
+
+        } catch (IOException e) {
             e.printStackTrace();
-            afficherErreur("Erreur de rafraîchissement",
-                    "Erreur lors du rafraîchissement du tableau : " + e.getMessage());
+            showAlert("Erreur", "Erreur lors du retour à la vue précédente: " + e.getMessage());
         }
     }
-
-    public void fermerFormulaire() {
-        Platform.runLater(() -> {
-            try {
-                if (formContainer != null) {
-                    // Vider complètement le conteneur
-                    formContainer.getChildren().clear();
-                    System.out.println("Formulaire fermé avec succès");
-
-                    // Forcer la mise à jour visuelle
-                    formContainer.requestLayout();
-
-                    // Rafraîchir le tableau avec un délai pour assurer que tout est bien fermé
-                    new java.util.Timer().schedule(
-                            new java.util.TimerTask() {
-                                @Override
-                                public void run() {
-                                    Platform.runLater(() -> rafraichirTableau());
-                                }
-                            },
-                            200
-                    );
-                } else {
-                    System.err.println("ATTENTION: formContainer est null");
-                }
-            } catch (Exception e) {
-                System.err.println("Erreur lors de la fermeture du formulaire: " + e.getMessage());
-                e.printStackTrace();
-            }
-        });
-    }
-    private void afficherErreur(String titre, String... messages) {
+    private void showAlert(String titre, String message) {
         Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle(titre);
             alert.setHeaderText(null);
-            alert.setContentText(String.join("\n", messages));
+            alert.setContentText(message);
             alert.showAndWait();
         });
     }
 
     public void initData(suiviGrossesse sg) {
         setSuiviGrossesse(sg);
+    }
+
+
+    public SuiviBebeService getBebeService() {
+        return this.bebeService;
+    }
+
+    /**
+     * Renvoie le suivi de grossesse actuel
+     */
+    public suiviGrossesse getSuiviGrossesse() {
+        return this.suiviGrossesse;
+    }
+
+    /**
+     * Renvoie le bouton d'ajout de bébé (utilisé par PDFExportUtil pour obtenir le stage parent)
+     */
+    public Button getAjoutBebeButton() {
+        return this.ajoutBebeButton;
     }
 }

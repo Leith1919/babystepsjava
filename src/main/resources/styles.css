@@ -1,0 +1,265 @@
+/* styles.css */
+.root {
+    -fx-background-color: #f4f6f8;
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* Variables de couleur */
+* {
+    -color-primary: #4285f4;
+    -color-secondary: #34a853;
+    -color-warning: #fbbc05;
+    -color-danger: #ea4335;
+    -color-success: #28a745;
+    -color-info: #17a2b8;
+    -color-light: #f8f9fa;
+    -color-dark: #343a40;
+}
+
+/* ScrollPane principal */
+.main-scroll-pane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+}
+
+.main-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Container principal */
+.main-container {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-spacing: 20;
+}
+
+/* En-tête */
+.header-box {
+    -fx-padding: 20;
+    -fx-background-color: -color-primary;
+    -fx-background-radius: 10;
+}
+
+.header-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.header-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
+}
+
+/* Grille de statistiques */
+.stats-grid {
+    -fx-background-color: -color-light;
+    -fx-padding: 15;
+    -fx-background-radius: 10;
+    -fx-hgap: 20;
+    -fx-vgap: 10;
+}
+
+.stat-box {
+    -fx-background-color: white;
+    -fx-padding: 15;
+    -fx-background-radius: 8;
+    -fx-alignment: center;
+    -fx-spacing: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3);
+}
+
+.stat-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: -color-dark;
+}
+
+.stat-value {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-primary;
+}
+
+/* Barre de progression */
+.risk-progress {
+    -fx-pref-width: 150;
+}
+
+.risk-progress .bar {
+    -fx-background-color: linear-gradient(to right, -color-success, -color-warning, -color-danger);
+}
+
+.risk-progress .track {
+    -fx-background-color: #e9ecef;
+}
+
+/* Conteneurs de graphiques */
+.chart-container {
+    -fx-background-color: white;
+    -fx-padding: 15;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3);
+}
+
+.chart-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-dark;
+}
+
+/* Graphiques détaillés */
+.detailed-chart {
+    -fx-create-symbols: true;
+    -fx-animation-duration: 1s;
+}
+
+.chart-series-line {
+    -fx-stroke-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 1);
+}
+
+.chart-line-symbol {
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: #eee;
+    -fx-stroke-dash-array: 3 3;
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: #eee;
+    -fx-stroke-dash-array: 3 3;
+}
+
+.axis {
+    -fx-tick-label-fill: #666;
+    -fx-tick-label-font-size: 12px;
+}
+
+.axis-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* TitledPane personnalisé */
+.titled-pane {
+    -fx-text-fill: -color-dark;
+}
+
+.titled-pane > .title {
+    -fx-background-color: -color-light;
+    -fx-background-radius: 5 5 0 0;
+    -fx-padding: 10;
+}
+
+.titled-pane > .content {
+    -fx-background-color: white;
+    -fx-background-radius: 0 0 5 5;
+    -fx-padding: 15;
+}
+
+/* Camemberts */
+.pie-chart {
+    -fx-padding: 10;
+    -fx-animated: true;
+}
+
+.pie-chart-legend {
+    -fx-background-color: transparent;
+}
+
+.chart-pie {
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+}
+
+.chart-pie-label {
+    -fx-fill: -color-dark;
+}
+
+/* Conteneur des anomalies */
+.anomaly-grid {
+    -fx-padding: 10;
+}
+
+.anomaly-box {
+    -fx-background-color: #fff5f5;
+    -fx-background-radius: 5;
+    -fx-padding: 10;
+    -fx-border-color: -color-danger;
+    -fx-border-radius: 5;
+    -fx-border-width: 1;
+}
+
+/* Conteneur des recommandations */
+.recommendations-container {
+    -fx-spacing: 10;
+}
+
+.recommendation-box {
+    -fx-background-color: #f0f9ff;
+    -fx-background-radius: 5;
+    -fx-padding: 10;
+    -fx-border-color: -color-info;
+    -fx-border-radius: 5;
+    -fx-border-width: 1;
+}
+
+/* Historique */
+.history-container {
+    -fx-spacing: 10;
+    -fx-padding: 10;
+}
+
+/* Boutons */
+.button-container {
+    -fx-padding: 20 0;
+}
+
+.button {
+    -fx-padding: 8 15;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.button-primary {
+    -fx-background-color: -color-primary;
+    -fx-text-fill: white;
+}
+
+.button-secondary {
+    -fx-background-color: -color-secondary;
+    -fx-text-fill: white;
+}
+
+.button-default {
+    -fx-background-color: -color-dark;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-opacity: 0.9;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);
+}
+
+/* Animations */
+.chart-series-line {
+    -fx-stroke-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 1);
+    -fx-animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 1); }
+    50% { -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 2); }
+    100% { -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 1); }
+}

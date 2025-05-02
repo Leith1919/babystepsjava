@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import tn.esprit.entities.user;
 import tn.esprit.entities.suiviBebe;
 import tn.esprit.entities.suiviGrossesse;
 import tn.esprit.tools.MyDatabase;
@@ -13,6 +14,11 @@ public class SuiviBebeService implements IServices<suiviBebe> {
 
     public SuiviBebeService() {
         cnx = MyDatabase.getInstance().getCnx();
+    }
+
+    @Override
+    public void supprimer(int id) throws SQLException {
+
     }
 
     @Override
@@ -31,6 +37,11 @@ public class SuiviBebeService implements IServices<suiviBebe> {
             ps.executeUpdate();
             System.out.println("✅ Suivi bébé ajouté avec succès.");
         }
+    }
+
+    @Override
+    public void modifier(user user) throws SQLException {
+
     }
 
     @Override
@@ -92,6 +103,11 @@ public class SuiviBebeService implements IServices<suiviBebe> {
             ps.executeUpdate();
             System.out.println("📝 Suivi bébé mis à jour avec succès.");
         }
+    }
+
+    @Override
+    public void modifier(suiviGrossesse suivi) throws SQLException {
+
     }
 
     public List<suiviBebe> recupererParSuiviGrossesse(suiviGrossesse sg) {

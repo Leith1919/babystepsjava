@@ -3,6 +3,8 @@
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,9 +15,10 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.animation.FadeTransition?>
-<BorderPane prefHeight="700.0" prefWidth="1048.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.AfficherSuiviGrossesseFront">
+<?import javafx.scene.control.TableColumn?>
+
+<BorderPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.AfficherSuiviGrossesseFront">
 
     <stylesheets>
         <URL value="@style.css" />
@@ -25,17 +28,16 @@
     <left>
         <VBox fx:id="sidebar" styleClass="sidebar">
             <HBox styleClass="logo-container">
-            <ImageView fitHeight="61.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@assets/logo-modified.png" />
-               </image>
-            </ImageView>
+                <ImageView fitHeight="61.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/logo-modified.png" />
+                    </image>
+                </ImageView>
                 <Label styleClass="logo-text" />
                 <Label styleClass="logo-text-accent" />
             </HBox>
 
             <VBox spacing="5" styleClass="menu-container">
-
                 <Button fx:id="btnComptes" styleClass="menu-button, active-menu-button" text="COMPTES">
                     <graphic>
                         <ImageView fitHeight="20" fitWidth="20">
@@ -87,7 +89,6 @@
                             </HBox>
 
                             <HBox spacing="20">
-
                                 <!-- Right section - GridPane for accounts list -->
                                 <GridPane fx:id="accountsGridPane" hgap="10" prefHeight="498.0" prefWidth="637.0" styleClass="accounts-grid" vgap="5">
                                     <columnConstraints>
@@ -103,43 +104,93 @@
                                     <VBox spacing="5" GridPane.columnSpan="5">
                                         <!-- Row 1 -->
                                         <HBox styleClass="account-row">
-
                                         </HBox>
 
                                         <!-- Row 2 -->
                                         <HBox styleClass="account-row, account-row-alt">
-
                                         </HBox>
 
                                         <!-- Row 3 -->
                                         <HBox styleClass="account-row">
-
                                         </HBox>
 
                                         <!-- Add more rows as needed -->
                                         <HBox styleClass="account-row, account-row-alt">
-
                                         </HBox>
 
                                         <HBox styleClass="account-row">
-
                                         </HBox>
 
                                         <HBox styleClass="account-row, account-row-alt">
-
                                         </HBox>
                                     </VBox>
-                           <rowConstraints>
-                              <RowConstraints />
-                           </rowConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints />
+                                    </rowConstraints>
                                 </GridPane>
                             </HBox>
                         </VBox>
                     </center>
                 </BorderPane>
-
-
             </StackPane>
         </AnchorPane>
     </center>
+
+    <!-- Right AI Chat Sidebar -->
+    <right>
+        <VBox fx:id="aiChatSidebar" prefWidth="280.0" styleClass="ai-chat-sidebar">
+            <!-- AI Chat Header -->
+            <HBox alignment="CENTER" styleClass="ai-chat-header">
+                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/ai-icon.png" />
+                    </image>
+                </ImageView>
+                <Label styleClass="ai-chat-title" text="Assistant IA" />
+            </HBox>
+
+            <!-- Chat Messages Area -->
+            <ScrollPane fx:id="chatScrollPane" fitToWidth="true" styleClass="chat-scroll-pane" VBox.vgrow="ALWAYS">
+                <VBox fx:id="chatMessagesContainer" spacing="10" styleClass="chat-messages-container">
+                    <!-- Messages will be added dynamically -->
+                    <HBox styleClass="ai-message-container">
+                        <VBox styleClass="ai-message">
+                            <Label styleClass="message-text" text="Bonjour, je suis votre assistant médical. Comment puis-je vous aider avec le suivi de grossesse?" wrapText="true" />
+                            <Label styleClass="message-timestamp" text="10:30" />
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </ScrollPane>
+
+            <!-- Status label for recording -->
+            <Label fx:id="recordingStatusLabel" styleClass="recording-status" text="Enregistrement en cours..." visible="false" />
+
+            <!-- Input Area -->
+            <HBox alignment="CENTER" spacing="10" styleClass="chat-input-container">
+                <TextField fx:id="chatInputField" promptText="Posez votre question ici..." styleClass="chat-input-field" HBox.hgrow="ALWAYS" />
+
+                <!-- Recording Button -->
+                <Button fx:id="recordButton" styleClass="record-button">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/mic-icon.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
+                <!-- Send Button -->
+                <Button fx:id="sendMessageButton" styleClass="send-button">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/send-icon.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </HBox>
+        </VBox>
+    </right>
 </BorderPane>
