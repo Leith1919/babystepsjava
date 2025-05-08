@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="calendarContainer" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="tn.esprit.Controllers.CalendrierMedecinController"
+            stylesheets="@../styles/calendrier.css">
+
+    <top>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="15" right="15" bottom="10" left="15"/>
+            </padding>
+
+            <!-- En-tête avec sélection de médecin et navigation de date -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Médecin:" />
+                <ComboBox fx:id="medecinCombo" prefWidth="200" />
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <Button fx:id="previousButton" text="&lt;" onAction="#naviguerPrecedent" />
+                <DatePicker fx:id="datePicker" />
+                <Button fx:id="nextButton" text="&gt;" onAction="#naviguerSuivant" />
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <ToggleButton fx:id="jourToggle" text="Jour" selected="true" onAction="#changerVue" />
+                <ToggleButton fx:id="semaineToggle" text="Semaine" onAction="#changerVue" />
+                <ToggleButton fx:id="moisToggle" text="Mois" onAction="#changerVue" />
+            </HBox>
+
+            <!-- Barre de légende pour les types de rendez-vous -->
+            <HBox spacing="15" alignment="CENTER_LEFT" styleClass="legend-bar">
+                <Label text="Légende:" />
+                <HBox spacing="5" alignment="CENTER_LEFT" styleClass="legend-item, consultation-standard">
+                    <Rectangle width="15" height="15" />
+                    <Label text="Consultation standard" />
+                </HBox>
+                <HBox spacing="5" alignment="CENTER_LEFT" styleClass="legend-item, urgence">
+                    <Rectangle width="15" height="15" />
+                    <Label text="Urgence" />
+                </HBox>
+                <HBox spacing="5" alignment="CENTER_LEFT" styleClass="legend-item, suivi">
+                    <Rectangle width="15" height="15" />
+                    <Label text="Suivi" />
+                </HBox>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <!-- Cette zone contiendra la grille du calendrier qui sera générée dynamiquement -->
+        <ScrollPane fitToWidth="true">
+            <GridPane fx:id="calendarGrid" hgap="1" vgap="1" />
+        </ScrollPane>
+    </center>
+
+    <right>
+        <!-- Panneau de détails du rendez-vous sélectionné -->
+        <VBox fx:id="detailsPanel" spacing="10" prefWidth="300" styleClass="details-panel">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+
+            <Label text="Détails du rendez-vous" styleClass="section-title" />
+
+            <GridPane hgap="10" vgap="10">
+                <Label text="Patient:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                <Label fx:id="patientLabel" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+                <Label text="Date:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+                <Label fx:id="dateLabel" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+                <Label text="Heure:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                <Label fx:id="heureLabel" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+                <Label text="Type:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+                <Label fx:id="typeLabel" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+
+                <Label text="Motif:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+                <TextArea fx:id="motifTextArea" GridPane.rowIndex="4" GridPane.columnIndex="1"
+                          wrapText="true" editable="false" prefHeight="60" />
+
+                <Label text="Statut:" GridPane.rowIndex="5" GridPane.columnIndex="0" />
+                <Label fx:id="statutLabel" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+            </GridPane>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Button fx:id="modifierButton" text="Modifier" onAction="#modifierRendezVous" />
+                <Button fx:id="annulerButton" text="Annuler" onAction="#annulerRendezVous" />
+                <Button fx:id="terminerButton" text="Terminer" onAction="#terminerRendezVous" />
+            </HBox>
+        </VBox>
+    </right>
+</BorderPane>

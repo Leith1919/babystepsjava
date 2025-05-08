@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="/style/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.AfficherDisponibilite">
+    <children>
+        <BorderPane layoutX="0.0" layoutY="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <left>
+                <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="250.0" spacing="15" styleClass="sidebar">
+                    <children>
+                        <!-- Logo et Titre -->
+                        <VBox alignment="CENTER" spacing="10" styleClass="sidebar-header">
+                            <children>
+                                <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@assets/logo-modified.png" />
+                                    </image>
+                                </ImageView>
+                                <Label text="BabySteps" styleClass="sidebar-title">
+                                    <font>
+                                        <Font name="System Bold" size="24.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                            <padding>
+                                <Insets bottom="20.0" top="20.0" />
+                            </padding>
+                        </VBox>
+
+                        <!-- Menu Principal -->
+                        <VBox spacing="5" styleClass="menu-container">
+                            <children>
+                                <Button alignment="BASELINE_LEFT" styleClass="menu-button" text="Tableau de bord">
+                                    <graphic>
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@assets/icons/dashboard.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+
+                                <Button fx:id="PdfButton" alignment="BASELINE_LEFT" styleClass="menu-button" onAction="#pdfstati" text="PDF Statistiques">
+                                    <graphic>
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@assets/icons/stats.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+
+                                <!-- Menu Rendez-vous -->
+                                <VBox spacing="0" styleClass="submenu-container">
+                                    <Button fx:id="rdvButton" alignment="BASELINE_LEFT" styleClass="menu-button" onAction="#toggleRdvSubmenu" text="Rendez-vous">
+                                        <graphic>
+                                            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@assets/icons/calendar.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <VBox fx:id="rdvSubmenu" managed="false" spacing="0" styleClass="submenu" visible="false">
+                                        <Button alignment="BASELINE_LEFT" styleClass="submenu-button" onAction="#navigateToAjouterRDV" text="Ajouter RDV" />
+                                        <Button alignment="BASELINE_LEFT" styleClass="submenu-button" onAction="#navigateToConsulterRDV" text="Consulter RDV" />
+                                    </VBox>
+                                </VBox>
+
+                                <!-- Menu Disponibilité -->
+                                <VBox spacing="0" styleClass="submenu-container">
+                                    <Button fx:id="dispButton" alignment="BASELINE_LEFT" styleClass="menu-button" onAction="#toggleDispSubmenu" text="Disponibilité">
+                                        <graphic>
+                                            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@assets/icons/clock.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <VBox fx:id="dispSubmenu" managed="false" spacing="0" styleClass="submenu" visible="false">
+                                        <Button alignment="BASELINE_LEFT" styleClass="submenu-button" onAction="#navigateToAjouterDISP" text="Ajouter DISP" />
+                                        <Button alignment="BASELINE_LEFT" styleClass="submenu-button" onAction="#navigateToConsulterDISP" text="Consulter DISP" />
+                                    </VBox>
+                                </VBox>
+
+                                <Button alignment="BASELINE_LEFT" styleClass="menu-button" text="Suivi-Bébé">
+                                    <graphic>
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@assets/icons/baby.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+
+                                <Button alignment="BASELINE_LEFT" styleClass="menu-button" text="Chambres">
+                                    <graphic>
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@assets/icons/bed.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+
+                                <Button alignment="BASELINE_LEFT" styleClass="menu-button" text="Blog">
+                                    <graphic>
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@assets/icons/blog.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+
+                                <Button alignment="BASELINE_LEFT" styleClass="menu-button" text="Ordonnance">
+                                    <graphic>
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@assets/icons/prescription.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                            </children>
+                        </VBox>
+
+                        <!-- Menu Footer -->
+                        <VBox spacing="10" styleClass="menu-footer" VBox.vgrow="ALWAYS">
+                            <children>
+                                <Separator styleClass="menu-separator" />
+                                <Button fx:id="front" alignment="BASELINE_LEFT" styleClass="menu-footer-button" text="Page d'accueil">
+                                    <graphic>
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@assets/icons8-home-30.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button alignment="BASELINE_LEFT" styleClass="menu-footer-button" text="Déconnexion">
+                                    <graphic>
+                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@assets/icons8-logout-30.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+            </left>
+
+            <center>
+                <AnchorPane styleClass="content-area">
+                    <children>
+                        <!-- Header -->
+                        <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="20.0" prefHeight="60.0" prefWidth="734.0" styleClass="content-header">
+                            <padding>
+                                <Insets left="20.0" right="20.0" />
+                            </padding>
+                            <Label text="Liste des disponibilités" styleClass="content-title">
+                                <font>
+                                    <Font name="System Bold" size="22.0" />
+                                </font>
+                            </Label>
+                            <HBox alignment="CENTER_RIGHT" spacing="15.0" HBox.hgrow="ALWAYS">
+                                <Button prefHeight="40.0" prefWidth="150.0" styleClass="add-button" text="Nouvelle disponibilité">
+                                    <graphic>
+                                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@assets/icons8-add-16.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                            </HBox>
+                        </HBox>
+
+                        <!-- Search & Filter Bar -->
+                        <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="90.0" prefHeight="50.0" prefWidth="733.0" spacing="10" styleClass="search-filter-bar">
+                            <padding>
+                                <Insets left="20.0" right="20.0" />
+                            </padding>
+                            <Label text="Rechercher:" styleClass="search-label">
+                                <font>
+                                    <Font name="System Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <DatePicker fx:id="searchDatePicker" promptText="Sélectionner un jour" styleClass="search-datepicker" />
+                            <ComboBox fx:id="searchMedecinComboBox" prefWidth="200.0" promptText="Sélectionner un médecin" styleClass="search-combobox" />
+                            <Button fx:id="btnRechercher" mnemonicParsing="false" onAction="#rechercherDisponibilites" styleClass="search-button" text="Rechercher">
+                                <graphic>
+                                    <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                        <image>
+                                            <Image url="@assets/icons8-search-16.png" />
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Button>
+                            <Button fx:id="btnReinitialiser" mnemonicParsing="false" onAction="#reinitialiserRecherche" styleClass="reset-button" text="Réinitialiser" />
+                        </HBox>
+
+                        <!-- Table Container -->
+                        <AnchorPane layoutX="20.0" layoutY="187.0" prefHeight="480.0" prefWidth="640.0" styleClass="table-container">
+                            <!-- Table -->
+                            <TableView fx:id="tableDisponibilite" layoutX="10.0" layoutY="9.0" prefHeight="462.0" prefWidth="720.0" styleClass="modern-table">
+                                <columns>
+                                    <TableColumn fx:id="colJour" prefWidth="150.0" text="Jour" />
+                                    <TableColumn fx:id="colHeures" prefWidth="200.0" text="Heures" />
+                                    <TableColumn fx:id="colStatut" prefWidth="120.0" text="Statut" />
+                                    <TableColumn fx:id="colActions" prefWidth="150.0" text="Actions" />
+                                </columns>
+                            </TableView>
+                        </AnchorPane>
+                    </children>
+                </AnchorPane>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>

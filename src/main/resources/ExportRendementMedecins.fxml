@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: linear-gradient(to bottom right, #2c3e50, #4ca1af);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.ExportRendementMedecins">
+    <children>
+        <!-- Menu de navigation côté gauche -->
+        <VBox prefHeight="600.0" prefWidth="200.0" style="-fx-background-color: rgba(0, 0, 0, 0.3);">
+            <children>
+                <!-- Logo ou Titre -->
+                <Label alignment="CENTER" prefHeight="60.0" prefWidth="200.0" text="Système de Gestion" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Label>
+                <Separator prefWidth="200.0" />
+
+                <!-- Menu Rendez-vous -->
+                <Button fx:id="rdvButton" mnemonicParsing="false" onAction="#toggleRdvSubmenu" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: rgba(255, 255, 255, 0.3); -fx-background-radius: 8;" text="Rendez-vous" textFill="WHITE">
+                    <VBox.margin>
+                        <Insets top="20.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Button>
+                <VBox fx:id="rdvSubmenu" managed="false" prefWidth="200.0" style="-fx-background-color: rgba(255, 255, 255, 0.2); -fx-background-radius: 0 0 8 8;" visible="false">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#navigateToAjouterRDV" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Ajouter" textFill="WHITE" />
+                        <Button mnemonicParsing="false" onAction="#navigateToConsulterRDV" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Consulter" textFill="WHITE" />
+                    </children>
+                </VBox>
+
+                <!-- Menu Disponibilités -->
+                <Button fx:id="dispButton" mnemonicParsing="false" onAction="#toggleDispSubmenu" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: rgba(255, 255, 255, 0.3); -fx-background-radius: 8;" text="Disponibilités" textFill="WHITE">
+                    <VBox.margin>
+                        <Insets top="10.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Button>
+                <VBox fx:id="dispSubmenu" managed="false" prefWidth="200.0" style="-fx-background-color: rgba(255, 255, 255, 0.2); -fx-background-radius: 0 0 8 8;" visible="false">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#navigateToAjouterDISP" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Ajouter" textFill="WHITE" />
+                        <Button mnemonicParsing="false" onAction="#navigateToConsulterDISP" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Consulter" textFill="WHITE" />
+                    </children>
+                </VBox>
+
+                <!-- Menu Rapports -->
+                <Button mnemonicParsing="false" onAction="#navigateToExportRendementMedecins" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: rgba(255, 255, 255, 0.6); -fx-background-radius: 8;" text="Rapports" textFill="WHITE">
+                    <VBox.margin>
+                        <Insets top="10.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Button>
+            </children>
+        </VBox>
+
+        <!-- Contenu principal -->
+        <AnchorPane layoutX="200.0" prefHeight="600.0" prefWidth="700.0">
+            <children>
+                <!-- Titre de la page -->
+                <Label layoutX="30.0" layoutY="30.0" text="Export du Rendement des Médecins" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+
+                <!-- Formulaire d'export -->
+                <VBox layoutX="30.0" layoutY="100.0" prefHeight="400.0" prefWidth="640.0" spacing="20.0" style="-fx-background-color: rgba(255, 255, 255, 0.2); -fx-background-radius: 10;">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                    <children>
+                        <Label text="Générer un rapport sur le rendement des médecins" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Label>
+                        <Label text="Ce rapport vous permettra d'analyser les performances des médecins sur une période donnée, incluant le nombre de rendez-vous, les taux de complétion et les heures les plus populaires." textFill="WHITE" wrapText="true">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Separator prefWidth="600.0" />
+
+                        <!-- Sélection de la période -->
+                        <Label text="Sélectionnez la période pour le rapport:" textFill="WHITE">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+
+                        <HBox spacing="20.0">
+                            <children>
+                                <VBox spacing="5.0">
+                                    <children>
+                                        <Label text="Date de début" textFill="WHITE" />
+                                        <DatePicker fx:id="dateDebut" prefHeight="30.0" prefWidth="200.0" />
+                                    </children>
+                                </VBox>
+                                <VBox spacing="5.0">
+                                    <children>
+                                        <Label text="Date de fin" textFill="WHITE" />
+                                        <DatePicker fx:id="dateFin" prefHeight="30.0" prefWidth="200.0" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+
+                        <Separator prefWidth="600.0" />
+
+                        <!-- Options supplémentaires (peut être ajouté plus tard) -->
+                        <Label text="Options du rapport:" textFill="WHITE">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+
+                        <!-- Bouton d'export -->
+                        <Button fx:id="exportButton" defaultButton="true" mnemonicParsing="false" onAction="#exporterPDF" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #27ae60; -fx-background-radius: 5;" text="Exporter en PDF" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets top="20.0" />
+                            </VBox.margin>
+                        </Button>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

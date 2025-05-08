@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="780.0" prefWidth="950.0" style="-fx-background-color: #F3F7FB;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.AjouterRendezVous">
+    <children>
+        <!-- En-tête -->
+        <VBox layoutX="10.0" layoutY="10.0" spacing="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="15.0">
+                    <children>
+                        <Label text="Ajouter un rendez-vous" textFill="#2c3e50">
+                            <font>
+                                <Font name="System Bold" size="28.0" />
+                            </font>
+                        </Label>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@assets/icons8-add-16.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </HBox>
+                <Label text="Veuillez compléter tous les champs ci-dessous pour créer un nouveau rendez-vous." textFill="#5d6d7e">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+            </children>
+        </VBox>
+
+        <!-- Formulaire principal -->
+        <VBox layoutX="20.0" layoutY="100.0" prefWidth="910.0" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 10;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+            <children>
+                <!-- Motif -->
+                <HBox spacing="20.0">
+                    <children>
+                        <Label minWidth="100.0" text="Motif" textFill="#2c3e50">
+                            <font>
+                                <Font name="System Bold" size="15.0" />
+                            </font>
+                        </Label>
+                        <VBox HBox.hgrow="ALWAYS">
+                            <children>
+                                <TextField fx:id="motifField" prefHeight="40.0" promptText="Exemple: Consultation pour maux de tête" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #E0E0E0;">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </TextField>
+                                <Label fx:id="motifErrorLabel" text="Veuillez saisir un motif" textFill="#e74c3c" visible="false">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+
+                <!-- Symptômes -->
+                <HBox spacing="20.0">
+                    <children>
+                        <Label minWidth="100.0" text="Symptômes" textFill="#2c3e50">
+                            <font>
+                                <Font name="System Bold" size="15.0" />
+                            </font>
+                        </Label>
+                        <VBox HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label text="Sélectionnez un ou plusieurs symptômes" textFill="#5d6d7e">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                                <ListView fx:id="symptomesListView" prefHeight="80.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #E0E0E0;" />
+                                <Label fx:id="symptomesErrorLabel" text="Veuillez sélectionner au moins un symptôme" textFill="#e74c3c" visible="false">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+
+                <!-- Traitement -->
+                <HBox spacing="20.0">
+                    <children>
+                        <Label minWidth="100.0" text="Traitement" textFill="#2c3e50">
+                            <font>
+                                <Font name="System Bold" size="15.0" />
+                            </font>
+                        </Label>
+                        <VBox HBox.hgrow="ALWAYS">
+                            <children>
+                                <TextField fx:id="traitementField" prefHeight="40.0" promptText="Traitement actuel (si applicable)" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #E0E0E0;">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </TextField>
+                                <Label fx:id="traitementErrorLabel" text="Veuillez saisir le traitement" textFill="#e74c3c" visible="false">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+
+                <!-- Notes -->
+                <HBox spacing="20.0">
+                    <children>
+                        <Label minWidth="100.0" text="Notes" textFill="#2c3e50">
+                            <font>
+                                <Font name="System Bold" size="15.0" />
+                            </font>
+                        </Label>
+                        <TextArea fx:id="notesArea" prefHeight="60.0" promptText="Informations supplémentaires pertinentes" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #E0E0E0;" wrapText="true" HBox.hgrow="ALWAYS">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </TextArea>
+                    </children>
+                </HBox>
+
+                <!-- Date -->
+                <HBox spacing="20.0">
+                    <children>
+                        <Label minWidth="100.0" text="Date" textFill="#2c3e50">
+                            <font>
+                                <Font name="System Bold" size="15.0" />
+                            </font>
+                        </Label>
+                        <VBox>
+                            <children>
+                                <DatePicker fx:id="jourPicker" prefHeight="40.0" prefWidth="250.0" promptText="Sélectionnez une date" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #E0E0E0;" />
+                                <Label fx:id="jourErrorLabel" text="Veuillez sélectionner une date" textFill="#e74c3c" visible="false">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+
+                <!-- Heure -->
+                <HBox spacing="20.0">
+                    <children>
+                        <Label minWidth="100.0" text="Heure" textFill="#2c3e50">
+                            <font>
+                                <Font name="System Bold" size="15.0" />
+                            </font>
+                        </Label>
+                        <VBox>
+                            <children>
+                                <ComboBox fx:id="heureComboBox" prefHeight="40.0" prefWidth="250.0" promptText="Sélectionnez une heure" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #E0E0E0;" />
+                                <Label fx:id="heureErrorLabel" text="Veuillez sélectionner une heure" textFill="#e74c3c" visible="false">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+
+                <!-- Médecin -->
+                <HBox spacing="20.0">
+                    <children>
+                        <Label minWidth="100.0" text="Médecin" textFill="#2c3e50">
+                            <font>
+                                <Font name="System Bold" size="15.0" />
+                            </font>
+                        </Label>
+                        <VBox>
+                            <children>
+                                <ComboBox fx:id="medecinComboBox" prefHeight="40.0" prefWidth="350.0" promptText="Sélectionnez un médecin" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #E0E0E0;" />
+                                <Label fx:id="medecinErrorLabel" text="Veuillez sélectionner un médecin" textFill="#e74c3c" visible="false">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </VBox>
+                        <Button mnemonicParsing="false" onAction="#annuler" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #ECF0F1; -fx-background-radius: 5;" text="Annuler" textFill="#2c3e50">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#ajouterRendezVous" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #2c5282; -fx-background-radius: 5;" text="Ajouter" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@assets/icons8-add-16.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </children>
+                </HBox>
+
+                <!-- Boutons d'action -->
+                <HBox alignment="CENTER_RIGHT" spacing="15.0">
+                    <VBox.margin>
+                        <Insets top="10.0" />
+                    </VBox.margin>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
