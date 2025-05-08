@@ -36,4 +36,5 @@ build/
 
 ### Mac OS ###
 .DS_Store
-src/main/resources/twilio.properties
+echo "# Configuration secrets" > .gitignore
+echo "src/main/resources/twilio.properties" >> .gitignore
