@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.User.Statistiques">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="Génération de rapports statistiques" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+
+    <GridPane hgap="10" vgap="10">
+        <Label text="Période du:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="dateDebutPicker" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="au:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+        <DatePicker fx:id="dateFinPicker" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+        <Label text="Dossier d'enregistrement:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <HBox spacing="10" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.columnSpan="3">
+            <TextField fx:id="cheminDossierField" HBox.hgrow="ALWAYS"/>
+            <Button text="Parcourir..." onAction="#parcourirDossier"/>
+        </HBox>
+
+        <Label text="Type de rapport:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <VBox spacing="5" GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.columnSpan="3">
+            <CheckBox fx:id="cbActivite" text="Activité par période" selected="true"/>
+            <CheckBox fx:id="cbMedecins" text="Performance des médecins" selected="true"/>
+            <CheckBox fx:id="cbOccupation" text="Taux d'occupation des plages horaires" selected="true"/>
+            <CheckBox fx:id="cbMotifs" text="Motifs de consultation" selected="true"/>
+            <CheckBox fx:id="cbAssiduite" text="Assiduité des patients" selected="true"/>
+            <CheckBox fx:id="cbDelai" text="Délai de prise de rendez-vous" selected="true"/>
+        </VBox>
+    </GridPane>
+
+    <HBox alignment="CENTER" spacing="20">
+        <Button fx:id="genererButton" text="Générer le rapport" onAction="#genererRapport"
+                style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+        <ProgressIndicator fx:id="progressIndicator" visible="false"/>
+    </HBox>
+
+    <Label fx:id="messageLabel" wrapText="true"/>
+</VBox>

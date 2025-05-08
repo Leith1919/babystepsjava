@@ -1,0 +1,54 @@
+id,date_suivi,poids,tension,symptomes,etat_grossesse,patient_id
+256,2025-05-01,56,20,10,00,Aucun symptôme,Normal,1
+257,2025-05-01,89,30,10,00,Aucun symptôme,Normal,1
+226,2025-05-01,78,00,10,00,Aucun symptôme,Normal,1
+227,2025-05-01,150,00,12,00,Aucun symptôme,Critique,1
+228,2025-05-01,150,00,10,00,Aucun symptôme,Normal,3
+229,2025-05-01,120,00,10,00,Aucun symptôme,Normal,1
+230,2025-05-01,180,00,15,00,Trouble du sommeil,Stable,1
+231,2025-05-01,40,00,10,00,Fatigue,À risque,1
+232,2025-05-01,40,00,10,00,Aucun symptôme,Critique,1
+233,2025-05-01,89,90,10,00,Aucun symptôme,Normal,1
+234,2025-05-01,120,00,15,00,Aucun symptôme,Normal,1
+235,2025-05-01,180,00,14,00,Aucun symptôme,Normal,1
+236,2025-05-01,120,00,10,00,Aucun symptôme,Normal,1
+237,2025-05-01,77,00,10,00,Aucun symptôme,Normal,3
+238,2025-05-01,102,00,10,00,Aucun symptôme,Normal,1
+239,2025-05-01,50,00,12,00,Aucun symptôme,Normal,3
+240,2025-05-01,79,00,10,00,Aucun symptôme,Normal,1
+241,2025-05-01,89,00,10,00,Aucun symptôme,Normal,1
+242,2025-05-01,56,00,12,00,Aucun symptôme,Normal,1
+243,2025-05-01,56,00,10,00,Aucun symptôme,Normal,1
+244,2025-05-01,56,00,10,00,Aucun symptôme,Normal,1
+245,2025-05-01,78,00,12,00,Aucun symptôme,Normal,1
+246,2025-05-01,89,00,12,00,Aucun symptôme,Normal,1
+247,2025-05-01,89,00,10,00,Aucun symptôme,Normal,1
+248,2025-05-01,99,00,10,00,Aucun symptôme,Normal,1
+249,2025-05-01,89,00,10,00,Aucun symptôme,Normal,1
+250,2025-05-01,96,60,13,00,Aucun symptôme,Normal,1
+251,2025-05-01,56,60,12,00,Aucun symptôme,À risque,1
+252,2025-05-01,56,30,10,00,Aucun symptôme,Normal,1
+253,2025-05-01,89,90,10,00,Aucun symptôme,Normal,1
+254,2025-05-01,96,30,10,00,Aucun symptôme,Normal,1
+255,2025-05-01,56,60,12,00,Aucun symptôme,Normal,1
+201,2025-04-30,120,00,13,00,Gonflement des pieds,Excellente progression,1
+202,2025-04-30,120,00,14,00,Maux de dos,Excellente progression,1
+203,2025-04-30,130,00,15,00,Trouble du sommeil,Stable,1
+204,2025-04-30,123,00,12,00,Trouble du sommeil,Excellente progression,1
+205,2025-04-30,120,00,15,00,Maux de dos,Stable,1
+206,2025-04-30,120,00,13,00,Fatigue,Critique,3
+207,2025-04-30,123,00,13,00,Fatigue,Stable,1
+208,2025-04-30,122,00,12,00,Gonflement des pieds,Excellente progression,1
+209,2025-04-30,120,00,12,00,Trouble du sommeil,Critique,1
+210,2025-04-30,129,00,14,00,Gonflement des pieds,Excellente progression,1
+211,2025-04-30,120,00,12,00,Gonflement des pieds,Stable,1
+212,2025-04-30,149,00,13,00,Gonflement des pieds,Stable,1
+213,2025-04-30,120,00,15,00,Fatigue,Stable,1
+214,2025-04-30,100,00,12,00,Maux de dos,Stable,1
+215,2025-04-30,89,00,10,00,Aucun symptôme,Normal,2
+216,2025-04-30,180,00,15,00,Fatigue,À risque,1
+217,2025-04-30,100,00,15,00,Fatigue,À risque,3
+218,2025-04-30,89,00,11,00,Aucun symptôme,Normal,1
+219,2025-04-30,78,00,10,00,Aucun symptôme,Normal,3
+220,2025-04-30,120,00,15,00,Aucun symptôme,Normal,3
+221,2025-04-30,78,00,10,00,Nausées matinales,Normal,1

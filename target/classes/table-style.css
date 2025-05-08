@@ -1,0 +1,104 @@
+/* Styles existants */
+
+/* Styles pour la sidebar */
+.sidebar {
+    -fx-background-color: #4a6572;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-alignment: center-left;
+    -fx-padding: 8 15;
+    -fx-background-radius: 5;
+}
+
+.nav-button:hover {
+    -fx-background-color: rgba(255,255,255,0.1);
+}
+
+/* Styles pour les tableaux */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 0;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: white;
+    -fx-size: 35;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #f0f0f0;
+}
+
+.table-view .column-header .label {
+    -fx-alignment: center-left;
+    -fx-font-size: 14px;
+    -fx-text-fill: #4a6572;
+    -fx-font-weight: bold;
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #f2f2f2 transparent;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #fafafa;
+}
+
+.table-view .table-row-cell:hover {
+    -fx-background-color: #f5f5f5;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: rgba(93, 156, 236, 0.15);
+    -fx-text-background-color: #4a6572;
+}
+
+/* Styles pour les boutons */
+.add-button {
+    -fx-background-color: #5d9cec;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+}
+
+.add-button:hover {
+    -fx-background-color: #4a89dc;
+}
+
+.header-title {
+    -fx-text-fill: #4a6572;
+}
+
+/* Styles pour la barre de recherche */
+.search-field {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: #dcdcdc;
+    -fx-background-color: white;
+    -fx-padding: 0 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 3, 0.0, 0, 2);
+}
+
+.search-field:focused {
+    -fx-border-color: #5d9cec;
+    -fx-effect: dropshadow(three-pass-box, rgba(93,156,236,0.3), 5, 0.0, 0, 3);
+}
+
+.search-combo {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: #dcdcdc;
+    -fx-background-color: white;
+    -fx-padding: 0 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 3, 0.0, 0, 2);
+}
+
+.search-combo:focused {
+    -fx-border-color: #5d9cec;
+}

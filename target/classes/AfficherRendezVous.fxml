@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #EDF2F7;" stylesheets="@style/modern-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.User.AfficherRendezVous">
+    <children>
+        <!-- Main Content Area -->
+        <AnchorPane prefHeight="655.0" prefWidth="1207.0">
+            <!-- Header -->
+            <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="20.0" prefHeight="70.0" prefWidth="1068.0" style="-fx-background-color: linear-gradient(to right, #1A365D, #2C5282); -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 4);" styleClass="main-header, shimmer-header">
+                <padding>
+                    <Insets left="25.0" right="25.0" />
+                </padding>
+                <children>
+                    <Label text="Liste des Rendez-vous" textFill="WHITE">
+                        <font>
+                            <Font name="System Bold" size="24.0" />
+                        </font>
+                    </Label>
+                    <HBox alignment="CENTER_RIGHT" spacing="15.0" HBox.hgrow="ALWAYS" />
+                </children>
+            </HBox>
+
+            <!-- Search & Filter Bar -->
+            <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="105.0" prefHeight="60.0" prefWidth="1068.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 8, 0, 0, 3);" styleClass="staggered-item">
+                <padding>
+                    <Insets left="20.0" right="20.0" />
+                </padding>
+                <children>
+                    <HBox alignment="CENTER_LEFT" spacing="12.0" HBox.hgrow="ALWAYS">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@assets/icons8-search-50.png" />
+                            </image>
+                        </ImageView>
+                        <TextField fx:id="searchField" onKeyReleased="#handleSearch" prefHeight="38.0" prefWidth="542.0" promptText="Rechercher un rendez-vous..." style="-fx-background-color: #F7FAFC; -fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 8;" styleClass="search-field" HBox.hgrow="ALWAYS">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </TextField>
+                    </HBox>
+                    <HBox alignment="CENTER_RIGHT" spacing="12.0">
+                        <Button fx:id="todayFilterBtn" onAction="#filterToday" prefHeight="38.0" prefWidth="163.0" style="-fx-background-color: #FED7D7; -fx-text-fill: #9B2C2C; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #FBB6B6; -fx-cursor: hand;" styleClass="filter-button, staggered-item" text="Aujourd'hui">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="weekFilterBtn" onAction="#filterThisWeek" prefHeight="38.0" prefWidth="152.0" style="-fx-background-color: #C6F6D5; -fx-text-fill: #276749; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #9AE6B4; -fx-cursor: hand;" styleClass="filter-button, staggered-item" text="Cette semaine">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="allFilterBtn" onAction="#showAllAppointments" prefHeight="38.0" prefWidth="154.0" style="-fx-background-color: #BEE3F8; -fx-text-fill: #2B6CB0; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #90CDF4; -fx-cursor: hand;" styleClass="filter-button, staggered-item" text="Tous">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Button>
+                    </HBox>
+                </children>
+            </HBox>
+
+            <!-- Stats Summary Cards -->
+            <HBox layoutX="20.0" layoutY="180.0" prefHeight="80.0" prefWidth="860.0" spacing="15.0">
+                <children>
+                    <!-- Today's Appointments Card -->
+                    <AnchorPane fx:id="todayCard" prefHeight="80.0" prefWidth="280.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 5, 0, 0, 2);" styleClass="card, staggered-item, scale-effect">
+                        <children>
+                            <VBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="10.0" prefHeight="60.0" prefWidth="322.0">
+                                <children>
+                                    <Label text="Aujourd'hui" textFill="#718096">
+                                        <font>
+                                            <Font size="13.0" />
+                                        </font>
+                                    </Label>
+                                    <Label fx:id="todayCountLabel" text="-- rendez-vous" textFill="#2D3748">
+                                        <font>
+                                            <Font name="System Bold" size="22.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                            </VBox>
+                        </children>
+                    </AnchorPane>
+
+                    <!-- This Week's Appointments Card -->
+                    <AnchorPane fx:id="weekCard" prefHeight="80.0" prefWidth="280.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 5, 0, 0, 2);" styleClass="card, staggered-item, scale-effect">
+                        <children>
+                            <VBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="10.0" prefHeight="60.0" prefWidth="334.0">
+                                <children>
+                                    <Label text="Cette semaine" textFill="#718096">
+                                        <font>
+                                            <Font size="13.0" />
+                                        </font>
+                                    </Label>
+                                    <Label fx:id="weekCountLabel" text="-- rendez-vous" textFill="#2D3748">
+                                        <font>
+                                            <Font name="System Bold" size="22.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                            </VBox>
+                        </children>
+                    </AnchorPane>
+
+                    <!-- Total Appointments Card -->
+                    <AnchorPane fx:id="totalCard" prefHeight="80.0" prefWidth="280.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 5, 0, 0, 2);" styleClass="card, staggered-item, scale-effect">
+                        <children>
+                            <VBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="10.0" prefHeight="60.0" prefWidth="334.0">
+                                <children>
+                                    <Label text="Total" textFill="#718096">
+                                        <font>
+                                            <Font size="13.0" />
+                                        </font>
+                                    </Label>
+                                    <Label fx:id="totalCountLabel" text="-- rendez-vous" textFill="#2D3748">
+                                        <font>
+                                            <Font name="System Bold" size="22.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                            </VBox>
+                            <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="225.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" styleClass="loading-icon">
+                                <image>
+                                    <Image url="@assets/icons8-calendar-50.png" />
+                                </image>
+                            </ImageView>
+                            <Label layoutX="245.0" layoutY="15.0" styleClass="notification-badge" text="9+" textFill="WHITE">
+                                <font>
+                                    <Font name="System Bold" size="12.0" />
+                                </font>
+                            </Label>
+                        </children>
+                    </AnchorPane>
+                </children>
+            </HBox>
+
+            <!-- Table Container -->
+            <AnchorPane layoutX="20.0" layoutY="275.0" prefHeight="306.0" prefWidth="1068.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 8, 0, 0, 3);" styleClass="staggered-item">
+                <children>
+                    <!-- Table -->
+                    <TableView fx:id="tableRendezVous" layoutX="15.0" layoutY="15.0" prefHeight="275.0" prefWidth="1054.0" style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-border-width: 1;">
+                        <columns>
+                            <TableColumn fx:id="colMotif" prefWidth="120.0" text="Motif" />
+                            <TableColumn fx:id="colSymptomes" prefWidth="100.0" text="Symptômes" />
+                            <TableColumn fx:id="colTraitement" prefWidth="100.0" text="Traitement" />
+                            <TableColumn fx:id="colNotes" prefWidth="90.0" text="Notes" />
+                            <TableColumn fx:id="colHeure" prefWidth="80.0" text="Heure" />
+                            <TableColumn fx:id="colJour" prefWidth="119.199951171875" text="Jour" />
+                            <TableColumn fx:id="colMedecin" prefWidth="137.60003662109375" text="Médecin" />
+                            <TableColumn fx:id="colActions" prefWidth="303.9999755859376" text="Actions" />
+                        </columns>
+                    </TableView>
+                </children>
+            </AnchorPane>
+
+            <!-- Bottom Action Buttons -->
+            <HBox alignment="CENTER" layoutX="20.0" layoutY="595.0" prefHeight="60.0" prefWidth="860.0" spacing="20.0" styleClass="staggered-item">
+                <children>
+                    <Button fx:id="pdfButton" onAction="#exporterPDF" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #1E40AF; -fx-text-fill: white; -fx-background-radius: 8; -fx-cursor: hand;" styleClass="add-button, scale-effect" text="Exporter PDF">
+                        <font>
+                            <Font name="System Bold" size="14.0" />
+                        </font>
+                        <effect>
+                            <DropShadow height="4.0" radius="1.5" width="4.0">
+                                <color>
+                                    <Color opacity="0.25" />
+                                </color>
+                            </DropShadow>
+                        </effect>
+                    </Button>
+                </children>
+            </HBox>
+
+            <!-- Loading Indicator (Initially Hidden) -->
+            <AnchorPane layoutX="350.0" layoutY="250.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: rgba(255,255,255,0.9); -fx-background-radius: 10;" styleClass="loading-container" visible="false">
+                <children>
+                    <VBox alignment="CENTER" layoutX="0.0" layoutY="0.0" prefHeight="100.0" prefWidth="200.0">
+                        <children>
+                            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" styleClass="loading-icon">
+                                <image>
+                                    <Image url="@assets/icons8-loading-circle-50.png" />
+                                </image>
+                            </ImageView>
+                            <Label text="Chargement..." textFill="#1A365D">
+                                <font>
+                                    <Font size="16.0" />
+                                </font>
+                                <VBox.margin>
+                                    <Insets top="10.0" />
+                                </VBox.margin>
+                            </Label>
+                        </children>
+                    </VBox>
+                </children>
+                <effect>
+                    <DropShadow height="10.0" radius="4.5" width="10.0">
+                        <color>
+                            <Color opacity="0.3" />
+                        </color>
+                    </DropShadow>
+                </effect>
+            </AnchorPane>
+
+            <!-- Notification Toast (Initially Hidden) -->
+            <HBox alignment="CENTER_LEFT" layoutX="300.0" layoutY="20.0" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #C6F6D5; -fx-background-radius: 8; -fx-border-color: #9AE6B4; -fx-border-radius: 8;" styleClass="alert-message" visible="false">
+                <padding>
+                    <Insets left="15.0" right="15.0" />
+                </padding>
+                <children>
+                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@assets/icons8-check-circle-50.png" />
+                        </image>
+                        <HBox.margin>
+                            <Insets right="10.0" />
+                        </HBox.margin>
+                    </ImageView>
+                    <Label text="Rendez-vous ajouté avec succès!" textFill="#276749">
+                        <font>
+                            <Font name="System Bold" size="14.0" />
+                        </font>
+                    </Label>
+                </children>
+                <effect>
+                    <DropShadow height="8.0" radius="3.5" width="8.0">
+                        <color>
+                            <Color opacity="0.25" />
+                        </color>
+                    </DropShadow>
+                </effect>
+            </HBox>
+        </AnchorPane>
+    </children>
+</AnchorPane>

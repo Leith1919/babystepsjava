@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainAnchorPane" prefHeight="800.0" prefWidth="1200.0" stylesheets="@style/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.User.Base2">
+    <children>
+        <BorderPane layoutX="0.0" layoutY="0.0" prefHeight="800.0" prefWidth="1200.0">
+            <top>
+                <!-- Header avec barre de navigation -->
+                <VBox>
+                    <!-- Partie supérieure avec logo et informations utilisateur -->
+                    <HBox alignment="CENTER_LEFT" prefHeight="70.0" styleClass="main-header">
+                        <children>
+                            <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                <children>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                        <image>
+                                            <Image url="@assets/logo-modified.png" />
+                                        </image>
+                                        <HBox.margin>
+                                            <Insets left="20.0" right="10.0" />
+                                        </HBox.margin>
+                                    </ImageView>
+                                    <Label text="BabySteps" textFill="WHITE">
+                                        <font>
+                                            <Font name="System Bold" size="22.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                            </HBox>
+                            <HBox alignment="CENTER_RIGHT" spacing="20.0" HBox.hgrow="ALWAYS">
+                                <children>
+                                    <Button fx:id="btnSearch" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" styleClass="header-button" text="Rechercher" textFill="WHITE">
+                                        <graphic>
+                                            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@assets/icons/search.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                        <font>
+                                            <Font size="13.0" />
+                                        </font>
+                                    </Button>
+                                    <Button fx:id="btnProfile" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" styleClass="header-button" text="Mon Profil" textFill="WHITE">
+                                        <graphic>
+                                            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@assets/icons/user.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                        <font>
+                                            <Font size="13.0" />
+                                        </font>
+                                    </Button>
+                                    <Button fx:id="btnNotifications" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" styleClass="header-button" text="Notifications" textFill="WHITE">
+                                        <graphic>
+                                            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@assets/icons/bell.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                        <font>
+                                            <Font size="13.0" />
+                                        </font>
+                                    </Button>
+                                    <Separator orientation="VERTICAL" styleClass="header-separator" />
+                                    <Button fx:id="btnLogout" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#onLogout" styleClass="header-button" text="Déconnexion" textFill="WHITE">
+                                        <graphic>
+                                            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@assets/icons/logout.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                        <font>
+                                            <Font size="13.0" />
+                                        </font>
+                                        <HBox.margin>
+                                            <Insets right="20.0" />
+                                        </HBox.margin>
+                                    </Button>
+                                </children>
+                            </HBox>
+                        </children>
+                    </HBox>
+
+                    <!-- Barre de navigation principale -->
+                    <MenuBar styleClass="main-menu-bar">
+                        <menus>
+                            <Menu styleClass="menu-item" text="Accueil">
+                                <graphic>
+                                    <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                        <image>
+                                            <Image url="@assets/icons/home.png" />
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Menu>
+                            <Menu styleClass="menu-item" text="Rendez-vous">
+                                <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#navigateToAjouterRDV" text="Ajouter un rendez-vous" />
+                                    <MenuItem mnemonicParsing="false" onAction="#navigateToConsulterRDV" text="Consulter mes rendez-vous" />
+                                </items>
+                                <graphic>
+                                    <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                        <image>
+                                            <Image url="@assets/icons/calendar.png" />
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Menu>
+                            <Menu styleClass="menu-item" text="Disponibilité">
+                                <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#navigateToConsulterDISP" text="Consulter les disponibilités" />
+                                </items>
+                                <graphic>
+                                    <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                        <image>
+                                            <Image url="@assets/icons/clock.png" />
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Menu>
+                            <Menu styleClass="menu-item" text="Suivi-Bébé">
+                                <graphic>
+                                    <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                        <image>
+                                            <Image url="@assets/icons/baby.png" />
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Menu>
+                            <Menu styleClass="menu-item" text="Chambres">
+                                <graphic>
+                                    <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                        <image>
+                                            <Image url="@assets/icons/bed.png" />
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Menu>
+                            <Menu styleClass="menu-item" text="Blog">
+                                <graphic>
+                                    <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                        <image>
+                                            <Image url="@assets/icons/blog.png" />
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Menu>
+                            <Menu styleClass="menu-item" text="Ordonnance">
+                                <graphic>
+                                    <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                        <image>
+                                            <Image url="@assets/icons/prescription.png" />
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Menu>
+                            <Menu styleClass="menu-item" text="Analyse Symptômes">
+                                <graphic>
+                                    <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                        <image>
+                                            <Image url="@assets/icons/analyse.png" />
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                                <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#navigateToAnalyseSymptomes" text="Analyser mes symptômes" />
+                                </items>
+                            </Menu>
+                        </menus>
+                    </MenuBar>
+                </VBox>
+            </top>
+
+            <center>
+                <!-- Zone de contenu principal qui sera dynamiquement remplacée -->
+                <StackPane fx:id="contentArea" styleClass="content-area">
+                    <children>
+                        <!-- Page d'accueil par défaut -->
+                        <VBox alignment="CENTER" spacing="25.0" styleClass="welcome-container">
+                            <children>
+                                <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@assets/logo-modified.png" />
+                                    </image>
+                                    <effect>
+                                        <DropShadow height="40.0" radius="19.5" width="40.0">
+                                            <color>
+                                                <Color opacity="0.15" />
+                                            </color>
+                                        </DropShadow>
+                                    </effect>
+                                </ImageView>
+                                <Label styleClass="welcome-title" text="Bienvenue sur BabySteps">
+                                    <font>
+                                        <Font name="System Bold" size="36.0" />
+                                    </font>
+                                </Label>
+                                <Label styleClass="welcome-subtitle" text="Votre compagnon pour un suivi de grossesse serein">
+                                    <font>
+                                        <Font size="20.0" />
+                                    </font>
+                                </Label>
+                                <HBox alignment="CENTER" spacing="25.0">
+                                    <children>
+                                        <Button mnemonicParsing="false" onAction="#navigateToAjouterRDV" prefHeight="50.0" prefWidth="240.0" styleClass="primary-button" text="Prendre un rendez-vous">
+                                            <font>
+                                                <Font name="System Bold" size="16.0" />
+                                            </font>
+                                            <graphic>
+                                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@assets/icons/calendar.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <Button mnemonicParsing="false" onAction="#navigateToConsulterRDV" prefHeight="50.0" prefWidth="240.0" styleClass="secondary-button" text="Mes rendez-vous">
+                                            <font>
+                                                <Font name="System Bold" size="16.0" />
+                                            </font>
+                                            <graphic>
+                                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@assets/icons/list.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <Button fx:id="btnAnalyseSymptomes" mnemonicParsing="false" onAction="#navigateToAnalyseSymptomes" prefHeight="50.0" prefWidth="240.0" styleClass="accent-button" text="Analyser mes symptômes">
+                                            <graphic>
+                                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@assets/icons/analyse.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="20.0" />
+                                    </VBox.margin>
+                                </HBox>
+
+                                <!-- Section des cartes d'information rapide -->
+                                <HBox alignment="CENTER" spacing="30.0" styleClass="info-cards-container">
+                                    <children>
+                                        <!-- Carte: Prochain RDV -->
+                                        <VBox alignment="CENTER" prefHeight="150.0" prefWidth="250.0" styleClass="info-card">
+                                            <children>
+                                                <Label styleClass="info-card-title" text="Prochain rendez-vous">
+                                                    <font>
+                                                        <Font name="System Bold" size="16.0" />
+                                                    </font>
+                                                </Label>
+                                                <HBox alignment="CENTER" spacing="10.0">
+                                                    <children>
+                                                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@assets/icons/calendar-color.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                        <Label fx:id="lblProchainRdv" styleClass="info-card-value" text="Aucun rendez-vous">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                    <VBox.margin>
+                                                        <Insets top="15.0" />
+                                                    </VBox.margin>
+                                                </HBox>
+                                                <Button mnemonicParsing="false" onAction="#navigateToConsulterRDV" styleClass="card-button" text="Voir détails" />
+                                            </children>
+                                        </VBox>
+
+                                        <!-- Carte: Docteurs disponibles -->
+                                        <VBox alignment="CENTER" prefHeight="150.0" prefWidth="250.0" styleClass="info-card">
+                                            <children>
+                                                <Label styleClass="info-card-title" text="Docteurs disponibles">
+                                                    <font>
+                                                        <Font name="System Bold" size="16.0" />
+                                                    </font>
+                                                </Label>
+                                                <HBox alignment="CENTER" spacing="10.0">
+                                                    <children>
+                                                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@assets/icons/doctor.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                        <Label fx:id="lblDocteursDispo" styleClass="info-card-value" text="5 disponibles">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                    <VBox.margin>
+                                                        <Insets top="15.0" />
+                                                    </VBox.margin>
+                                                </HBox>
+                                                <Button mnemonicParsing="false" onAction="#navigateToConsulterDISP" styleClass="card-button" text="Consulter" />
+                                            </children>
+                                        </VBox>
+
+                                        <!-- Carte: Mon Suivi -->
+                                        <VBox alignment="CENTER" prefHeight="150.0" prefWidth="250.0" styleClass="info-card">
+                                            <children>
+                                                <Label styleClass="info-card-title" text="Mon Suivi">
+                                                    <font>
+                                                        <Font name="System Bold" size="16.0" />
+                                                    </font>
+                                                </Label>
+                                                <HBox alignment="CENTER" spacing="10.0">
+                                                    <children>
+                                                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@assets/icons/chart.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                        <Label fx:id="lblMonSuivi" styleClass="info-card-value" text="3 rapports récents">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                    <VBox.margin>
+                                                        <Insets top="15.0" />
+                                                    </VBox.margin>
+                                                </HBox>
+                                                <Button mnemonicParsing="false" styleClass="card-button" text="Consulter" />
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="30.0" />
+                                    </VBox.margin>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </StackPane>
+            </center>
+
+            <bottom>
+                <!-- Pied de page -->
+                <HBox alignment="CENTER" prefHeight="40.0" styleClass="footer">
+                    <children>
+                        <Label styleClass="footer-text" text="© 2023 BabySteps. Tous droits réservés.">
+                            <font>
+                                <Font size="12.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+            </bottom>
+        </BorderPane>
+    </children>
+</AnchorPane>

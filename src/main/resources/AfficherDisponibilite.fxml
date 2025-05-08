@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" styleClass="root" stylesheets="@style/disponibilite-list-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.User.AfficherDisponibilite">
+    <children>
+        <!-- Main Content Area -->
+        <VBox spacing="20" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <!-- Header -->
+            <HBox alignment="CENTER_LEFT" prefHeight="70.0" styleClass="section-header">
+                <padding>
+                    <Insets left="20.0" right="20.0" />
+                </padding>
+
+                <HBox alignment="CENTER_LEFT" spacing="15.0">
+                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@assets/calendar-icon.png" />
+                        </image>
+                    </ImageView>
+
+                    <Label styleClass="header-title" text="Liste des disponibilités" />
+                </HBox>
+
+                <HBox alignment="CENTER_RIGHT" spacing="15.0" HBox.hgrow="ALWAYS">
+                    <Button fx:id="btnAddDisponibilite" onAction="#navigateToAjouterDisponibilite" prefHeight="50.0" prefWidth="230.0" styleClass="add-button" text="Nouvelle disponibilité">
+                        <graphic>
+                            <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@assets/icons8-add-16.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                </HBox>
+            </HBox>
+
+            <!-- Barre de recherche -->
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0" spacing="15" styleClass="section-header">
+                <padding>
+                    <Insets left="20.0" right="20.0" />
+                </padding>
+
+                <HBox alignment="CENTER_LEFT" spacing="10" styleClass="search-container">
+                    <Label text="Filtrer par :" styleClass="search-label">
+                        <font>
+                            <Font name="System Bold" size="14.0" />
+                        </font>
+                    </Label>
+
+                    <HBox alignment="CENTER" spacing="5">
+                        <Label text="Date" />
+                        <DatePicker fx:id="searchDatePicker" prefHeight="40.0" promptText="Sélectionner un jour" />
+                    </HBox>
+
+                    <HBox alignment="CENTER" spacing="5">
+                        <Label text="Médecin" />
+                        <ComboBox fx:id="searchMedecinComboBox" prefHeight="40.0" prefWidth="200.0" promptText="Sélectionner un médecin" />
+                    </HBox>
+
+                    <Button fx:id="btnRechercher" mnemonicParsing="false" onAction="#rechercherDisponibilites" styleClass="search-button" text="Rechercher">
+                        <graphic>
+                            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@assets/icons8-search-16.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
+                    <Button fx:id="btnReinitialiser" mnemonicParsing="false" onAction="#reinitialiserRecherche" styleClass="reset-button" text="Réinitialiser">
+                        <graphic>
+                            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@assets/reset-icon.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                </HBox>
+            </HBox>
+
+            <!-- Conteneur de la table centré et agrandi -->
+            <StackPane VBox.vgrow="ALWAYS" styleClass="container">
+                <VBox spacing="15" alignment="CENTER">
+                    <!-- Informations -->
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label fx:id="lblInfoResultats" text="Nombre de résultats : 0" styleClass="info-label" />
+                    </HBox>
+
+                    <!-- Table agrandie et centrée -->
+                    <TableView fx:id="tableDisponibilite" prefHeight="450.0" styleClass="modern-table" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colJour" prefWidth="200" text="Jour" />
+                            <TableColumn fx:id="colHeures" prefWidth="200" text="Heures" />
+                            <TableColumn fx:id="colStatut" prefWidth="150" text="Statut" />
+                            <TableColumn fx:id="colMedecin" prefWidth="180" text="Médecin" />
+                            <TableColumn fx:id="colActions" prefWidth="200" text="Actions" />
+                        </columns>
+                    </TableView>
+                </VBox>
+            </StackPane>
+        </VBox>
+    </children>
+</AnchorPane>

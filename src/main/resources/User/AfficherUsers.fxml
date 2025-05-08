@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;"
+            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.User.AfficherUsers">
+   <children>
+      <BorderPane prefHeight="600.0" prefWidth="1000.0">
+         <top>
+            <VBox spacing="15.0" alignment="CENTER" BorderPane.alignment="CENTER">
+               <children>
+                  <!-- Search Bar -->
+                  <TextField fx:id="searchField" prefHeight="40.0" prefWidth="900.0"
+                             promptText="Search ..." style="-fx-background-color: #f0f0f0; -fx-border-radius: 5px;" />
+
+                  <!-- Buttons: Modifier, Supprimer, Ban -->
+                  <HBox spacing="20.0" alignment="CENTER">
+                     <children>
+
+                        <Button fx:id="btnModifier" mnemonicParsing="false" onAction="#modifierSelectedUser"
+                                prefHeight="30.0" prefWidth="140.0"
+                                style="-fx-background-radius: 50px; -fx-background-color: #4CAF50;"
+                                text="Modifier" textFill="#ffffff">
+                           <font>
+                              <Font name="System Bold" size="14.0"/>
+                           </font>
+                        </Button>
+
+                        <!-- Supprimer Button -->
+                        <Button mnemonicParsing="false" onAction="#supprimer" prefHeight="30.0" prefWidth="140.0"
+                                style="-fx-background-radius: 50px; -fx-background-color: #e57373;" text="Supprimer" textFill="#ffffff">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Button>
+
+                        <!-- Ban RadioButton -->
+                        <RadioButton fx:id="ban" mnemonicParsing="false" onAction="#banUser" prefHeight="30.0" prefWidth="107.0"
+                                     text="Ban">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" bottom="10.0" />
+               </VBox.margin>
+            </VBox>
+         </top>
+
+
+         <center>
+            <!-- Table View - Centered in the main content area -->
+            <TableView fx:id="tableView" prefHeight="400.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+               <columns>
+                  <TableColumn fx:id="idCol" prefWidth="75.0" text="ID" />
+                  <TableColumn fx:id="emailCol" prefWidth="150.0" text="Email" />
+                  <TableColumn fx:id="nomCol" prefWidth="125.0" text="Nom" />
+                  <TableColumn fx:id="prenomCol" prefWidth="125.0" text="Prénom" />
+                  <TableColumn fx:id="nationnalieCol" prefWidth="150.0" text="Nationalité" />
+                  <TableColumn fx:id="numtelCol" prefWidth="150.0" text="Téléphone" />
+                  <TableColumn fx:id="banCol" prefWidth="120.0" text="Banned" />
+
+               </columns>
+               <BorderPane.margin>
+                  <javafx.geometry.Insets bottom="20.0" left="50.0" right="50.0" top="0.0" />
+               </BorderPane.margin>
+            </TableView>
+
+
+
+         </center>
+
+         <bottom>
+            <!-- Pagination - Centered at the bottom -->
+            <Pagination fx:id="pagination" prefHeight="60.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <javafx.geometry.Insets bottom="30.0" />
+               </BorderPane.margin>
+            </Pagination>
+         </bottom>
+      </BorderPane>
+   </children>
+</AnchorPane>

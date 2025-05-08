@@ -1,0 +1,350 @@
+/* Styles généraux */
+.root {
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-background-color: #f5f7fa;
+}
+
+/* Couleurs principales noir et blanc */
+* {
+    -primary-color: #0d1117;     /* Bleu très foncé / noir */
+    -primary-light: #161b22;     /* Bleu foncé pour les surbrillances */
+    -accent-color: #2d333b;      /* Gris foncé pour les accents */
+    -light-blue: #00B4DB;        /* Bleu clair pour les actions */
+    -gray-button: #6e7781;       /* Gris pour les boutons */
+    -light-bg: #f5f7fa;          /* Fond clair */
+    -dark-text: #24292f;         /* Texte foncé */
+    -light-text: #ffffff;        /* Texte clair */
+    -border-color: #d0d7de;      /* Couleur de bordure */
+    -hover-color: #2d333b;       /* Couleur de survol */
+    -active-color: #0d1117;      /* Couleur active */
+    -sidebar-bg: #1e2431;        /* Fond sidebar */
+    -sidebar-text: #c9d1d9;      /* Texte sidebar */
+    -footer-bg: #1e2431;         /* Fond footer */
+    -footer-text: #c9d1d9;       /* Texte footer */
+}
+
+/* Styles pour le ScrollPane de la sidebar */
+.sidebar-scroll {
+    -fx-background-color: -sidebar-bg;
+    -fx-background: -sidebar-bg;
+    -fx-border-color: transparent;
+}
+
+.sidebar-scroll > .viewport {
+    -fx-background-color: -sidebar-bg;
+}
+
+.sidebar-scroll .scroll-bar:vertical {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+    -fx-background-radius: 0;
+}
+
+.sidebar-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-background-radius: 3px;
+}
+
+.sidebar-scroll .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
+}
+
+.sidebar-scroll .corner {
+    -fx-background-color: -sidebar-bg;
+}
+
+/* Styles de la Sidebar */
+.sidebar {
+    -fx-background-color: -sidebar-bg;
+    -fx-min-width: 250px;
+    -fx-pref-width: 250px;
+    -fx-max-width: 250px;
+}
+
+.sidebar-header {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+    -fx-border-color: transparent transparent rgba(255, 255, 255, 0.1) transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.sidebar-title {
+    -fx-text-fill: -light-text;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.admin-profile {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-border-color: transparent transparent rgba(255, 255, 255, 0.1) transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.admin-name {
+    -fx-text-fill: -light-text;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.admin-role {
+    -fx-text-fill: -sidebar-text;
+    -fx-font-size: 12px;
+    -fx-opacity: 0.8;
+}
+
+.menu-category {
+    -fx-text-fill: -sidebar-text;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-opacity: 0.7;
+}
+
+.sidebar-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -sidebar-text;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 15px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-background-radius: 0;
+    -fx-cursor: hand;
+    -fx-min-width: 230px;
+    -fx-pref-width: 230px;
+    -fx-border-width: 0;
+}
+
+.sidebar-button:hover {
+    -fx-background-color: -hover-color;
+    -fx-text-fill: -light-text;
+}
+
+.active-sidebar-button {
+    -fx-background-color: -primary-color;
+    -fx-text-fill: -light-text;
+    -fx-font-weight: bold;
+    -fx-border-color: transparent transparent transparent #00B4DB;
+    -fx-border-width: 0 0 0 3;
+}
+
+/* Container et style du bouton de déconnexion */
+.logout-container {
+    -fx-padding: 0 0 0 0;
+    -fx-alignment: CENTER;
+}
+
+.logout-button {
+    -fx-background-color: -accent-color;
+    -fx-text-fill: -light-text;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-alignment: CENTER;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-rotate: 2; /* Légère inclinaison */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 2, 2);
+}
+
+.logout-button:hover {
+    -fx-background-color: #424a57;
+    -fx-rotate: 3; /* Inclinaison légèrement accentuée au survol */
+}
+
+/* Styles du contenu principal */
+.content-header {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent -border-color transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.page-title {
+    -fx-text-fill: -dark-text;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+/* Style de base pour les boutons d'action */
+.action-button {
+    -fx-font-size: 13px;
+    -fx-padding: 8px 15px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+}
+
+/* Bouton Actualiser en bleu */
+.refresh-button {
+    -fx-background-color: -light-blue;
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+}
+
+.refresh-button:hover {
+    -fx-background-color: derive(-light-blue, -10%);
+}
+
+/* Bouton Paramètres en gris */
+.settings-button {
+    -fx-background-color: -gray-button;
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+}
+
+.settings-button:hover {
+    -fx-background-color: derive(-gray-button, -10%);
+}
+
+.content-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.content-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Footer mis à jour */
+.footer {
+    -fx-background-color: -footer-bg;
+    -fx-border-color: #2a2f45 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+.footer-text {
+    -fx-text-fill: -footer-text;
+    -fx-opacity: 0.9;
+    -fx-font-size: 12px;
+}
+
+/* Styles pour le contenu du tableau de bord */
+.dashboard-container {
+    -fx-background-color: transparent;
+    -fx-padding: 20px;
+    -fx-spacing: 20px;
+}
+
+/* Sections de contenu */
+.content-section {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-border-color: #d0d7de;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 20px;
+}
+
+.section-title {
+    -fx-text-fill: -dark-text;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 10px 0;
+}
+
+/* Message d'erreur */
+.error-message {
+    -fx-text-fill: #d32f2f;
+    -fx-font-size: 14px;
+}
+
+.retry-button {
+    -fx-background-color: #f0f0f0;
+    -fx-text-fill: -dark-text;
+    -fx-padding: 8px 15px;
+    -fx-background-radius: 4px;
+    -fx-border-color: #d0d7de;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+}
+
+.retry-button:hover {
+    -fx-background-color: #e0e0e0;
+}
+/* Ajoutez ces styles à votre fichier backofficestyle.css */
+
+/* Couleur de fond uniforme pour toutes les pages */
+.content-scroll-pane {
+    -fx-background: #E9F6FF;
+    -fx-background-color: #E9F6FF;
+}
+
+.content-scroll-pane > .viewport {
+    -fx-background-color: #E9F6FF;
+}
+
+/* Pour que le ScrollPane n'affiche pas de bordures */
+.content-scroll-pane {
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+/* Assurez-vous que la zone de contenu principale a la couleur de fond uniforme */
+#contentArea {
+    -fx-background-color: #E9F6FF;
+}
+
+/* Style pour que la VBox contenant le contenu ait aussi la bonne couleur */
+.content-area-vbox {
+    -fx-background-color: #E9F6FF;
+}
+
+/* Uniformiser les styles des panels blancs dans le contenu */
+.content-panel {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 5);
+    -fx-padding: 15;
+}
+
+/* Effet d'ombre pour les formulaires blancs */
+.form-container {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);
+}
+
+/* Style des titres de page avec couleur du texte */
+.page-title {
+    -fx-text-fill: #2C3E50;
+    -fx-font-weight: bold;
+}
+
+/* Style des titres spécifiques */
+.disponibilite-title {
+    -fx-text-fill: #1976D2;
+}
+
+.grossesse-title {
+    -fx-text-fill: #E74C3C;
+}
+
+/* Style pour les boutons d'action */
+.action-button {
+    -fx-background-radius: 5;
+    -fx-padding: 8 15;
+    -fx-font-weight: bold;
+}
+
+.action-button.refresh-button {
+    -fx-background-color: #1976D2;
+    -fx-text-fill: white;
+}
+
+.action-button.settings-button {
+    -fx-background-color: #ECF0F1;
+    -fx-text-fill: #2C3E50;
+}
+
+/* Style pour le bouton ajouter */
+.add-button {
+    -fx-background-color: #1976D2;
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+    -fx-font-weight: bold;
+}
+
+/* Style pour le bouton annuler */
+.cancel-button {
+    -fx-background-color: #ECF0F1;
+    -fx-text-fill: #2C3E50;
+    -fx-background-radius: 5;
+    -fx-font-weight: bold;
+}

@@ -1,0 +1,310 @@
+/* modern-style.css with animations */
+
+/* General Styling */
+.root {
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #EDF2F7;
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInFromLeft {
+    from { translate: -50px; opacity: 0; }
+    to { translate: 0; opacity: 1; }
+}
+
+@keyframes slideInFromRight {
+    from { translate: 50px; opacity: 0; }
+    to { translate: 0; opacity: 1; }
+}
+
+@keyframes slideInFromTop {
+    from { translate: 0 -50px; opacity: 0; }
+    to { translate: 0 0; opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { scale: 1; }
+    50% { scale: 1.05; }
+    100% { scale: 1; }
+}
+
+@keyframes bounce {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -15px; }
+}
+
+@keyframes rotate {
+    from { rotate: 0deg; }
+    to { rotate: 360deg; }
+}
+
+@keyframes shimmer {
+    0% { -fx-background-color: linear-gradient(45deg, #1A365D 0%, #2C5282 25%, #3182CE 50%, #2C5282 75%, #1A365D 100%); background-position: 0% 50%; }
+    100% { -fx-background-color: linear-gradient(45deg, #1A365D 0%, #2C5282 25%, #3182CE 50%, #2C5282 75%, #1A365D 100%); background-position: 100% 50%; }
+}
+
+/* Apply Animations to Elements */
+.main-header {
+    animation: slideInFromTop 0.8s ease-out;
+}
+
+.add-button {
+    animation: pulse 2s infinite;
+}
+
+.add-button:hover {
+    animation: bounce 0.5s infinite;
+}
+
+.card {
+    animation: fadeIn 0.5s ease-out;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(49, 130, 206, 0.4), 12, 0, 0, 6);
+    scale: 1.03;
+}
+
+.table-row-cell {
+    animation: slideInFromRight 0.5s ease-out;
+    animation-fill-mode: both;
+    animation-delay: calc(0.1s * var(--row-index, 0));
+}
+
+/* Shimmer effect on header */
+.shimmer-header {
+    -fx-background-color: linear-gradient(45deg, #1A365D 0%, #2C5282 25%, #3182CE 50%, #2C5282 75%, #1A365D 100%);
+    background-size: 200% 100%;
+    animation: shimmer 3s infinite linear;
+}
+
+/* Rotating loading indicator */
+.loading-icon {
+    animation: rotate 1.5s infinite linear;
+}
+
+/* Table Styling */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    animation: fadeIn 1s ease-out;
+}
+
+.table-view .column-header {
+    -fx-background-color: #F7FAFC;
+    -fx-border-color: transparent transparent #E2E8F0 transparent;
+    -fx-padding: 8px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4A5568;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #F7FAFC;
+    -fx-background-radius: 8px 8px 0px 0px;
+}
+
+.table-view .table-cell {
+    -fx-padding: 10px 15px;
+    -fx-border-color: transparent transparent #EDF2F7 transparent;
+    -fx-text-fill: #2D3748;
+    -fx-alignment: CENTER_LEFT;
+    transition: background-color 0.3s;
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: white;
+    -fx-border-width: 0;
+    transition: all 0.3s;
+}
+
+.table-view .table-row-cell:hover {
+    -fx-background-color: #EBF8FF;
+    -fx-cursor: hand;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #F7FAFC;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #BEE3F8;
+    -fx-text-fill: #2B6CB0;
+    animation: pulse 2s;
+}
+
+/* Button Styling with Animation */
+.button {
+    -fx-cursor: hand;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 16px;
+    -fx-font-weight: bold;
+    -fx-background-color: #1E40AF;
+    -fx-text-fill: white;
+    transition: all 0.3s;
+}
+
+.button:hover {
+    -fx-background-color: #2C5282;
+    scale: 1.05;
+}
+
+.button:pressed {
+    -fx-background-color: #1A365D;
+    scale: 0.95;
+}
+
+/* Primary Action Button */
+.add-button {
+    -fx-background-color: #1E40AF;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* Filter Buttons */
+.filter-button {
+    -fx-background-color: #EDF2F7;
+    -fx-text-fill: #4A5568;
+    -fx-border-color: #CBD5E0;
+    -fx-border-radius: 8px;
+    animation: fadeIn 0.5s;
+}
+
+.filter-button:hover {
+    -fx-background-color: #E2E8F0;
+    translate: 0 -3px;
+}
+
+.filter-button:selected {
+    -fx-background-color: #BEE3F8;
+    -fx-text-fill: #2B6CB0;
+    -fx-border-color: #90CDF4;
+    animation: pulse 2s infinite;
+}
+
+/* Delete/Cancel Button */
+.delete-button {
+    -fx-background-color: #E53E3E;
+    -fx-text-fill: white;
+}
+
+.delete-button:hover {
+    -fx-background-color: #C53030;
+}
+
+/* Text Field Styling */
+.text-field {
+    -fx-background-color: #F7FAFC;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 12px;
+    transition: all 0.3s;
+}
+
+.text-field:focused {
+    -fx-border-color: #4299E1;
+    -fx-border-width: 2px;
+    scale: 1.02;
+}
+
+.search-field {
+    -fx-background-color: #F7FAFC;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 12px;
+    -fx-prompt-text-fill: #A0AEC0;
+    animation: slideInFromLeft 0.5s;
+}
+
+/* Card Styling */
+.card {
+    -fx-background-color: white;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 8, 0, 0, 3);
+    -fx-padding: 15px;
+}
+
+/* Status Indicators */
+.status-pending {
+    -fx-background-color: #FEF6E4;
+    -fx-text-fill: #975A16;
+    -fx-background-radius: 50px;
+    -fx-padding: 5px 10px;
+    -fx-border-color: #FEEBC8;
+    -fx-border-radius: 50px;
+    animation: pulse 2s infinite;
+}
+
+.status-confirmed {
+    -fx-background-color: #E6FFFA;
+    -fx-text-fill: #2C7A7B;
+    -fx-background-radius: 50px;
+    -fx-padding: 5px 10px;
+    -fx-border-color: #B2F5EA;
+    -fx-border-radius: 50px;
+    animation: pulse 2s infinite;
+}
+
+.status-cancelled {
+    -fx-background-color: #FFF5F5;
+    -fx-text-fill: #C53030;
+    -fx-background-radius: 50px;
+    -fx-padding: 5px 10px;
+    -fx-border-color: #FED7D7;
+    -fx-border-radius: 50px;
+    animation: pulse 2s infinite;
+}
+
+/* Loading animation container */
+.loading-container {
+    animation: fadeIn 0.5s;
+}
+
+/* Wobble animation for warning messages */
+.warning-message {
+    animation: bounce 0.5s;
+}
+
+/* Alert message animation */
+.alert-message {
+    animation: fadeIn 0.3s, pulse 2s infinite;
+}
+
+/* Apply staggered animation to multiple elements */
+.staggered-item:nth-child(1) { animation-delay: 0s; }
+.staggered-item:nth-child(2) { animation-delay: 0.2s; }
+.staggered-item:nth-child(3) { animation-delay: 0.4s; }
+.staggered-item:nth-child(4) { animation-delay: 0.6s; }
+.staggered-item:nth-child(5) { animation-delay: 0.8s; }
+
+/* Notification badge */
+.notification-badge {
+    -fx-background-color: #E53E3E;
+    -fx-background-radius: 50%;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 8px;
+    animation: bounce 1s infinite;
+}
+
+/* Special color transitions */
+.color-transition {
+    transition: background-color 0.5s, text-fill 0.5s;
+}
+
+/* Apply scaling to enhance 3D effect on hover */
+.scale-effect:hover {
+    scale: 1.1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);
+    rotate: 2deg;
+}

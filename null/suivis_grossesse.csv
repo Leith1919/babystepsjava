@@ -1,0 +1,10 @@
+id,date_suivi,poids,tension,symptomes,etat_grossesse,patient_id
+8,2025-05-08,50,00,12,00,Nausées matinales,Normal,23
+4,2025-05-07,60,00,10,00,Maux de dos,Normal,23
+5,2025-05-07,60,00,11,00,Maux de dos,Normal,23
+6,2025-05-07,60,00,11,00,Fatigue,Normal,23
+7,2025-05-07,45,00,15,00,Fatigue,Normal,23
+9,2025-05-01,60,00,12,00,Nausées matinales,Normal,23
+3,2025-03-07,80,00,12,00,IJLJKLK,Critique,1
+2,2025-03-06,90,00,10,00,bien,Normal,3
+1,2025-03-05,90,00,10,00,malade,Normal,2

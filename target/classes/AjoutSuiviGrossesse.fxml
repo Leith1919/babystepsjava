@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.User.AjoutSuiviGrossesse">
+   <center>
+      <StackPane>
+         <children>
+            <!-- Fond avec dégradé -->
+            <AnchorPane prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: linear-gradient(to bottom right, #f0f9ff, #e8f5fe);">
+               <effect>
+                  <DropShadow color="#0000001a" height="20.0" radius="9.5" width="20.0" />
+               </effect>
+            </AnchorPane>
+
+            <!-- Contenu principal -->
+            <HBox alignment="CENTER" spacing="0">
+
+               <!-- Zone de contenu principale -->
+               <VBox alignment="TOP_CENTER" spacing="20" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                  <padding>
+                     <Insets bottom="40" left="40" right="40" top="40" />
+                  </padding>
+
+                  <!-- En-tête avec titre et illustration -->
+                  <HBox alignment="CENTER" spacing="15">
+                     <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@assets/pregnancy-icon.png" />
+                        </image>
+                     </ImageView>
+                     <Label text="Création d'un Suivi de Grossesse" textFill="#2b87da">
+                        <font>
+                           <Font name="Arial Bold" size="28.0" />
+                        </font>
+                        <effect>
+                           <DropShadow color="#00000015" height="3.0" radius="1.0" width="3.0" />
+                        </effect>
+                     </Label>
+                  </HBox>
+
+                  <!-- Sous-titre -->
+                  <Label text="Enregistrez les informations pour suivre l'évolution de la grossesse" textFill="#71a7d3">
+                     <font>
+                        <Font name="Arial" size="16.0" />
+                     </font>
+                  </Label>
+
+                  <!-- Formulaire avec effet de carte -->
+                  <StackPane>
+                     <VBox maxWidth="800" spacing="25" style="-fx-background-color: white; -fx-background-radius: 20;">
+                        <padding>
+                           <Insets bottom="40" left="50" right="50" top="40" />
+                        </padding>
+
+                        <effect>
+                           <DropShadow color="#0000001a" height="30.0" radius="14.5" width="30.0" />
+                        </effect>
+
+                        <!-- Groupe date -->
+                        <VBox spacing="8">
+                           <Label styleClass="form-label" text="Date du suivi">
+                              <font>
+                                 <Font name="Arial Bold" size="16.0" />
+                              </font>
+                           </Label>
+                           <DatePicker fx:id="Date_SuiviGrossesse" prefHeight="40.0" prefWidth="400.0" promptText="Sélectionnez une date" style="-fx-background-radius: 8;" styleClass="form-field" />
+                           <Label fx:id="dateError" styleClass="error-label" text="" textFill="#e04f5f">
+                              <font>
+                                 <Font name="Arial" size="12.0" />
+                              </font>
+                           </Label>
+                        </VBox>
+
+                        <!-- Ligne avec deux champs -->
+                        <HBox spacing="30">
+                           <!-- Groupe poids -->
+                           <VBox spacing="8" HBox.hgrow="ALWAYS">
+                              <Label styleClass="form-label" text="Poids (kg)">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="Poids_SuiviGrossesse" prefHeight="40.0" promptText="Ex: 65.5" style="-fx-background-radius: 8;" styleClass="form-field">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                              <Label fx:id="poidsError" styleClass="error-label" text="" textFill="#e04f5f">
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </Label>
+                           </VBox>
+
+                           <!-- Groupe tension -->
+                           <VBox spacing="8" HBox.hgrow="ALWAYS">
+                              <Label styleClass="form-label" text="Tension artérielle">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="Tension_SuiviGrossesse" prefHeight="40.0" promptText="Ex: 120/80" style="-fx-background-radius: 8;" styleClass="form-field">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                              <Label fx:id="tensionError" styleClass="error-label" text="" textFill="#e04f5f">
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </Label>
+                           </VBox>
+                        </HBox>
+
+                        <!-- Ligne avec deux champs -->
+                        <HBox spacing="30">
+                           <!-- Groupe symptômes -->
+                           <VBox spacing="8" HBox.hgrow="ALWAYS">
+                              <Label styleClass="form-label" text="Symptômes">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="Symptomes_SuiviGrossesse" prefHeight="40.0" promptText="Sélectionner les symptômes" style="-fx-background-radius: 8;" styleClass="form-field" />
+                              <Label fx:id="symptomesError" styleClass="error-label" text="" textFill="#e04f5f">
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </Label>
+                           </VBox>
+
+                           <!-- Groupe état -->
+                           <VBox spacing="8" HBox.hgrow="ALWAYS">
+                              <Label styleClass="form-label" text="État de la grossesse">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="Etat_SuiviGrossesse" prefHeight="40.0" promptText="Sélectionner l'état" style="-fx-background-radius: 8;" styleClass="form-field" />
+                              <Label fx:id="etatError" styleClass="error-label" text="" textFill="#e04f5f">
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </Label>
+                           </VBox>
+                        </HBox>
+                        <!-- Groupe patient -->
+                        <VBox spacing="8">
+                           <Label styleClass="form-label" text="Patient">
+                              <font>
+                                 <Font name="Arial Bold" size="16.0" />
+                              </font>
+                           </Label>
+                           <ComboBox fx:id="Patient_id" prefHeight="40.0" prefWidth="400.0" promptText="Sélectionnez un patient" style="-fx-background-radius: 8;" styleClass="form-field" />
+                           <Label fx:id="patientError" styleClass="error-label" text="" textFill="#e04f5f">
+                              <font>
+                                 <Font name="Arial" size="12.0" />
+                              </font>
+                           </Label>
+                        </VBox>
+
+                        <!-- Notes supplémentaires -->
+                        <VBox spacing="8">
+                           <Label styleClass="form-label" text="Notes supplémentaires">
+                              <font>
+                                 <Font name="Arial Bold" size="16.0" />
+                              </font>
+                           </Label>
+                           <TextArea fx:id="Notes_SuiviGrossesse" prefHeight="100.0" promptText="Ajoutez des notes ou observations supplémentaires..." style="-fx-background-radius: 8;" styleClass="form-field">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </TextArea>
+                        </VBox>
+
+                        <!-- Boutons d'action -->
+                        <HBox alignment="CENTER" spacing="20">
+                           <Button fx:id="front" mnemonicParsing="false" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #f0f0f0; -fx-background-radius: 8;" text="Retour" textFill="#5a5a5a">
+                              <font>
+                                 <Font name="Arial Bold" size="16.0" />
+                              </font>
+                              <effect>
+                                 <DropShadow color="#00000026" height="5.0" radius="2.0" width="5.0" />
+                              </effect>
+                           </Button>
+                           <Button fx:id="Annuler_SuiviGrossesse" mnemonicParsing="false" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #f0f0f0; -fx-background-radius: 8;" text="Annuler" textFill="#5a5a5a">
+                              <font>
+                                 <Font name="Arial Bold" size="16.0" />
+                              </font>
+                              <effect>
+                                 <DropShadow color="#00000026" height="5.0" radius="2.0" width="5.0" />
+                              </effect>
+                           </Button>
+                           <Button fx:id="Ajout_SuiviGrossesse" mnemonicParsing="false" onAction="#Ajout_SuiviGrossesse" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: linear-gradient(to right, #2b87da, #41a7f5); -fx-background-radius: 8;" text="Enregistrer" textFill="WHITE">
+                              <font>
+                                 <Font name="Arial Bold" size="16.0" />
+                              </font>
+                              <graphic>
+                                 <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                       <Image url="@assets/icons8-save-50.png" />
+                                    </image>
+                                 </ImageView>
+                              </graphic>
+                              <effect>
+                                 <DropShadow color="#00000040" height="8.0" radius="3.5" width="8.0" />
+                              </effect>
+                           </Button>
+                        </HBox>
+                     </VBox>
+                  </StackPane>
+
+                  <!-- Footer avec informations de copyright -->
+                  <Label opacity="0.7" text="© 2025 MamanSanté - Tous droits réservés" textFill="#71a7d3">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="20" />
+                     </VBox.margin>
+                  </Label>
+               </VBox>
+            </HBox>
+         </children>
+      </StackPane>
+   </center>
+
+   <!-- Style global -->
+   <stylesheets>
+      <URL value="@assets/application.css" />
+   </stylesheets>
+</BorderPane>

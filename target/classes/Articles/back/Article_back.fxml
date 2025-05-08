@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.User.ArticleBackController"
+            fitToWidth="true"
+            prefHeight="800.0" prefWidth="1000.0"
+            styleClass="main-content"
+            stylesheets="@../../style.css">
+
+    <content>
+        <VBox spacing="20">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <!-- Header with Title, Add Button and Search -->
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <Label text="Gestion des Articles" styleClass="title-text-primary"/>
+                <Button fx:id="addButton" text="Ajouter Article" styleClass="add-button"/>
+
+                <!-- Search Section -->
+                <HBox spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER_RIGHT">
+                    <TextField fx:id="searchField" promptText="Rechercher par titre..." prefWidth="300"/>
+                    <Button fx:id="searchButton" text="Rechercher" styleClass="search-button"/>
+                    <Button fx:id="sortAZButton" text="Trier A → Z"/>
+                    <Button text=" Statistiques" onAction="#handleStatistiques"/>
+                </HBox>
+            </HBox>
+
+            <!-- Pagination Controls -->
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="Page :"/>
+                <TextField fx:id="pageNumberField" promptText="1" prefWidth="50"/>
+                <Button fx:id="goToPageButton" text="Aller à la page"/>
+                <Label fx:id="pageLabel" text="Page 1"/>
+            </HBox>
+
+            <!-- Form Container -->
+            <VBox fx:id="formContainer" spacing="15" visible="false"
+                  style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+                <Label text="Ajouter / Modifier un Article" styleClass="title-text-secondary"/>
+                <TextField fx:id="titreField" promptText="Titre de l'article"/>
+                <TextArea fx:id="contenuField" promptText="Contenu de l'article" prefRowCount="4"/>
+                <HBox spacing="10">
+                    <Button fx:id="uploadImageButton" text="Choisir une image" styleClass="action-button"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="saveButton" text="Enregistrer" styleClass="add-button"/>
+                    <Button fx:id="cancelButton" text="Annuler" styleClass="cancel-button"/>
+                </HBox>
+            </VBox>
+
+            <!-- Articles Container -->
+            <ScrollPane fitToWidth="true" styleClass="edge-to-edge">
+                <FlowPane fx:id="cardsContainer" hgap="20" vgap="20">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
+                </FlowPane>
+            </ScrollPane>
+
+        </VBox>
+    </content>
+</ScrollPane>

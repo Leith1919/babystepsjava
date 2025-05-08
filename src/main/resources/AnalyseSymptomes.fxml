@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="850.0" prefWidth="1320.0" style="-fx-background-color: #f5f7fa;" stylesheets="@style/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.User.AnalyseSymptomes">
+    <children>
+        <AnchorPane layoutX="-16.0" layoutY="-14.0" prefHeight="870.0" prefWidth="1560.0" style="-fx-background-color: rgb(233, 246, 255);" />
+        <AnchorPane layoutX="40.0" layoutY="20.0" prefHeight="810.0" prefWidth="1240.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="20.0">
+            <!-- En-tête -->
+            <HBox alignment="CENTER_LEFT" layoutY="14.0" prefHeight="60.0" prefWidth="1240.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 8, 0, 0, 2);" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <padding>
+                    <Insets left="25.0" right="25.0" />
+                </padding>
+                <children>
+                    <Label text="Analyse de vos symptômes" textFill="#2c5282">
+                        <font>
+                            <Font name="System Bold" size="24.0" />
+                        </font>
+                    </Label>
+                </children>
+            </HBox>
+
+            <!-- Zone de saisie des symptômes - PLUS COMPACTE -->
+            <VBox layoutY="84.0" prefHeight="200.0" prefWidth="1240.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 8, 0, 0, 2);" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="84.0">
+                <padding>
+                    <Insets bottom="20.0" left="25.0" right="25.0" top="20.0" />
+                </padding>
+                <children>
+                    <Label text="Décrivez vos symptômes et votre état actuel" textFill="#2c5282">
+                        <font>
+                            <Font name="System Bold" size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets bottom="15.0" />
+                        </VBox.margin>
+                    </Label>
+
+                    <HBox spacing="20.0">
+                        <children>
+                            <VBox prefWidth="200.0">
+                                <children>
+                                    <Label text="Semaine de grossesse" textFill="#5a6474">
+                                        <font>
+                                            <Font size="14.0" />
+                                        </font>
+                                        <VBox.margin>
+                                            <Insets bottom="8.0" />
+                                        </VBox.margin>
+                                    </Label>
+                                    <ComboBox fx:id="comboSemaine" prefHeight="40.0" prefWidth="200.0" promptText="Sélectionnez">
+                                        <VBox.margin>
+                                            <Insets bottom="15.0" />
+                                        </VBox.margin>
+                                    </ComboBox>
+                                </children>
+                            </VBox>
+
+                            <VBox HBox.hgrow="ALWAYS">
+                                <children>
+                                    <Label text="Description détaillée de vos symptômes" textFill="#5a6474">
+                                        <font>
+                                            <Font size="14.0" />
+                                        </font>
+                                        <VBox.margin>
+                                            <Insets bottom="8.0" />
+                                        </VBox.margin>
+                                    </Label>
+                                    <TextArea fx:id="txtDescription" prefHeight="80.0" promptText="Décrivez vos symptômes en détail (quand ont-ils commencé, intensité, fréquence, etc.)" style="-fx-font-size: 14px;">
+                                        <VBox.margin>
+                                            <Insets />
+                                        </VBox.margin>
+                                    </TextArea>
+                                </children>
+                            </VBox>
+                        </children>
+                        <VBox.margin>
+                            <Insets bottom="15.0" />
+                        </VBox.margin>
+                    </HBox>
+
+                    <HBox alignment="CENTER_RIGHT" spacing="15.0">
+                        <children>
+                            <ProgressIndicator fx:id="progressAnalyse" prefHeight="40.0" prefWidth="40.0" visible="false" />
+                            <Button fx:id="btnRetour" mnemonicParsing="false" onAction="#retourAccueil" prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #cbd5e0; -fx-background-radius: 8;" text="Retour" textFill="#2d3748">
+                                <font>
+                                    <Font name="System Bold" size="16.0" />
+                                </font>
+                            </Button>
+                            <Button fx:id="btnAnalyser" defaultButton="true" mnemonicParsing="false" onAction="#analyserSymptomes" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #2c5282; -fx-background-radius: 8;" text="Analyser" textFill="WHITE">
+                                <font>
+                                    <Font name="System Bold" size="16.0" />
+                                </font>
+                            </Button>
+                        </children>
+                    </HBox>
+                </children>
+            </VBox>
+
+            <!-- Zone d'affichage des résultats (initialement cachée) - ZONE AGRANDIE POUR AFFICHER TOUS LES CONSEILS -->
+            <VBox fx:id="zoneResultats" layoutY="304.0" minHeight="400.0" prefHeight="500.0" prefWidth="1240.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 8, 0, 0, 2);" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="304.0">
+                <padding>
+                    <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                </padding>
+                <children>
+                    <Label fx:id="lblResultatTitre" prefHeight="30.0" text="Résultat de l'analyse" textFill="#2c5282">
+                        <font>
+                            <Font name="System Bold" size="22.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets bottom="15.0" />
+                        </VBox.margin>
+                    </Label>
+
+                    <Label fx:id="lblEtatGeneral" prefHeight="30.0" text="Votre état semble normal pour votre stade de grossesse." textFill="#2d3748" wrapText="true">
+                        <font>
+                            <Font name="System Bold" size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets bottom="15.0" />
+                        </VBox.margin>
+                    </Label>
+
+                    <!-- ZONE DE CONSEILS SANS SCROLL, PLUS GRANDE, SANS CONTAINMENT -->
+                    <VBox fx:id="conseilsContainer" VBox.vgrow="ALWAYS" prefWidth="1190.0" minHeight="300.0" style="-fx-background-color: #f9fafc; -fx-background-radius: 8; -fx-padding: 20; -fx-border-color: #e2e8f0; -fx-border-radius: 8;">
+                        <children>
+                            <Label fx:id="lblConseils" style="-fx-font-size: 16px; -fx-line-spacing: 1.5em;" text="Conseils" textFill="#2d3748" wrapText="true" VBox.vgrow="ALWAYS">
+                                <font>
+                                    <Font size="16.0" />
+                                </font>
+                            </Label>
+                        </children>
+                    </VBox>
+
+                    <HBox alignment="CENTER" spacing="15.0">
+                        <VBox.margin>
+                            <Insets top="20.0" />
+                        </VBox.margin>
+                        <children>
+                            <Button fx:id="btnConsulter" mnemonicParsing="false" onAction="#prendreRendezVous" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #e53e3e; -fx-background-radius: 8;" text="Prendre rendez-vous" textFill="WHITE" visible="false">
+                                <font>
+                                    <Font name="System Bold" size="16.0" />
+                                </font>
+                            </Button>
+                        </children>
+                    </HBox>
+                </children>
+            </VBox>
+        </AnchorPane>
+    </children>
+</AnchorPane>

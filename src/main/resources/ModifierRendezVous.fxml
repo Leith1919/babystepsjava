@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ScrollPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.User.ModifierRendezVous">
+    <children>
+        <ScrollPane fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <content>
+                <VBox alignment="CENTER" spacing="12.0">
+                    <children>
+                        <Label text="Modifier un rendez-vous" textFill="#4a90e2">
+                            <font>
+                                <Font name="System Bold" size="26.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets top="10.0" bottom="10.0" />
+                            </VBox.margin>
+                        </Label>
+
+                        <VBox spacing="5.0">
+                            <Label text="Motif" textFill="#4a90e2">
+                                <font>
+                                    <Font name="System Bold" size="16.0" />
+                                </font>
+                            </Label>
+                            <TextField fx:id="motifField" prefWidth="300.0" prefHeight="35.0" />
+                            <Label fx:id="motifErrorLabel" text="Le motif est obligatoire" textFill="RED" visible="false">
+                                <font>
+                                    <Font size="12.0" />
+                                </font>
+                            </Label>
+                        </VBox>
+
+                        <VBox spacing="5.0">
+                            <Label text="Date" textFill="#4a90e2">
+                                <font>
+                                    <Font name="System Bold" size="16.0" />
+                                </font>
+                            </Label>
+                            <DatePicker fx:id="datePicker" prefWidth="300.0" prefHeight="35.0" />
+                            <Label fx:id="jourErrorLabel" text="La date est obligatoire" textFill="RED" visible="false">
+                                <font>
+                                    <Font size="12.0" />
+                                </font>
+                            </Label>
+                        </VBox>
+
+                        <VBox spacing="5.0">
+                            <Label text="Heure" textFill="#4a90e2">
+                                <font>
+                                    <Font name="System Bold" size="16.0" />
+                                </font>
+                            </Label>
+                            <ComboBox fx:id="heureComboBox" promptText="Choisir une heure" prefWidth="300.0" prefHeight="35.0" />
+                            <Label fx:id="heureErrorLabel" text="L'heure est obligatoire" textFill="RED" visible="false">
+                                <font>
+                                    <Font size="12.0" />
+                                </font>
+                            </Label>
+                        </VBox>
+
+                        <VBox spacing="5.0">
+                            <Label text="Symptômes" textFill="#4a90e2">
+                                <font>
+                                    <Font name="System Bold" size="16.0" />
+                                </font>
+                            </Label>
+                            <TextArea fx:id="symptomesArea" prefHeight="70.0" prefWidth="300.0" wrapText="true" />
+                            <Label fx:id="symptomesErrorLabel" text="Les symptômes sont obligatoires" textFill="RED" visible="false">
+                                <font>
+                                    <Font size="12.0" />
+                                </font>
+                            </Label>
+                        </VBox>
+
+                        <VBox spacing="5.0">
+                            <Label text="Traitement en cours" textFill="#4a90e2">
+                                <font>
+                                    <Font name="System Bold" size="16.0" />
+                                </font>
+                            </Label>
+                            <TextArea fx:id="traitementArea" prefHeight="70.0" prefWidth="300.0" wrapText="true" />
+                            <Label fx:id="traitementErrorLabel" text="Le traitement est obligatoire" textFill="RED" visible="false">
+                                <font>
+                                    <Font size="12.0" />
+                                </font>
+                            </Label>
+                        </VBox>
+
+                        <VBox spacing="5.0">
+                            <Label text="Notes" textFill="#4a90e2">
+                                <font>
+                                    <Font name="System Bold" size="16.0" />
+                                </font>
+                            </Label>
+                            <TextArea fx:id="notesArea" prefHeight="70.0" prefWidth="300.0" wrapText="true" />
+                        </VBox>
+
+                        <HBox alignment="CENTER" spacing="20.0">
+                            <VBox.margin>
+                                <Insets top="20.0" bottom="20.0" />
+                            </VBox.margin>
+                            <children>
+                                <Button onAction="#enregistrerModification" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #0099FF;" text="Enregistrer" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="16.0" />
+                                    </font>
+                                </Button>
+
+                                <Button onAction="#annuler" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #cccccc;" text="Annuler" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="16.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                        </HBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

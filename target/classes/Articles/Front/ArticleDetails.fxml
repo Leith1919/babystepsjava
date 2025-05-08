@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="main-content" stylesheets="@../../style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.User.ArticleDetailsController">
+
+    <children>
+        <VBox spacing="15" layoutX="20" layoutY="20">
+            <!-- Image de l'article -->
+            <ImageView fx:id="articleImageView" fitWidth="100" fitHeight="100" preserveRatio="true" />
+
+            <!-- Titre de l'article -->
+            <Label fx:id="articleTitle" styleClass="title-text-primary"/>
+
+            <!-- Contenu de l'article -->
+            <TextArea fx:id="articleContent" editable="false" prefHeight="100" prefWidth="760" />
+
+            <!-- Formulaire ajout commentaire -->
+            <HBox spacing="10">
+                <TextArea fx:id="commentaireField" prefRowCount="2" prefWidth="400" promptText="Votre Commentaire" styleClass="grid-field" />
+                <Button fx:id="addCommentButton" styleClass="add-button" text="Ajouter" />
+            </HBox>
+
+            <!-- Liste des Commentaires -->
+            <ScrollPane fitToWidth="true" prefHeight="200" prefWidth="760">
+                <content>
+                    <VBox fx:id="commentsContainer" spacing="10"/>
+                </content>
+            </ScrollPane>
+        </VBox>
+    </children>
+</AnchorPane>

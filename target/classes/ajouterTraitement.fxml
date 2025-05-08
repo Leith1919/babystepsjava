@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.User.AjouterTraitementControllors"
+            prefHeight="500.0" prefWidth="700.0"
+            stylesheets="@css/style.css">
+
+   <children>
+      <VBox alignment="TOP_CENTER" spacing="25.0" layoutX="50.0" layoutY="30.0" prefWidth="600"
+            styleClass="card">
+
+         <Label text="Ajouter un Traitement"
+                style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #4a90e2;" />
+
+         <!-- Form Fields -->
+         <GridPane hgap="20" vgap="15">
+            <columnConstraints>
+               <ColumnConstraints minWidth="150"/>
+               <ColumnConstraints minWidth="300"/>
+            </columnConstraints>
+
+            <Label text="ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="idTF" prefWidth="250" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <Label text="Ordonnance:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="ordonnanceComboBox" promptText="Sélectionnez une ordonnance"
+                      prefWidth="250" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="Date de prescription:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <DatePicker fx:id="datePicker" prefWidth="250" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+            <Label text="Historique:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="historiqueTF" prefWidth="250" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+            <Label text="Patient ID:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="patientIdComboBox" promptText="Sélectionnez un patient"
+                      prefWidth="250" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+         </GridPane>
+
+         <!-- Action Button -->
+         <Button fx:id="ajouter" onAction="#ajouterTraitement" text="Ajouter Traitement" prefWidth="250"
+                 style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;"
+                 alignment="CENTER"/>
+
+      </VBox>
+   </children>
+</AnchorPane>

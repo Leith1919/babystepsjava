@@ -1,0 +1,405 @@
+/* ===== Styles généraux pour la page des rendez-vous ===== */
+
+/* Couleurs principales */
+.root {
+    --primary: #2c5282;
+    --primary-light: #3b82f6;
+    --primary-dark: #1e40af;
+    --secondary: #64748b;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --light: #f8fafc;
+    --dark: #1e293b;
+    --card-shadow: rgba(0, 0, 0, 0.08);
+    --hover-shadow: rgba(0, 0, 0, 0.15);
+}
+
+/* Styles généraux */
+.root {
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-font-size: 14px;
+}
+
+.background-pane {
+    -fx-background-color: #f5f7fa;
+}
+
+/* Headers et titres */
+.section-header {
+    -fx-background-color: white;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(three-pass-box, var(--card-shadow), 8, 0, 0, 2);
+    -fx-padding: 15px 25px;
+}
+
+.section-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: var(--primary);
+}
+
+.cards-section-title {
+    -fx-text-fill: var(--dark);
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+.cards-count-label {
+    -fx-text-fill: var(--secondary);
+    -fx-font-size: 13px;
+}
+
+/* Bouton Ajouter */
+.add-button {
+    -fx-background-color: var(--primary);
+    -fx-background-radius: 10px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 12px 20px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1);
+    -fx-transition: all 0.3s ease;
+}
+
+.add-button:hover {
+    -fx-background-color: var(--primary-light);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 8, 0, 0, 2);
+    -fx-translate-y: -2px;
+}
+
+.add-button:pressed {
+    -fx-background-color: var(--primary-dark);
+    -fx-translate-y: 0px;
+}
+
+/* Boutons de filtre */
+.filter-button {
+    -fx-background-color: white;
+    -fx-text-fill: var(--secondary);
+    -fx-background-radius: 10px;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-padding: 10px 18px;
+    -fx-cursor: hand;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+    -fx-transition: all 0.2s ease;
+}
+
+.filter-button:hover {
+    -fx-background-color: #f1f5f9;
+    -fx-border-color: #cbd5e1;
+    -fx-translate-y: -1px;
+}
+
+.filter-button-active {
+    -fx-background-color: var(--primary);
+    -fx-text-fill: white;
+    -fx-border-color: var(--primary);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 5, 0, 0, 1);
+}
+
+/* Champ de recherche */
+.text-field {
+    -fx-background-color: #f1f5f9;
+    -fx-background-radius: 10px;
+    -fx-padding: 12px 20px;
+    -fx-prompt-text-fill: #94a3b8;
+    -fx-font-size: 14px;
+    -fx-transition: all 0.2s ease;
+}
+
+.text-field:focused {
+    -fx-background-color: white;
+    -fx-border-color: var(--primary-light);
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(59,130,246,0.2), 5, 0, 0, 0);
+}
+
+/* Container des cartes */
+.cards-container-pane {
+    -fx-background-color: white;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(three-pass-box, var(--card-shadow), 8, 0, 0, 2);
+}
+
+/* ScrollPane */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .scroll-bar > .thumb {
+    -fx-background-color: #cbd5e0;
+    -fx-background-radius: 10px;
+}
+
+.scroll-pane > .scroll-bar > .track {
+    -fx-background-color: transparent;
+}
+
+/* FlowPane pour l'organisation des cartes */
+.flow-pane {
+    -fx-background-color: transparent;
+    -fx-hgap: 25px;
+    -fx-vgap: 25px;
+    -fx-padding: 25px;
+}
+
+/* ===== Styles pour les cartes de rendez-vous ===== */
+
+/* Design de base des cartes */
+.rdv-card {
+    -fx-background-color: white;
+    -fx-background-radius: 16px;
+    -fx-effect: dropshadow(gaussian, var(--card-shadow), 15, 0, 0, 2);
+    -fx-padding: 20px;
+    -fx-spacing: 15px;
+    -fx-min-width: 340px;
+    -fx-pref-width: 340px;
+    -fx-max-width: 340px;
+    -fx-min-height: 280px;
+    -fx-border-width: 1px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 16px;
+    -fx-transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.rdv-card:hover {
+    -fx-effect: dropshadow(gaussian, var(--hover-shadow), 20, 0, 0, 4);
+    -fx-translate-y: -5px;
+    -fx-border-color: var(--primary-light);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+/* En-tête de la carte */
+.card-header {
+    -fx-spacing: 10px;
+    -fx-alignment: center-left;
+    -fx-padding: 0 0 10 0;
+    -fx-border-color: #f1f5f9;
+    -fx-border-width: 0 0 1 0;
+}
+
+/* Date dans la carte */
+.date-container {
+    -fx-background-color: #ebf8ff;
+    -fx-background-radius: 12px;
+    -fx-padding: 12px;
+    -fx-spacing: 2px;
+    -fx-alignment: center;
+    -fx-min-width: 80px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 1);
+}
+
+.date-day {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: var(--primary);
+}
+
+.date-month {
+    -fx-font-size: 13px;
+    -fx-text-fill: var(--secondary);
+    -fx-font-weight: bold;
+}
+
+.date-weekday {
+    -fx-font-size: 12px;
+    -fx-text-fill: var(--secondary);
+}
+
+/* Information sur l'heure */
+.time-container {
+    -fx-spacing: 8px;
+    -fx-alignment: center-left;
+}
+
+.time-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: var(--dark);
+}
+
+/* Statut du rendez-vous */
+.status-container {
+    -fx-spacing: 8px;
+    -fx-alignment: center-right;
+}
+
+.status-indicator {
+    -fx-stroke-width: 0;
+}
+
+.status-past {
+    -fx-fill: #94a3b8;
+}
+
+.status-upcoming {
+    -fx-fill: #3b82f6;
+}
+
+.status-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+/* Contenu principal de la carte */
+.card-content {
+    -fx-spacing: 15px;
+    -fx-padding: 5px 0;
+}
+
+/* Motif du rendez-vous */
+.motif-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: var(--dark);
+}
+
+/* Information sur le médecin */
+.doctor-container {
+    -fx-spacing: 10px;
+    -fx-alignment: center-left;
+}
+
+.doctor-initial {
+    -fx-background-color: #dbeafe;
+    -fx-background-radius: 50%;
+    -fx-min-width: 36px;
+    -fx-min-height: 36px;
+    -fx-max-width: 36px;
+    -fx-max-height: 36px;
+    -fx-alignment: center;
+    -fx-text-fill: var(--primary);
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+.doctor-name {
+    -fx-font-size: 14px;
+    -fx-text-fill: var(--secondary);
+}
+
+/* Sections d'informations */
+.info-section {
+    -fx-spacing: 5px;
+}
+
+.info-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: var(--secondary);
+}
+
+.info-value {
+    -fx-font-size: 14px;
+    -fx-text-fill: var(--dark);
+    -fx-wrap-text: true;
+}
+
+/* Symptômes */
+.symptom-container {
+    -fx-spacing: 8px;
+}
+
+.symptom-item {
+    -fx-spacing: 8px;
+    -fx-alignment: center-left;
+}
+
+.symptom-bullet {
+    -fx-fill: #ef4444;
+    -fx-stroke-width: 0;
+}
+
+.symptom-text {
+    -fx-font-size: 13px;
+    -fx-text-fill: var(--secondary);
+}
+
+/* Boutons d'action */
+.action-buttons {
+    -fx-spacing: 12px;
+    -fx-alignment: center-right;
+    -fx-padding: 10px 0 0 0;
+}
+
+.action-button {
+    -fx-background-radius: 10px;
+    -fx-padding: 12px 20px;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+    -fx-transition: all 0.25s ease;
+}
+
+.action-button:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 8, 0, 0, 2);
+    -fx-translate-y: -2px;
+}
+
+.action-button:pressed {
+    -fx-translate-y: 0px;
+}
+
+.btn-modifier {
+    -fx-background-color: #dbeafe;
+    -fx-text-fill: #2563eb;
+    -fx-border-color: #93c5fd;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+}
+
+.btn-modifier:hover {
+    -fx-background-color: #bfdbfe;
+}
+
+.btn-annuler {
+    -fx-background-color: #fff7ed;
+    -fx-text-fill: #ea580c;
+    -fx-border-color: #fdba74;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+}
+
+.btn-annuler:hover {
+    -fx-background-color: #ffedd5;
+}
+
+.btn-supprimer {
+    -fx-background-color: #fee2e2;
+    -fx-text-fill: #dc2626;
+    -fx-border-color: #fca5a5;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+}
+
+.btn-supprimer:hover {
+    -fx-background-color: #fecaca;
+}
+
+/* Styles pour les boutons désactivés */
+.action-button:disabled {
+    -fx-background-color: #e2e8f0;
+    -fx-text-fill: #94a3b8;
+    -fx-border-color: #cbd5e0;
+    -fx-opacity: 0.8;
+    -fx-effect: none;
+    -fx-translate-y: 0;
+    -fx-cursor: default;
+}
