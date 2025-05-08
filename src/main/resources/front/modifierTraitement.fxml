@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.controllers.ModifierTraitementControllors"
+            prefHeight="450.0" prefWidth="600.0"
+            stylesheets="@/css/style.css" styleClass="root">
+
+    <children>
+        <VBox alignment="TOP_CENTER" spacing="25.0" layoutX="50.0" layoutY="30.0" prefWidth="500"
+              styleClass="card">
+
+            <Label text="Modifier Traitement"
+                   style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #e67e22;" />
+
+            <GridPane hgap="20" vgap="15">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="150"/>
+                    <ColumnConstraints minWidth="300"/>
+                </columnConstraints>
+
+                <Label text="ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="idTF" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Nouvelle Date:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <DatePicker fx:id="datePicker" promptText="Sélectionnez une nouvelle date"
+                            GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Historique:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="historiqueTF" promptText="Modifier l'historique"
+                           GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Ordonnance ID:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <TextField fx:id="ordonnanceTF" promptText="Modifier l'ID ordonnance"
+                           GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <Label text="Patient ID:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="patientIdComboBox" promptText="Sélectionner un patient"
+                          prefWidth="250" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <Button fx:id="modifier" onAction="#modifier" text="Modifier Traitement"
+                    prefWidth="220"
+                    style="-fx-background-color: #e67e22; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;"
+                    alignment="CENTER"/>
+        </VBox>
+    </children>
+</AnchorPane>

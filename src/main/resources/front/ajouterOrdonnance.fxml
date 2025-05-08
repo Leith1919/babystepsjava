@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.controllers.AjouterOrdonnanceControllors"
+            prefHeight="400.0" prefWidth="600.0"
+            stylesheets="@../css/style.css">
+
+    <children>
+        <VBox alignment="TOP_CENTER" spacing="25.0" layoutX="50.0" layoutY="30.0" prefWidth="500"
+              styleClass="card">
+
+            <!-- Title -->
+            <Label text="Ajouter Ordonnance"
+                   style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #4a90e2;" />
+
+            <!-- Form Grid -->
+            <GridPane hgap="20" vgap="15">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="150"/>
+                    <ColumnConstraints minWidth="300"/>
+                </columnConstraints>
+
+                <!-- Médicament -->
+                <Label text="Médicament:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="medicamentTF" promptText="Saisir le nom du médicament"
+                           GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <!-- Posologie -->
+                <Label text="Posologie:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="posologieTF" promptText="Saisir la posologie"
+                           GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <!-- Patient -->
+                <Label text="Patient:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="patientComboBox" promptText="Sélectionnez un patient"
+                          GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <!-- Date -->
+                <Label text="Date de prescription:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <DatePicker fx:id="datePicker" promptText="Sélectionnez une date"
+                            GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <!-- Submit Button -->
+            <Button fx:id="ajouterBtn" text="Ajouter Ordonnance" onAction="#ajouterOrdonnance" prefWidth="220"
+                    style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;"
+                    alignment="CENTER"/>
+        </VBox>
+    </children>
+</AnchorPane>

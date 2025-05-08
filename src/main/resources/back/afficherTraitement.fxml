@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane
+        xmlns="http://javafx.com/javafx/23.0.1"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="tn.esprit.controllers.AfficherTraitementControllors"
+        prefWidth="900" prefHeight="600"
+        stylesheets="@../css/style.css">
+
+   <children>
+
+      <!-- Sidebar -->
+      <AnchorPane layoutX="0.0" layoutY="0.0" prefWidth="180.0" prefHeight="600.0" style="-fx-background-color: #cce6ff;">
+         <children>
+            <VBox spacing="20" alignment="TOP_CENTER" layoutY="100" prefWidth="180">
+               <Button text="Logout" prefWidth="160.0">
+                  <font>
+                     <Font name="System Bold" size="14.0"/>
+                  </font>
+               </Button>
+            </VBox>
+         </children>
+      </AnchorPane>
+
+      <!-- Main Content -->
+      <VBox layoutX="200.0" layoutY="20.0" spacing="20" prefWidth="680.0" styleClass="card">
+
+         <!-- Header -->
+         <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Liste des Traitements" textFill="#4a90e2" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+         </HBox>
+
+         <!-- Traitement Details -->
+         <GridPane hgap="20" vgap="10">
+            <columnConstraints>
+               <ColumnConstraints percentWidth="25"/>
+               <ColumnConstraints percentWidth="25"/>
+               <ColumnConstraints percentWidth="25"/>
+               <ColumnConstraints percentWidth="25"/>
+            </columnConstraints>
+
+            <Label text="ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <Label fx:id="idLabel" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <Label text="Ordonnance ID:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+            <Label fx:id="ordonnanceLabel" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+            <Label text="Date:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <Label fx:id="dateLabel" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="Historique:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+            <Label fx:id="historiqueLabel" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+            <Label text="Patient ID:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <Label fx:id="patientIdLabel" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+         </GridPane>
+
+         <!-- Search Field -->
+         <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Rechercher:"/>
+            <TextField fx:id="searchField" prefWidth="200.0"/>
+         </HBox>
+
+         <!-- List View -->
+         <ListView fx:id="traitementListView" prefHeight="250.0"/>
+
+         <!-- Pagination Controls -->
+         <HBox spacing="10" alignment="CENTER">
+            <Button fx:id="previousButton" text="Précédent" onAction="#previousPage"
+                    style="-fx-background-color: #FFA07A; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            <Button fx:id="nextButton" text="Suivant" onAction="#nextPage"
+                    style="-fx-background-color: #FFA07A; -fx-text-fill: white; -fx-font-weight: bold;"/>
+         </HBox>
+
+         <!-- CRUD Buttons -->
+         <HBox spacing="15" alignment="CENTER">
+            <Button fx:id="btnSupprimer" text="Supprimer" onAction="#supprimerTraitement" styleClass="button"/>
+            <Button fx:id="btnModifier" text="Modifier" onAction="#modifierTraitement" styleClass="button"/>
+            <Button fx:id="btnFinish" text="Vers Ordonnance" onAction="#transitionToAjouterOrdonnance" styleClass="button"/>
+         </HBox>
+
+      </VBox>
+
+   </children>
+</AnchorPane>

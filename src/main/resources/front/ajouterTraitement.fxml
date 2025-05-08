@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.paint.Color?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.controllers.AjouterTraitementControllors"
+            prefHeight="600.0" prefWidth="800.0"
+            stylesheets="@../css/style.css">
+
+   <children>
+      <VBox alignment="TOP_CENTER" spacing="25.0" layoutX="50.0" layoutY="30.0" prefWidth="500"
+            styleClass="card">
+
+         <!-- Title -->
+         <Label text="Ajouter Traitement"
+                style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #4a90e2;" />
+
+         <!-- Form Grid -->
+         <GridPane hgap="20" vgap="15">
+            <columnConstraints>
+               <ColumnConstraints minWidth="150"/>
+               <ColumnConstraints minWidth="300"/>
+            </columnConstraints>
+
+            <!-- ID -->
+            <Label text="ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="idTF" promptText="Entrez l'ID"
+                       prefWidth="250" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <!-- Ordonnance -->
+            <Label text="Ordonnance ID:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="ordonnanceComboBox" promptText="Sélectionnez une ordonnance"
+                      prefWidth="250" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <!-- Date -->
+            <Label text="Date de prescription:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <DatePicker fx:id="datePicker" prefWidth="250"
+                        GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+            <!-- Historique -->
+            <Label text="Historique:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="historiqueTF" promptText="Entrez l'historique"
+                       prefWidth="250" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+            <!-- Patient ID -->
+            <Label text="Patient ID:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="patientIdComboBox" promptText="Sélectionnez un patient"
+                      prefWidth="250" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+         </GridPane>
+
+         <!-- Submit Button -->
+         <Button fx:id="ajouter" onAction="#ajouterTraitement"
+                 text="Ajouter Traitement" prefWidth="220"
+                 style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;"
+                 alignment="CENTER"/>
+
+      </VBox>
+   </children>
+</AnchorPane>

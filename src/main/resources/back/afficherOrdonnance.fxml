@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.controllers.AfficherOrdonnanceControllors"
+            prefWidth="900" prefHeight="600"
+            stylesheets="@../css/style.css">
+
+    <children>
+
+        <!-- Sidebar -->
+        <AnchorPane layoutX="0.0" layoutY="0.0" prefWidth="180.0" prefHeight="600.0" style="-fx-background-color: #cce6ff;">
+            <children>
+                <VBox spacing="20" alignment="TOP_CENTER" layoutY="100" prefWidth="180">
+                    <Button text="Logout" prefWidth="160.0" />
+                </VBox>
+            </children>
+        </AnchorPane>
+
+        <!-- Main View -->
+        <VBox layoutX="200.0" layoutY="20.0" spacing="20" prefWidth="680.0">
+
+            <!-- Header -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Liste des Ordonnances"
+                       textFill="#4a90e2"
+                       style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+            </HBox>
+
+            <!-- Search Bar -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Rechercher Ordonnance:"/>
+                <TextField fx:id="searchField"
+                           promptText="Search..."
+                           prefWidth="250"
+                           style="-fx-background-radius: 10; -fx-padding: 5;"/>
+            </HBox>
+
+            <!-- Details Grid -->
+            <GridPane hgap="20" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="25"/>
+                    <ColumnConstraints percentWidth="25"/>
+                    <ColumnConstraints percentWidth="25"/>
+                    <ColumnConstraints percentWidth="25"/>
+                </columnConstraints>
+
+                <Label text="ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <Label fx:id="idLabel" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Date:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                <Label fx:id="dateLabel" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                <Label text="Nom du patient:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <Label fx:id="patientLabel" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Médicament:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                <Label fx:id="medicamentLabel" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                <Label text="Posologie:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <Label fx:id="posologieLabel" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <!-- Ordonnance List -->
+            <ListView fx:id="ordonnanceListView" prefHeight="200.0" style="-fx-border-color: #d3d3d3; -fx-background-radius: 8;" />
+
+            <!-- Pagination Controls -->
+            <HBox spacing="10" alignment="CENTER">
+                <Button fx:id="previousButton" text="Précédent" onAction="#previousPage"
+                        style="-fx-background-color: #FFA07A; -fx-text-fill: white;"/>
+                <Label fx:id="pageLabel" text="Page 1" style="-fx-font-weight: bold;" />
+                <Button fx:id="nextButton" text="Suivant" onAction="#nextPage"
+                        style="-fx-background-color: #FFA07A; -fx-text-fill: white;"/>
+            </HBox>
+
+            <!-- Action Buttons -->
+            <HBox spacing="15" alignment="CENTER">
+                <Button fx:id="btnGeneratePdf" onAction="#generatePdf" text="Exporter PDF"
+                        style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+                <Button fx:id="btnSupprimer" text="Supprimer" onAction="#supprimerOrdonnance"
+                        style="-fx-background-color: #f44336; -fx-text-fill: white;"/>
+                <Button fx:id="btnModifier" text="Modifier" onAction="#modifierOrdonnance"
+                        style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+                <Button fx:id="btnAjouter" text="Ajouter Ordonnance" onAction="#transitionToAjouterOrdonnance"
+                        style="-fx-background-color: #9C27B0; -fx-text-fill: white;"/>
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>

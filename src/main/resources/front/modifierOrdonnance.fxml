@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.controllers.ModifierOrdonnanceControllors"
+            prefHeight="500.0" prefWidth="700.0"
+            stylesheets="@/css/style.css"
+            styleClass="root">
+
+    <children>
+        <VBox alignment="TOP_CENTER"
+              spacing="20.0"
+              layoutX="50.0"
+              layoutY="30.0"
+              prefWidth="600"
+              styleClass="card">
+
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <!-- Title -->
+            <Label text="Modifier Ordonnance"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #e67e22;" />
+
+            <!-- Grid Form -->
+            <GridPane hgap="20" vgap="15">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="180"/>
+                    <ColumnConstraints minWidth="350"/>
+                </columnConstraints>
+
+                <rowConstraints>
+                    <RowConstraints minHeight="35"/>
+                    <RowConstraints minHeight="35"/>
+                    <RowConstraints minHeight="35"/>
+                    <RowConstraints minHeight="35"/>
+                    <RowConstraints minHeight="35"/>
+                </rowConstraints>
+
+                <children>
+                    <Label text="ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField fx:id="idTF"
+                               GridPane.rowIndex="0" GridPane.columnIndex="1"
+                               editable="false"/>
+
+                    <Label text="Date Prescription:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <DatePicker fx:id="datePicker"
+                                promptText="Sélectionnez une nouvelle date"
+                                GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="Médicament:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField fx:id="medicamentTF"
+                               promptText="Modifier le médicament"
+                               GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                    <Label text="Posologie:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                    <TextField fx:id="posologieTF"
+                               promptText="Modifier la posologie"
+                               GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                    <Label text="Nom du patient:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                    <ComboBox fx:id="patientNameTF"
+                              promptText="Choisir le patient"
+                              prefWidth="250"
+                              GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                </children>
+            </GridPane>
+
+            <!-- Submit Button -->
+            <Button fx:id="modifierBtn"
+                    onAction="#modifier"
+                    text="Modifier Ordonnance"
+                    prefWidth="250"
+                    style="-fx-background-color: #e67e22; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;" />
+        </VBox>
+    </children>
+</AnchorPane>
