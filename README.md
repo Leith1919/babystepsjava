@@ -1,74 +1,114 @@
-babystepsjava
-Un guide d'apprentissage étape par étape pour les débutants en Java, présentant les concepts fondamentaux et des exercices pratiques pour maîtriser le langage de programmation Java.
+# 👩‍⚕️ README - Suivi Grossesse & Suivi Bébé (JavaFX Desktop Version)
 
-Table des matières
-Installation
-Utilisation
-Structure du projet
-Contribution
-Licence
-Installation
-Pour utiliser ce projet, suivez ces étapes :
+## 🌟 Description
 
-Clonez le repository :
-bash
-git clone https://github.com/Leith1919/babystepsjava.git
-Installez Java Development Kit (JDK) si ce n'est pas déjà fait :
-Pour Windows : Téléchargez et installez le JDK depuis le site officiel d'Oracle
-Pour MacOS : Utilisez Homebrew avec la commande brew install openjdk
-Pour Linux : Utilisez sudo apt install openjdk-17-jdk (Ubuntu/Debian) ou équivalent
-Configurez votre IDE (recommandé) :
-IntelliJ IDEA (recommandé)
-Eclipse
-VS Code avec les extensions Java
-Utilisation
-Ce projet est organisé de manière progressive pour permettre un apprentissage pas à pas du langage Java :
+Cette application JavaFX permet aux **médecins** de gérer le suivi médical des femmes enceintes et des nourrissons. Elle s’intègre dans un écosystème complet où la partie web (Symfony) est utilisée par les patientes pour consulter leurs suivis.
 
-Premiers pas
-Commencez par explorer les exemples de base dans le répertoire src/basics/ :
+L'application repose sur une base de données **MySQL** partagée avec le site web. Elle suit une architecture **MVC (Model-View-Controller)** claire, facilitant l’évolution et la maintenance.
 
-bash
-cd babystepsjava/src/basics
-Chaque fichier est documenté avec des commentaires explicatifs pour faciliter la compréhension.
+---
 
-Exécution des exemples
-Pour compiler et exécuter un exemple Java :
+## 🔢 Tables Utilisées
 
-bash
-javac NomDuFichier.java
-java NomDuFichier
-Structure d'apprentissage
-Le projet suit une progression logique :
+### Table `suivi_grossesse`
 
-Variables et types de données : Découvrez les types primitifs et les objets en Java
-Structures de contrôle : Maîtrisez les conditions et les boucles
-Fonctions et méthodes : Apprenez à organiser votre code
-Programmation orientée objet : Explorez les classes, l'héritage et le polymorphisme
-Structure du projet
-babystepsjava/
-├── src/
-│   ├── basics/           # Concepts fondamentaux
-│   ├── intermediate/     # Notions intermédiaires
-│   ├── advanced/         # Concepts avancés
-│   └── exercises/        # Exercices pratiques
-├── resources/            # Ressources utiles
-├── docs/                 # Documentation supplémentaire
-└── README.md             # Ce fichier
-Contribution
-Les contributions sont les bienvenues ! Pour contribuer à ce projet :
+| Champ               | Type     | Description                                 |
+|---------------------|----------|---------------------------------------------|
+| id                  | int      | Identifiant unique                          |
+| patient_id          | int      | Clé étrangère vers la patiente              |
+| date_suivi          | date     | Date du suivi                               |
+| poids               | float    | Poids de la mère                            |
+| tension             | varchar  | Tension artérielle                          |
+| symptomes           | text     | Symptômes déclarés                          |
+| recommandations     | text     | Recommandations données par le médecin      |
 
-Fork le repository
-Créez une branche pour votre fonctionnalité (git checkout -b feature/nouvelle-fonctionnalite)
-Committez vos changements (git commit -m 'Ajout d'une nouvelle fonctionnalité')
-Push vers la branche (git push origin feature/nouvelle-fonctionnalite)
-Ouvrez une Pull Request
-Règles de contribution
-Assurez-vous que votre code est bien commenté
-Respectez les conventions de nommage Java
-Incluez des exemples d'utilisation
-Testez votre code avant de soumettre une PR
-Licence
-Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus de détails.
+### Table `suivi_bebe`
 
-Créé avec ❤️ pour aider les débutants à maîtriser Java
+| Champ               | Type     | Description                                 |
+|---------------------|----------|---------------------------------------------|
+| id                  | int      | Identifiant unique                          |
+| grossesse_id        | int      | Clé étrangère vers `suivi_grossesse`        |
+| date_suivi          | date     | Date du suivi bébé                          |
+| poids               | float    | Poids du bébé                               |
+| taille              | float    | Taille du bébé                              |
+| observations        | text     | Observations médicales                      |
 
+---
+
+## 🔧 Fonctions implémentées (JavaFX)
+
+### 👨‍⚕️ Côté Médecin
+
+* Gestion des **suivis grossesse**
+  → Ajout, modification, suppression, consultation
+
+* Gestion des **suivis bébé**
+  → Association à un suivi grossesse, gestion complète
+
+* Affichage **statistique** du suivi (graphiques poids, tension…)
+
+* Affichage des **alertes critiques**
+  → Détection d’anomalies (ex. : tension trop élevée)
+
+* Connexion via **base de données centralisée**
+
+---
+
+## ✅ README - Suivi Grossesse & Suivi Bébé (Symfony Web Version)
+
+# 👩‍🍼 README - Suivi Grossesse & Suivi Bébé (Symfony Web Version)
+
+## 🌟 Description
+
+La version Symfony permet aux **patientes** de consulter leurs suivis grossesse et bébé, ajouter des informations secondaires, et visualiser les **alertes médicales** générées par l’IA.  
+Elle est connectée à la même base de données que l’application JavaFX utilisée par les médecins.
+
+---
+
+## 🔢 Tables Utilisées
+
+Identiques à la version JavaFX (voir ci-dessus).
+
+---
+
+## 🔧 Fonctions implémentées (Symfony)
+
+### 👩‍🍼 Côté Patiente
+
+* Visualisation des **suivis grossesse**
+  → Historique avec poids, tension, recommandations
+
+* Visualisation des **suivis bébé**
+  → Taille, poids, observations
+
+* Alertes médicales (ex. : anomalie détectée)
+* Espace personnel sécurisé par authentification
+
+### 🛠️ Côté Médecin (Back-end admin)
+
+* Gestion complète des suivis (CRUD)
+* Filtrage des suivis par patient
+* Visualisation des données saisies côté Web
+
+---
+
+## 🔄 Synchronisation entre les deux versions
+
+* 💽 **Base de données MySQL commune** utilisée par Symfony & JavaFX
+* 👨‍⚕️ **Médecins** utilisent l’interface JavaFX
+* 👩‍🍼 **Patientes** utilisent le site Web Symfony
+* 📡 Les modifications dans une plateforme sont visibles instantanément dans l’autre
+
+---
+
+## ✅ Bonus : QR Code (si implémenté)
+
+* Un QR code est généré sur demande contenant :
+  - Le dernier suivi grossesse
+  - Le poids et taille bébé
+  - À scanner par un médecin pour un accès rapide
+
+---
+
+Souhaites-tu maintenant que je te **génère ces README en fichiers `.md` téléchargeables** ?  
+Ou préfères-tu que je t’aide à rédiger la **capsule vidéo** à partir de ces modules ?
